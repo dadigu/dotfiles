@@ -32,7 +32,7 @@ function lb() {
     elif [ $1 = 'start' ]; then
         tmuxinator start -p ~/dotfiles/tmuxinator/learningbank.yml
     elif [ $1 = 'stop' ]; then
-        tmuxinator start learningbank
+        tmuxinator stop learningbank
     elif [ $1 = 'update' ]; then
         # Save current location
         current_pwd=$(pwd)
