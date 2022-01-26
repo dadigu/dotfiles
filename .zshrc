@@ -2,7 +2,7 @@
 export DOTFILES_PATH="$HOME/dotfiles"
 
 # Update $PATH
-export PATH=$HOME/bin:/usr/local/bin:/opt/homebrew/bin:/opt/homebrew/opt/mysql@5.7/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:/opt/homebrew/bin:/opt/homebrew/opt/mysql@5.7/bin:/opt/homebrew/sbin:$PATH
 
 # Set default text editor
 export EDITOR='vim'
