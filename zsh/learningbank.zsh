@@ -30,7 +30,7 @@ function lb() {
     if [ -z $1 ]; then 
         cd ~/Development/Learningbank && echo -e "\n${LYELLOW}Welcome to Learningbank 🎉 ${RESTORE}\n"
     elif [ $1 = 'start' ]; then
-        tmuxinator start -p ~/dotfiles/tmuxinator/learningbank.yml -n learningbank
+        tmuxinator start learningbank -p ~/dotfiles/tmuxinator/learningbank.yml
     elif [ $1 = 'stop' ]; then
         tmuxinator stop learningbank
     elif [ $1 = 'update' ]; then
