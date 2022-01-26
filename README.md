@@ -1,10 +1,5 @@
-# macbook-setup
-Script to setup my M1 Macbook.
+# Dotfiles & Setup
 
-Usage:
+This is where I keep my dotfiles and setup scripts with my preferred apps and configurations.
 
-```sudo /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/dadigu/dotfiles/main/setup/setup.sh)"```
-
-To upgrade all softwares installed by cask later, just run this below command:
-
-```brew upgrade --cask --greedy```
+```/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/dadigu/dotfiles/main/setup/setup.sh)"```
