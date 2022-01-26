@@ -87,3 +87,9 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mas
 
 # To upgrade all softwares installed by cask later, just run this below command:
 # brew upgrade --cask --greedy
+
+# Finally we clone this repository into our home folder
+git clone --recurse-submodules git@github.com:dadigu/dotfiles.git ~/dotfiles
+
+# Run symlinking for various dotfiles included in the repo
+sh ~/dotfiles/setup/symlink.sh
