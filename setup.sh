@@ -1,9 +1,15 @@
 #!/usr/bin/env sh
-echo Install Xcode tools
-sudo xcode-select --install
+# Install Xcode developer command line tool
+if test ! $(which xcode-select); then
+    echo "Installing Xcode Developer Command Line Tool..."
+    xcode-select --install
+fi
 
-echo Installing Rosetta...
-sudo softwareupdate --install-rosetta
+# Install Rosetta 2
+if [[ "`pkgutil --files com.apple.pkg.RosettaUpdateAuto`" == "" ]] then 
+	echo "Installing Rosetta..."
+    softwareupdate --install-rosetta
+fi
 
 # Setup gitconfig
 echo "[Git config] Enter Your Name: "
@@ -72,13 +78,9 @@ brew install --cask nordvpn
 # Brew clean up
 brew update && brew upgrade && brew cleanup
 
-
 # default-writes
 echo Setting default-writes...
-sudo /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/dadigu/dotfiles/main/default-writes.sh)"
-
-cd Downloads
-curl -O https://raw.githubusercontent.com/MartinSeeler/iterm2-material-design/master/material-design-colors.itermcolors
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/dadigu/dotfiles/main/default-writes.sh)"
 
 # oh-my-zsh
 echo Installing Oh-my-zsh...
