@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
+
 # Install Xcode developer command line tool
 if test ! $(which xcode-select); then
     echo "Installing Xcode Developer Command Line Tool..."
@@ -6,7 +7,10 @@ if test ! $(which xcode-select); then
 fi
 
 # Install Rosetta 2
-softwareupdate --install-rosetta --agree-to-license
+if [[ `uname -m` == 'arm64' ]]; then
+    echo "Installing Rosetta 2..."
+    softwareupdate --install-rosetta --agree-to-license
+fi
 
 # Setup gitconfig
 echo "[Git config] Enter Your Name: "
