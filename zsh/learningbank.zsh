@@ -30,7 +30,7 @@ function lb() {
     if [ -z $1 ]; then 
         cd ~/Development/Learningbank && echo -e "\n${LYELLOW}Welcome to Learningbank 🎉 ${RESTORE}\n"
     elif [ $1 = 'start' ] || [ $1 = 'stop' ]; then
-        tmuxinator $1 learningbank
+        tmuxinator $1 -p ~/dotfiles/tmuxinator/learningbank.yaml
     elif [ $1 = 'update' ]; then
         # Save current location
         current_pwd=$(pwd)
