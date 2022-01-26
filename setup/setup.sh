@@ -15,6 +15,7 @@ echo "[Git config] Enter Your Email: "
 read gitemail
 git config --global user.name "$gituser"
 git config --global user.email "$gitemail"
+git config --global pull.rebase false
 # Fix issue when installing homebrew
 # @see https://programmerah.com/solved-mac-install-homebrew-error-error-not-a-valid-ref-refs-remotes-origin-master-44606/
 git config --global core.compression 0
