@@ -79,7 +79,7 @@ brew update && brew upgrade && brew cleanup
 
 # default-writes
 echo Setting default-writes...
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/dadigu/dotfiles/main/default-writes.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/dadigu/dotfiles/main/setup/default-writes.sh)"
 
 # oh-my-zsh
 echo Installing Oh-my-zsh...
