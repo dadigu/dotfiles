@@ -60,6 +60,8 @@ brew install --cask visual-studio-code
 brew install --cask spotify
 brew install --cask vlc
 brew install --cask alfred
+brew install --cask bartender
+brew install --cask cleanmymac
 brew install --cask imageoptim
 brew install --cask microsoft-teams
 brew install --cask ferdi
