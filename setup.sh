@@ -6,10 +6,7 @@ if test ! $(which xcode-select); then
 fi
 
 # Install Rosetta 2
-if [[ "`pkgutil --files com.apple.pkg.RosettaUpdateAuto`" == "" ]]; then 
-	echo "Installing Rosetta..."
-    softwareupdate --install-rosetta
-fi
+softwareupdate --install-rosetta --agree-to-license
 
 # Setup gitconfig
 echo "[Git config] Enter Your Name: "
