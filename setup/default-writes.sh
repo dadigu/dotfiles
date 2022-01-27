@@ -8,22 +8,22 @@ sudo defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking 
 sudo defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 sudo defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
-# Disable press-and-hold for keys in favor of key repeat
-defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
-
-# Set a blazingly fast keyboard repeat rate
-# normal minimum is 15 (225 ms)
-defaults write -g InitialKeyRepeat -float 10.0
-defaults write NSGlobalDomain InitialKeyRepeat -float 10.0
-# normal minimum is 2 (30 ms)
-defaults write NSGlobalDomain KeyRepeat -float 0.5
-defaults write -g KeyRepeat -float 0.5
+# Keyboard repeat settings
+defaults write -g InitialKeyRepeat -int 10          # normal minimum is 15 (225 ms)
+defaults write -g KeyRepeat -int 1                  # normal minimum is 2 (30 ms)
 
 # Use scroll gesture with the Ctrl (^) modifier key to zoom
 defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
 defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
 # Follow the keyboard focus while zoomed in
 defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true
+
+##########
+# Misc #
+##########
+
+# Prevent mac from creating .DS_Store files
+defaults write com.apple.desktopservices DSDontWriteNetworkStores true
 
 ##########
 # Screen #
