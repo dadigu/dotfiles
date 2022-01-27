@@ -27,6 +27,8 @@ git config --global http.postBuffer 1048576000
 
 echo Installing Homebrew...
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# Add homebrew into $PATH
 export PATH=/opt/homebrew/bin:$PATH
 brew update
 
@@ -38,6 +40,7 @@ brew tap homebrew/services
 
 echo Install fonts...
 brew install font-fira-code
+brew install font-fira-code-nerd-font
 brew install font-hack-nerd-font
 
 echo Installing basic homebrew softwares...
@@ -52,6 +55,7 @@ brew install python
 brew install speedtest-cli
 brew install zsh
 brew install starship
+brew install mas
 
 # apps
 echo Installing desktop apps...
@@ -72,12 +76,16 @@ brew install --cask microsoft-teams
 brew install --cask ferdi
 brew install --cask fork
 brew install --cask iterm2
+brew install --cask notion
 brew install --cask postman
 brew install --cask tableplus
 brew install --cask 1password
 brew install --cask appcleaner
 brew install --cask the-unarchiver
 brew install --cask nordvpn
+
+# Install apps from App store
+# mas install 1176895641 # Spark email client
 
 # Brew clean up
 brew update && brew upgrade && brew cleanup
