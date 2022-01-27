@@ -62,6 +62,7 @@ echo Installing desktop apps...
 brew install --cask figma
 brew install --cask drawio
 brew install --cask firefox
+brew install --cask karabiner-elements
 brew install --cask google-chrome
 brew install --cask microsoft-edge
 brew install --cask sublime-text
