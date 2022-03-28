@@ -48,8 +48,7 @@ echo Installing basic homebrew softwares...
 brew install redis
 brew install tmux
 brew install tmuxinator
-brew install node
-brew install npm
+brew install nvm
 brew install php
 brew install mysql@5.7
 brew install python
