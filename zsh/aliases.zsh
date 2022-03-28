@@ -16,12 +16,13 @@ alias please='sudo $(fc -ln -1)'
 # Misc
 alias c='clear'
 alias x='exit'
+alias h='cd $HOME'
 # ls: adding colors, verbose listign and humanize the file sizes:
 alias ls="ls --color -l -h" 
 alias dotfiles="code -n $DOTFILES_PATH" # Open this repo in vscode
 
 # Fun stuff
-alias weather="curl -4 https://wttr.in/Copenhagen"
+alias weather="curl -4 https://wttr.in/\?M"
 
 # Improved touch - creates folder path
 mtouch () {
