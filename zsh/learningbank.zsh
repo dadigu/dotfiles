@@ -41,31 +41,31 @@ function lb() {
         cd ~/Development/Learningbank/auth-service
         git pull --ff-only
         check_run package.json "npm ci"
-        check_run db/migrations "npm run db:up"
+        npm run db:up
 
         echo -e "\n🎛  ${LCYAN}Updating API Service..${RESTORE}\n"
         cd ~/Development/Learningbank/api-service
         git pull --ff-only
         check_run package.json "npm ci"
-        check_run db/migrations "npm run db:up"
+        npm run db:up
 
         echo -e "\n⚙️  ${LCYAN}Updating Hostconfig Service..${RESTORE}\n"
         cd ~/Development/Learningbank/hostconfig-service
         git pull --ff-only
         check_run package.json "npm ci"
-        check_run db/migrations "npm run db:up"
+        npm run db:up
 
         echo -e "\n📨 ${LCYAN}Updating Mail Service..${RESTORE}\n"
         cd ~/Development/Learningbank/mail-service
         git pull --ff-only
         check_run package.json "npm ci"
-        check_run db/migrations "npm run db:up"
+        npm run db:up
 
         echo -e "\n📙 ${LCYAN}Updating Resource Service..${RESTORE}\n"
         cd ~/Development/Learningbank/resource-service
         git pull --ff-only
         check_run package.json "npm ci"
-        check_run db/migrations "npm run db:up"
+        npm run db:up
 
         # Navigate back to location where script was fired from.
         cd "$current_pwd"
