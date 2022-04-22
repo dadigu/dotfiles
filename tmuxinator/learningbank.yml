@@ -7,26 +7,29 @@ windows:
       panes:
         - app:
           - printf '\033]2;%s\033\\' 'Frontend'
-          - cd app && code . && clear
+          - cd app && clear
         - api: 
           - printf '\033]2;%s\033\\' 'Api Service'
-          - nodemon --watch api-service/src api-service/src/server.js no-sql-logs
+          - cd api-service && npm run dev -- no-sql-logs
         
   - services:
       layout: main-vertical
       panes:
         - resource: 
           - printf '\033]2;%s\033\\' 'Resource Service'
-          - nodemon --watch resource-service/src resource-service/src/server.js
+          - node resource-service/src/server.js
         - client: 
           - printf '\033]2;%s\033\\' 'Client Service'
-          - nodemon --watch client-service/src client-service/src/server.js
+          - node client-service/src/server.js
         - auth:
           - printf '\033]2;%s\033\\' 'Auth Service'
           - node auth-service/src/server.js
         - socket:
           - printf '\033]2;%s\033\\' 'Socket Service'
           - node socket-service/dist/server.js
+        - hostconfig: 
+          - printf '\033]2;%s\033\\' 'Hostconfig Service'
+          - node hostconfig-service/src/httpInstance.js
         - mail: 
           - printf '\033]2;%s\033\\' 'Mail Service'
           - node mail-service/src/server.js
