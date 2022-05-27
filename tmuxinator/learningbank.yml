@@ -18,6 +18,9 @@ windows:
         - resource: 
           - printf '\033]2;%s\033\\' 'Resource Service'
           - node resource-service/src/server.js
+        - insight: 
+          - printf '\033]2;%s\033\\' 'Insight Service'
+          - cd insight-service && node dist/main.js
         - client: 
           - printf '\033]2;%s\033\\' 'Client Service'
           - node client-service/src/server.js

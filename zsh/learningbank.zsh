@@ -67,6 +67,19 @@ function lb() {
         check_run package.json "npm ci"
         npm run db:up
 
+        echo -e "\n🧦 ${LCYAN}Updating Socket Service..${RESTORE}\n"
+        cd ~/Development/Learningbank/socket-service
+        git pull --ff-only
+        check_run package.json "npm ci"
+        npm run db:up
+        npm run distribute
+
+        echo -e "\n📊 ${LCYAN}Updating Insight Service..${RESTORE}\n"
+        cd ~/Development/Learningbank/insight-service
+        git pull --ff-only
+        check_run package.json "npm ci"
+        npm run build
+
         # Navigate back to location where script was fired from.
         cd "$current_pwd"
 
