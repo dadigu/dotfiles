@@ -37,45 +37,59 @@ function lb() {
         # Save current location
         current_pwd=$(pwd)
 
-        echo -e "\n🔐 ${LCYAN}Updating Auth Service..${RESTORE}\n"
+        # Auth service
         cd ~/Development/Learningbank/auth-service
+        branch=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
+        echo -e "\n🔐 ${LCYAN}Updating Auth service.. \t\t${RESTORE}  ${branch}\n"
         git pull --ff-only
         check_run package.json "npm ci"
         npm run db:up
 
-        echo -e "\n🎛  ${LCYAN}Updating API Service..${RESTORE}\n"
+        # Api Service
         cd ~/Development/Learningbank/api-service
+        branch=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
+        echo -e "\n🎛  ${LCYAN}Updating API service.. \t\t${RESTORE}  ${branch}\n"
         git pull --ff-only
         check_run package.json "npm ci"
         npm run db:up
-
-        echo -e "\n⚙️  ${LCYAN}Updating Hostconfig Service..${RESTORE}\n"
+        
+        # Hostconfig service
         cd ~/Development/Learningbank/hostconfig-service
+        branch=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
+        echo -e "\n⚙️  ${LCYAN}Updating Hostconfig service..\t${RESTORE}  ${branch}\n"
         git pull --ff-only
         check_run package.json "npm ci"
         npm run db:up
 
-        echo -e "\n📨 ${LCYAN}Updating Mail Service..${RESTORE}\n"
+        # Mail service
         cd ~/Development/Learningbank/mail-service
+        branch=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
+        echo -e "\n📨 ${LCYAN}Updating Mail service..\t\t${RESTORE}  ${branch}\n"
         git pull --ff-only
         check_run package.json "npm ci"
         npm run db:up
 
-        echo -e "\n📙 ${LCYAN}Updating Resource Service..${RESTORE}\n"
+        # Resource service
         cd ~/Development/Learningbank/resource-service
+        branch=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
+        echo -e "\n📙 ${LCYAN}Updating Resource service..\t\t${RESTORE}  ${branch}\n"
         git pull --ff-only
         check_run package.json "npm ci"
         npm run db:up
 
-        echo -e "\n🧦 ${LCYAN}Updating Socket Service..${RESTORE}\n"
+        # Socket service
         cd ~/Development/Learningbank/socket-service
+        branch=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
+        echo -e "\n🧦 ${LCYAN}Updating Socket service..\t\t${RESTORE}  ${branch}\n"
         git pull --ff-only
         check_run package.json "npm ci"
         npm run db:up
         npm run distribute
 
-        echo -e "\n📊 ${LCYAN}Updating Insight Service..${RESTORE}\n"
+        # Insight service
         cd ~/Development/Learningbank/insight-service
+        branch=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
+        echo -e "\n📊 ${LCYAN}Updating Insight service..\t\t${RESTORE}  ${branch}\n"
         git pull --ff-only
         check_run package.json "npm ci"
         npm run build
