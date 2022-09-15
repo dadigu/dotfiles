@@ -20,7 +20,7 @@ alias h='cd $HOME'
 # ls: adding colors, verbose listign and humanize the file sizes:
 alias ls="ls --color -l -h" 
 alias dotfiles="code -n $DOTFILES_PATH" # Open this repo in vscode
-
+alias kill_md="launchctl unload /Library/LaunchAgents/com.microsoft.wdav.tray.plist"
 # Fun stuff
 alias weather="curl -4 https://wttr.in/\?M"
 
