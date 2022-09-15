@@ -42,7 +42,7 @@ function lb() {
         branch=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
         echo -e "\n🔐 ${LCYAN}Updating Auth service.. \t\t${RESTORE}  ${branch}\n"
         git pull --ff-only
-        check_run package.json "npm ci"
+        check_run package-lock.json "npm ci"
         npm run db:up
 
         # Api Service
@@ -50,7 +50,7 @@ function lb() {
         branch=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
         echo -e "\n🎛  ${LCYAN}Updating API service.. \t\t${RESTORE}  ${branch}\n"
         git pull --ff-only
-        check_run package.json "npm ci"
+        check_run package-lock.json "npm ci"
         npm run db:up
         
         # Hostconfig service
@@ -58,7 +58,7 @@ function lb() {
         branch=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
         echo -e "\n⚙️  ${LCYAN}Updating Hostconfig service..\t${RESTORE}  ${branch}\n"
         git pull --ff-only
-        check_run package.json "npm ci"
+        check_run package-lock.json "npm ci"
         npm run db:up
 
         # Mail service
@@ -66,7 +66,7 @@ function lb() {
         branch=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
         echo -e "\n📨 ${LCYAN}Updating Mail service..\t\t${RESTORE}  ${branch}\n"
         git pull --ff-only
-        check_run package.json "npm ci"
+        check_run package-lock.json "npm ci"
         npm run db:up
 
         # Resource service
@@ -74,7 +74,7 @@ function lb() {
         branch=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
         echo -e "\n📙 ${LCYAN}Updating Resource service..\t\t${RESTORE}  ${branch}\n"
         git pull --ff-only
-        check_run package.json "npm ci"
+        check_run package-lock.json "npm ci"
         npm run db:up
 
         # Socket service
@@ -82,7 +82,7 @@ function lb() {
         branch=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
         echo -e "\n🧦 ${LCYAN}Updating Socket service..\t\t${RESTORE}  ${branch}\n"
         git pull --ff-only
-        check_run package.json "npm ci"
+        check_run package-lock.json "npm ci"
         npm run db:up
         npm run distribute
 
@@ -91,7 +91,7 @@ function lb() {
         branch=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
         echo -e "\n📊 ${LCYAN}Updating Insight service..\t\t${RESTORE}  ${branch}\n"
         git pull --ff-only
-        check_run package.json "npm ci"
+        check_run package-lock.json "npm ci"
         npm run build
 
         # Navigate back to location where script was fired from.
