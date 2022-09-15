@@ -60,9 +60,8 @@ brew install mas
 # apps
 echo Installing desktop apps...
 brew install --cask figma
-brew install --cask drawio
-brew install --cask firefox
 brew install --cask karabiner-elements
+brew install --cask firefox
 brew install --cask google-chrome
 brew install --cask microsoft-edge
 brew install --cask sublime-text
@@ -71,10 +70,8 @@ brew install --cask spotify
 brew install --cask vlc
 brew install --cask alfred
 brew install --cask bartender
-brew install --cask cleanmymac
 brew install --cask imageoptim
 brew install --cask microsoft-teams
-brew install --cask ferdi
 brew install --cask fork
 brew install --cask iterm2
 brew install --cask notion
@@ -84,6 +81,8 @@ brew install --cask 1password
 brew install --cask appcleaner
 brew install --cask the-unarchiver
 brew install --cask nordvpn
+brew install --cask onyx
+brew install --cask raycast
 
 # Install apps from App store
 # mas install 1176895641 # Spark email client
