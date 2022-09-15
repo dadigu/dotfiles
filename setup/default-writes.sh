@@ -93,35 +93,41 @@ defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 # Empty Trash securely by default
 defaults write com.apple.finder EmptyTrashSecurely -bool true
 
+# Keep folders on top when sorting by name
+defaults write com.apple.finder "_FXSortFoldersFirst" -bool "true"
+
 ####################################
 # Dock, Dashboard, and hot corners #
 ####################################
 
 # Set auto hide option on dock
-defaults write com.apple.dock autohide -bool true
+defaults write com.apple.dock "autohide" -bool "true"
 
 # Set dock icon size
-defaults write com.apple.dock tilesize -float 18
+defaults write com.apple.dock "tilesize" -float "18"
 
 # Set dock magnified size
-defaults write com.apple.dock largesize -float 26
+defaults write com.apple.dock "largesize" -float "26"
 
 # Set dock magnification on
-defaults write com.apple.dock magnification -bool true
+defaults write com.apple.dock "magnification" -bool "true"
 
 # Set autohide dock delay
-defaults write com.apple.dock autohide-time-modifier -float 0.25
+defaults write com.apple.dock "autohide-time-modifier" -float "0.25"
 
 # Set autohide timing for dock to appear
-defaults write com.apple.dock autohide-delay -float 2 
+defaults write com.apple.dock "autohide-delay" -float "1.5" 
 
 # Wipe all (default) app icons from the Dock
 # This is only really useful when setting up a new Mac, or if you don’t use
 # the Dock to launch apps.
-defaults write com.apple.dock persistent-apps -array
+defaults write com.apple.dock "persistent-apps" -array
 
 # Don’t automatically rearrange Spaces based on most recent use
-defaults write com.apple.dock mru-spaces -bool false
+defaults write com.apple.dock "mru-spaces" -bool "false"
+
+# Don't show recent apps in the dock
+defaults write com.apple.dock "show-recents" -bool "false"
 
 ################
 # Time Machine #
