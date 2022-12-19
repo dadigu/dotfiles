@@ -1,47 +1,53 @@
-name: learningbank
-root: ~/Development/Learningbank/
-
+session_name: learningbank
 windows:
-  - editor:
-      layout: even-horizontal
-      panes:
-        - app:
+  # Window 1
+  - window_name: App and API
+    layout: even-horizontal
+    shell_command_before:
+      - cd ~/Development/Learningbank/ 
+    panes:
+      - shell_command:
           - printf '\033]2;%s\033\\' 'Frontend'
           - cd app && clear
-        - api: 
+      - shell_command:
           - printf '\033]2;%s\033\\' 'Api Service'
           - cd api-service && npm run dev -- no-sql-logs
-        
-  - services:
-      layout: main-vertical
-      panes:
-        - resource: 
+  # Window 2
+  - window_name: Services
+    layout: tiled
+    shell_command_before:
+      - cd ~/Development/Learningbank/ 
+    panes:
+      - shell_command:
           - printf '\033]2;%s\033\\' 'Resource Service'
           - node resource-service/src/server.js
-        - client: 
+      - shell_command:
           - printf '\033]2;%s\033\\' 'Client Service'
           - node client-service/src/server.js
-        - auth:
+      - shell_command:
           - printf '\033]2;%s\033\\' 'Auth Service'
           - node auth-service/src/server.js
-        - socket:
+      - shell_command:
           - printf '\033]2;%s\033\\' 'Socket Service'
           - node socket-service/dist/server.js
-        - hostconfig: 
+      - shell_command:
           - printf '\033]2;%s\033\\' 'Hostconfig Service'
           - node hostconfig-service/src/httpInstance.js
-  - more services:
-      layout: titled
-      panes:
-        - communication:
+  # Window 2
+  - window_name: More services
+    layout: tiled
+    shell_command_before:
+      - cd ~/Development/Learningbank/ 
+    panes:
+      - shell_command:
           - printf '\033]2;%s\033\\' 'Communication Service'
           - cd communication-service && npm run start
-        - localstack:
+      - shell_command:
           - printf '\033]2;%s\033\\' 'Localstack'
           - cd local-setup/services/localstack && docker-compose up
-        - mail: 
+      - shell_command:
           - printf '\033]2;%s\033\\' 'Mail Service'
           - node mail-service/src/server.js
-        - insight: 
+      - shell_command:
           - printf '\033]2;%s\033\\' 'Insight Service'
           - cd insight-service && node dist/main.js

@@ -30,7 +30,8 @@ function lb() {
     if [ -z $1 ]; then 
         cd ~/Development/Learningbank && echo -e "\n${LYELLOW}Welcome to Learningbank 🎉 ${RESTORE}\n"
     elif [ $1 = 'start' ]; then
-        tmuxinator start learningbank -p ~/dotfiles/tmuxinator/learningbank.yml
+        #tmuxinator start learningbank -p ~/dotfiles/tmuxinator/learningbank.yml
+        tmuxp load ~/dotfiles/tmuxp/learningbank.yml
     elif [ $1 = 'stop' ]; then
         tmux kill-session -t learningbank
     elif [ $1 = 'update' ]; then
@@ -93,6 +94,13 @@ function lb() {
         git pull --ff-only
         check_run package-lock.json "npm ci"
         npm run build
+
+        # Communication Service
+        cd ~/Development/Learningbank/communication-service
+        echo -e "\n📢 ${LCYAN}Updating Communication service..\t\t${RESTORE}  ${branch}\n"
+        git pull --ff-only
+        check_run package-lock.json "npm ci"
+        npm run db:up
 
         # Navigate back to location where script was fired from.
         cd "$current_pwd"
