@@ -62,14 +62,6 @@ function lb() {
         check_run package-lock.json "npm ci"
         npm run db:up
 
-        # Mail service
-        cd ~/Development/Learningbank/mail-service
-        branch=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
-        echo -e "\n📨 ${LCYAN}Updating Mail service..\t\t${RESTORE}  ${branch}\n"
-        git pull --ff-only
-        check_run package-lock.json "npm ci"
-        npm run db:up
-
         # Resource service
         cd ~/Development/Learningbank/resource-service
         branch=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
@@ -93,6 +85,7 @@ function lb() {
         echo -e "\n📊 ${LCYAN}Updating Insight service..\t\t${RESTORE}  ${branch}\n"
         git pull --ff-only
         check_run package-lock.json "npm ci"
+        npm run db:up
         npm run build
 
         # Communication Service
