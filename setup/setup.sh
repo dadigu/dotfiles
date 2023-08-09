@@ -45,48 +45,50 @@ brew install font-fira-code-nerd-font
 brew install font-hack-nerd-font
 
 echo Installing basic homebrew softwares...
+brew install mysql@5.7
+brew install nvm
+brew install php
+brew install python
 brew install redis
+brew install speedtest-cli
+brew install starship
 brew install tmux
 brew install tmuxinator
 brew install tmuxp
-brew install nvm
-brew install php
-brew install mysql@5.7
-brew install python
-brew install speedtest-cli
 brew install zsh
-brew install starship
-brew install mas
 
 # apps
 echo Installing desktop apps...
-brew install --cask figma
-brew install --cask karabiner-elements
-brew install --cask firefox
-brew install --cask google-chrome
-brew install --cask microsoft-edge
-brew install --cask sublime-text
-brew install --cask visual-studio-code
-brew install --cask spotify
-brew install --cask vlc
-brew install --cask alfred
-brew install --cask bartender
-brew install --cask imageoptim
-brew install --cask microsoft-teams
-brew install --cask fork
-brew install --cask iterm2
-brew install --cask notion
-brew install --cask postman
-brew install --cask tableplus
 brew install --cask 1password
+brew install --cask alfred
 brew install --cask appcleaner
-brew install --cask the-unarchiver
+brew install --cask bartender
+brew install --cask brave-browser
+brew install --cask docker
+brew install --cask ferdium
+brew install --cask figma
+brew install --cask firefox
+brew install --cask fork
+brew install --cask google-chrome
+brew install --cask imageoptim
+brew install --cask iterm2
+brew install --cask karabiner-elements
+brew install --cask microsoft-edge
+brew install --cask microsoft-teams
+brew install --cask mockoon
 brew install --cask nordvpn
+brew install --cask obsidian
 brew install --cask onyx
+brew install --cask postman
 brew install --cask raycast
-
-# Install apps from App store
-# mas install 1176895641 # Spark email client
+brew install --cask shottr
+brew install --cask spotify
+brew install --cask sublime-text
+brew install --cask tableplus
+brew install --cask the-unarchiver
+brew install --cask visual-studio-code
+brew install --cask vlc
+brew install --cask warp
 
 # Brew clean up
 brew update && brew upgrade && brew cleanup
