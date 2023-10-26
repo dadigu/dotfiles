@@ -23,6 +23,8 @@ check_run() {
 	echo "$changed_files" | grep --quiet "$1" && eval "$2"
 }
 
+alias devkit='~/Development/Learningbank/devkit/devkit'
+
 # Learningbank repository update script
 # This will pull, migrate and npm install all microservices
 # used by the frontend.
@@ -70,6 +72,13 @@ function lb() {
         check_run package-lock.json "npm ci"
         npm run db:up
 
+        # Client service
+        cd ~/Development/Learningbank/client-service
+        branch=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
+        echo -e "\n ${LCYAN}Updating Client service..\t\t${RESTORE}  ${branch}\n"
+        git pull --ff-only
+        check_run package-lock.json "npm ci"
+
         # Socket service
         cd ~/Development/Learningbank/socket-service
         branch=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
@@ -91,6 +100,13 @@ function lb() {
         # Communication Service
         cd ~/Development/Learningbank/communication-service
         echo -e "\n📢 ${LCYAN}Updating Communication service..\t\t${RESTORE}  ${branch}\n"
+        git pull --ff-only
+        check_run package-lock.json "npm ci"
+        npm run db:up
+
+        # Mastery Service
+        cd ~/Development/Learningbank/mastery-service
+        echo -e "\n📢 ${LCYAN}Updating Mastert service..\t\t${RESTORE}  ${branch}\n"
         git pull --ff-only
         check_run package-lock.json "npm ci"
         npm run db:up
