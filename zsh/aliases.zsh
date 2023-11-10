@@ -16,6 +16,16 @@ alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias h='cd $HOME'
 
+# Homebrew aliases
+alias bup='brew update && brew upgrade'
+alias bout='brew outdated'
+alias bin='brew install'
+alias bun='brew uninstall'
+alias bls='brew list'
+alias bsr='brew search'
+alias binf='brew info'
+alias bidr='brew doctor'
+
 # Misc
 alias c='clear'
 alias x='exit'
