@@ -26,11 +26,16 @@ git config --global init.defaultBranch master
 git config --global core.compression 0
 git config --global http.postBuffer 1048576000
 
-echo Installing Homebrew...
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# Check for homebrew, install if you don't have it
+if test ! $(which brew); then
+    echo Installing Homebrew...
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
 
 # Add homebrew into $PATH
 export PATH=/opt/homebrew/bin:$PATH
+
+# Update homebrew
 brew update
 
 echo Adding homebrew taps...
@@ -66,15 +71,17 @@ brew install --cask bartender
 brew install --cask brave-browser
 brew install --cask docker
 brew install --cask ferdium
+brew install --cask fig
 brew install --cask figma
 brew install --cask firefox
 brew install --cask fork
 brew install --cask google-chrome
 brew install --cask imageoptim
 brew install --cask iterm2
+brew install --cask kap
 brew install --cask karabiner-elements
+brew install --cask logi-options-plus
 brew install --cask microsoft-edge
-brew install --cask microsoft-teams
 brew install --cask mockoon
 brew install --cask nordvpn
 brew install --cask obsidian
