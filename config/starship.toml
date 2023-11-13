@@ -1,0 +1,34 @@
+command_timeout = 1000
+
+[nodejs]
+format = "[$symbol($version )]($style)"
+
+[fill]
+symbol = " "
+
+[directory]
+read_only = " "
+truncation_length = 4
+
+[git_branch]
+symbol = " "
+format = "[$symbol$branch]($style) "
+style = "bright-black"
+
+[jobs]
+symbol = ""
+style = "bold red"
+number_threshold = 1
+format = "[$symbol]($style)"
+
+[git_status]
+format = '([\[$all_status$ahead_behind\]]($style) )'
+style = "cyan"
+
+[git_metrics]
+format = "([+$added]($added_style))([-$deleted]($deleted_style) )"
+disabled = false
+
+[cmd_duration]
+format = "[$duration]($style)"
+style = "yellow"

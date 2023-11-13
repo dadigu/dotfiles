@@ -18,7 +18,7 @@ export ZSH="$HOME/.oh-my-zsh"
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 
 # Set path to starship's config file
-export STARSHIP_CONFIG="$DOTFILES_PATH/starship.toml"
+export STARSHIP_CONFIG="$DOTFILES_PATH/config/starship.toml"
 
 export DISABLE_AUTO_TITLE="true"
 
