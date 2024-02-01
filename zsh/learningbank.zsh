@@ -4,7 +4,7 @@ alias devkit='~/Development/Learningbank/devkit/devkit'
 # Quick access learningbank development folder
 function lb() {
     if [ -z $1 ]; then 
-        cd ~/Development/Learningbank && echo -e "\nWelcome to Learningbank 🎉 \n"
+        cd ~/Development/Learningbank && echo -e "\nWelcome to Learningbank 🎉 \n" && la
     elif [ $1 = 'start' ]; then
         devkit start
     elif [ $1 = 'stop' ]; then
