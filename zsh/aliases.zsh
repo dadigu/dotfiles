@@ -5,9 +5,12 @@ alias edithosts="sudo code /private/etc/hosts"
 alias src='omz reload' 
 
 # Git aliases
-alias gs='git status'
-alias ga='git add .'
+alias gaa='git add --all'
+alias gb='git branch'
+alias gc='git commit -v -m'
 alias gd='git diff'
+alias gp='git pull'
+alias gs='git status'
 
 # Navigation
 alias ..='cd ..'
@@ -17,14 +20,14 @@ alias .....='cd ../../../..'
 alias h='cd $HOME'
 
 # Homebrew aliases
-alias bup='brew update && brew upgrade'
-alias bout='brew outdated'
-alias bin='brew install'
-alias bun='brew uninstall'
-alias bls='brew list'
-alias bsr='brew search'
-alias binf='brew info'
-alias bidr='brew doctor'
+alias brup='brew update && brew upgrade'
+alias brout='brew outdated'
+alias brin='brew install'
+alias brun='brew uninstall'
+alias brls='brew list'
+alias brs='brew search'
+alias brinf='brew info'
+alias brdr='brew doctor'
 
 # Misc
 alias c='clear'
@@ -154,3 +157,4 @@ alias dknames=dnames-fn
 alias dkex=dex-fn
 alias dklf=dlf-fn
 alias dktail=docker-tail-tmux
+alias dkst='docker stats --format "table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}"'
