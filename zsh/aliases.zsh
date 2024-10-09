@@ -12,6 +12,15 @@ alias gd='git diff'
 alias gp='git pull'
 alias gs='git status'
 
+# Function to replace git command
+git() {
+    if [ "$#" -eq 0 ]; then
+        lazygit  # Launch lazygit if no arguments are provided
+    else
+        command git "$@"  # Execute the normal git command with arguments
+    fi
+}
+
 # Navigation
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -37,6 +46,7 @@ alias grep='grep --color' # Grep colorized
 alias ls="ls --color -l -h" # ls: adding colors, verbose listign and humanize the file sizes:
 alias dotfiles="code -n $DOTFILES_PATH" # Open this repo in vscode
 alias kill_md="launchctl unload /Library/LaunchAgents/com.microsoft.wdav.tray.plist"
+alias ssh-fix="ssh-add -K ~/.ssh/id_rsa"
 
 # Just for fun
 alias weather="curl -4 https://wttr.in/\?M"
