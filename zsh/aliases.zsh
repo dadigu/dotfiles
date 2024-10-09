@@ -43,7 +43,9 @@ alias c='clear'
 alias x='exit'
 alias please='sudo $(fc -ln -1)' # Rerun prev command with sudo
 alias grep='grep --color' # Grep colorized
-alias ls="ls --color -l -h" # ls: adding colors, verbose listign and humanize the file sizes:
+alias ls='eza --icons=auto --group-directories-first'
+alias la='ls --long'
+# alias ls="ls --color -l -h" # ls: adding colors, verbose listign and humanize the file sizes:
 alias dotfiles="code -n $DOTFILES_PATH" # Open this repo in vscode
 alias kill_md="launchctl unload /Library/LaunchAgents/com.microsoft.wdav.tray.plist"
 alias ssh-fix="ssh-add -K ~/.ssh/id_rsa"
