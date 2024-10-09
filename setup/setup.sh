@@ -50,11 +50,16 @@ brew install font-fira-code-nerd-font
 brew install font-hack-nerd-font
 
 echo Installing basic homebrew softwares...
+brew install eza
+brew install btop
+brew install lazygit
 brew install nvm
 brew install speedtest-cli
 brew install starship
 brew install tmux
 brew install zsh
+brew install zsh-syntax-highlighting
+brew install zsh-autosuggestions
 
 # window manager
 brew install koekeishiya/formulae/yabai
@@ -103,8 +108,8 @@ echo Setting default-writes...
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/dadigu/dotfiles/main/setup/default-writes.sh)"
 
 # oh-my-zsh
-echo Installing Oh-my-zsh...
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+# echo Installing Oh-my-zsh...
+# sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 # To upgrade all softwares installed by cask later, just run this below command:
 # brew upgrade --cask --greedy
