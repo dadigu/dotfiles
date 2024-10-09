@@ -50,36 +50,31 @@ brew install font-fira-code-nerd-font
 brew install font-hack-nerd-font
 
 echo Installing basic homebrew softwares...
-brew install mysql@5.7
 brew install nvm
-brew install php
-brew install python
-brew install redis
 brew install speedtest-cli
 brew install starship
 brew install tmux
-brew install tmuxinator
-brew install tmuxp
 brew install zsh
+
+# window manager
+brew install koekeishiya/formulae/yabai
+brew install koekeishiya/formulae/skhd
 
 # apps
 echo Installing desktop apps...
 brew install --cask 1password
 brew install --cask alfred
 brew install --cask appcleaner
-brew install --cask bartender
 brew install --cask brave-browser
+brew install --cask cleanshot
 brew install --cask docker
 brew install --cask ferdium
-brew install --cask fig
 brew install --cask figma
 brew install --cask firefox
 brew install --cask fork
 brew install --cask google-chrome
 brew install --cask imageoptim
 brew install --cask iterm2
-brew install --cask kap
-brew install --cask karabiner-elements
 brew install --cask logi-options-plus
 brew install --cask microsoft-edge
 brew install --cask mockoon
@@ -89,6 +84,7 @@ brew install --cask onyx
 brew install --cask postman
 brew install --cask raycast
 brew install --cask shottr
+brew instakk --cask superkey
 brew install --cask spotify
 brew install --cask sublime-text
 brew install --cask tableplus
@@ -96,6 +92,8 @@ brew install --cask the-unarchiver
 brew install --cask visual-studio-code
 brew install --cask vlc
 brew install --cask warp
+brew install --cask wezterm
+brew install --cask zed
 
 # Brew clean up
 brew update && brew upgrade && brew cleanup
