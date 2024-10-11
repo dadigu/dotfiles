@@ -21,6 +21,18 @@ export STARSHIP_CONFIG="$DOTFILES_PATH/config/starship.toml"
 
 export DISABLE_AUTO_TITLE="true"
 
+# History setup
+HISTFILE=$HOME/.zhistory
+SAVEHIST=1000
+HISTSIZE=999
+setopt share_history
+setopt hist_expire_dups_first
+setopt hist_ignore_dups
+setopt hist_verify
+bindkey '^[[A' history-search-backward
+bindkey '^[[B' history-search-forward
+
+# Init starship
 eval "$(starship init zsh)"
 
 # Load alieses etc..
