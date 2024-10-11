@@ -1,8 +1,8 @@
 # Open hosts file in vscode
 alias edithosts="sudo code /private/etc/hosts"
 
-# Reload Oh mt zsh
-alias src='omz reload' 
+# Reload zshrc
+alias src='source ~/.zshrc' 
 
 # Git aliases
 alias gaa='git add --all'
