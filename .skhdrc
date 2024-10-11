@@ -1,0 +1,84 @@
+##########################################
+# Inspiration
+# https://github.com/FelixKratz/dotfiles
+# #######################################
+ 
+# Toggle between bsp and stack layout
+shift + lalt - space : yabai -m space --layout "$(yabai -m query --spaces --space | jq -r 'if .type == "bsp" then "stack" else "bsp" end')"
+
+# Window Navigation (through display borders): lalt - {h, j, k, l}
+lalt - h    : yabai -m window --focus west  || yabai -m display --focus west
+lalt - j    : yabai -m window --focus south || yabai -m display --focus south
+lalt - k    : yabai -m window --focus north || yabai -m display --focus north
+lalt - l    : yabai -m window --focus east  || yabai -m display --focus east
+
+# Cycle through windows with in a space in bps and stack layout: lalt - {n, p}
+lalt - n: \
+  yabai -m window --focus stack.next || \
+  yabai -m window --focus stack.first || \
+  yabai -m window --focus next || \
+  yabai -m window --focus first
+lalt - p: \
+  yabai -m window --focus stack.prev || \
+  yabai -m window --focus stack.last || \
+  yabai -m window --focus prev || \
+  yabai -m window --focus last
+
+# Cycle through spaces (screens): shift + lalt - {n, p}
+shift + lalt - n : yabai -m display --focus next || yabai -m display --focus first
+shift + lalt - p : yabai -m display --focus prev || yabai -m display --focus last
+
+# Float / Unfloat window: lalt - space
+lalt - space : \
+    yabai -m window --toggle float;\
+    yabai -m window --grid 8:8:1:1:6:6
+
+# Toggle maximise on current focused window: lalt - m
+lalt - m : yabai -m window --toggle zoom-fullscreen
+
+# Toggle maximize on all windows in current space: shift + lalt - m
+shift + lalt - m : yabai -m query --windows --space | jq '.[].id' | xargs -I{} yabai -m window {} --toggle zoom-fullscreen
+
+# Toggle maximise with in parent on current focused window: lalt - f 
+lalt - f : yabai -m window --toggle zoom-parent
+
+# Moving windows in and across spaces: shift + lalt - {h, j, k, l}
+shift + lalt - h : yabai -m window --warp west || $(yabai -m window --display west && yabai -m display --focus west && yabai -m window --warp last) || yabai -m window --move rel:-10:0
+shift + lalt - j : yabai -m window --warp south || $(yabai -m window --display south && yabai -m display --focus south) || yabai -m window --move rel:0:10
+shift + lalt - k : yabai -m window --warp north || $(yabai -m window --display north && yabai -m display --focus north) || yabai -m window --move rel:0:-10
+shift + lalt - l : yabai -m window --warp east || $(yabai -m window --display east && yabai -m display --focus east && yabai -m window --warp first) || yabai -m window --move rel:10:0
+
+# Toggle split orientation of the selected windows node: shift + lalt - s
+shift + lalt - s : yabai -m window --toggle split
+
+# Mirror Space on X Axis
+shift + lalt - x : yabai -m space --mirror x-axis
+
+# Mirror Space on Y Axis
+shift + lalt - y : yabai -m space --mirror y-axis
+
+# Rotate layout clockwise
+shift + lalt - r : yabai -m space --rotate 270
+
+# Resize windows: ctrl + lalt - {h, j, k, l}
+ctrl + lalt - h    : yabai -m window --resize right:-100:0 || yabai -m window --resize left:-100:0
+ctrl + lalt - j    : yabai -m window --resize bottom:0:100 || yabai -m window --resize top:0:100
+ctrl + lalt - k    : yabai -m window --resize bottom:0:-100 || yabai -m window --resize top:0:-100
+ctrl + lalt - l    : yabai -m window --resize right:100:0 || yabai -m window --resize left:100:0
+
+# Equalize size of windows: ctrl + lalt - e
+ctrl + lalt - e : yabai -m space --balance
+
+# stop/start/restart yabai
+ctrl + alt - q : yabai --stop-service
+ctrl + alt - s : yabai --start-service
+ctrl + alt - r : yabai --restart-service
+
+# Toggle sketchybar
+# shift + lalt - space : sketchybar --bar hidden=toggle
+
+# App Shortcuts
+rcmd - t : open /Applications/WezTerm.app
+rcmd - b : open /Applications/Firefox.app
+rcmd - c : open /Applications/Visual\ Studio\ Code.app
+rcmd - g : open /Applications/Fork.app
