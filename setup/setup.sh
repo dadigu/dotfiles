@@ -50,8 +50,9 @@ brew install font-fira-code-nerd-font
 brew install font-hack-nerd-font
 
 echo Installing basic homebrew softwares...
-brew install eza
 brew install btop
+brew install eza
+brew install jq
 brew install lazygit
 brew install nvm
 brew install speedtest-cli
