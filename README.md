@@ -11,7 +11,7 @@ Use GNU stow to symlink your dotfiles with `stow <package-name>`
 Available packages:
 - zsh
 - vim
-
+- wezterm
 
 ## Macbook reinstall checklist
 
