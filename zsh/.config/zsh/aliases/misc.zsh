@@ -7,6 +7,9 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 
+# Go to dotfiles
+alias dot='cd $DOTFILES_PATH'
+
 # Go to home folder
 alias h='cd $HOME'
 
