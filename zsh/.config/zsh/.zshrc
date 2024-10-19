@@ -38,7 +38,7 @@ unset conf
 # +-----------------+
 eval "$(/opt/homebrew/bin/brew shellenv)" # Load homebrew
 source <(fzf --zsh) # Load fzf
-eval "$(oh-my-posh init zsh --config $HOME/dotfiles/ohmyposh/zen.toml)" # Load prompt
+eval "$(oh-my-posh init zsh --config $ZDOTDIR/omp-zen.toml)" # Load prompt
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh # Load zsh-autosuggestions
