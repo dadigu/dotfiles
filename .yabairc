@@ -39,5 +39,8 @@ yabai -m rule --add app="iTerm2" manage=off
 yabai -m rule --add app="Raycast" manage=off
 # yabai -m rule --add app="CleanShotX manage=off
 
+# Add spacing for sketchybar
+# yabai -m config external_bar all:32:0
+
 # Activate JankyBorders
 # borders active_color=0xffFFA000 inactive_color=0x00494d64 width=5.0 &

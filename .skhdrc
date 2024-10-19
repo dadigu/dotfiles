@@ -82,3 +82,4 @@ rcmd - t : open /Applications/WezTerm.app
 rcmd - b : open /Applications/Firefox.app
 rcmd - c : open /Applications/Visual\ Studio\ Code.app
 rcmd - g : open /Applications/Fork.app
+rcmd - f : open /Applications/Ferdium.app
