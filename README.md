@@ -10,6 +10,7 @@ Use GNU stow to symlink your dotfiles with `stow <package-name>`
 
 Available packages:
 - zsh
+- vim
 
 
 ## Macbook reinstall checklist
