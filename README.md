@@ -12,6 +12,7 @@ Available packages:
 - zsh
 - vim
 - wezterm
+- tmux
 
 ## Macbook reinstall checklist
 
