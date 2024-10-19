@@ -52,6 +52,7 @@ brew install font-hack-nerd-font
 echo Installing basic homebrew softwares...
 brew install btop
 brew install eza
+brew install fzf
 brew install jq
 brew install lazygit
 brew install nvm
