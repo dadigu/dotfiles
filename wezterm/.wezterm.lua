@@ -9,7 +9,7 @@ config.color_scheme = 'Catppuccin Frappe'
 
 -- Font settings
 config.font = wezterm.font("MonoLisa Nerd Font Mono")
-config.font_size = 18
+config.font_size = 16
 config.line_height = 1.2
 
 -- Tab bar settings
