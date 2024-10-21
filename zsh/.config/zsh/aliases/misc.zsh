@@ -27,8 +27,9 @@ alias grep='grep --color'
 
 # Overwrite ls with eza
 alias ls='eza --icons=auto --group-directories-first'
-alias la='ls --long'
-alias laa='la -a'
+alias ll='ls --long --no-user'
+alias lla='ll -a'
+alias lt='ls --tree --level=2'
 
 # Kill MS Defender launch agent
 alias kill_md="launchctl unload /Library/LaunchAgents/com.microsoft.wdav.tray.plist"
