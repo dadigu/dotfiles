@@ -13,6 +13,8 @@ Available packages:
 - vim
 - wezterm
 - tmux
+- skhd
+- yabai
 
 ## Macbook reinstall checklist
 
