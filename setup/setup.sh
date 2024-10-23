@@ -52,6 +52,7 @@ brew install font-hack-nerd-font
 echo Installing basic homebrew softwares...
 brew install btop
 brew install eza
+brew install font-sf-pro
 brew install fzf
 brew install jq
 brew install lazygit
@@ -90,6 +91,7 @@ brew install --cask obsidian
 brew install --cask onyx
 brew install --cask postman
 brew install --cask raycast
+brew install --cask sf-symbols
 brew install --cask shottr
 brew instakk --cask superkey
 brew install --cask spotify
