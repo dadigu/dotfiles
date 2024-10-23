@@ -7,6 +7,7 @@ export DOTFILES_PATH="$HOME/dotfiles"
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 export NVM_DIR="$HOME/.nvm"
 export DISABLE_AUTO_TITLE="true"
+export KEYTIMEOUT=1
 
 # Configure shell history
 export HISTFILE="$ZDOTDIR/.zhistory"    # History filepath
