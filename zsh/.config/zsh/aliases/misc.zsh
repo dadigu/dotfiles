@@ -60,3 +60,15 @@ check_run() {
     changed_files="$(git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD)"
 	echo "$changed_files" | grep --quiet "$1" && eval "$2"
 }
+
+#
+# Yazi alias set working directory on q, exit normally on Q
+#
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
