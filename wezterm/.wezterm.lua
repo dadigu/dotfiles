@@ -12,6 +12,9 @@ config.font = wezterm.font("MonoLisa Nerd Font Mono")
 config.font_size = 16
 config.line_height = 1.2
 
+-- Cursor
+config.default_cursor_style = "SteadyBar"
+
 -- Tab bar settings
 config.enable_tab_bar = true
 config.use_fancy_tab_bar = true
@@ -26,6 +29,8 @@ config.colors = {
 }
 
 -- Various
+config.window_close_confirmation = 'NeverPrompt'
 config.send_composed_key_when_left_alt_is_pressed = true
+config.harfbuzz_features = {"calt=0", "clig=0", "liga=0"} -- No font ligatures
 
 return config
