@@ -48,25 +48,37 @@ echo Install fonts...
 brew install font-fira-code
 brew install font-fira-code-nerd-font
 brew install font-hack-nerd-font
+brew install font-sf-pro
 
 echo Installing basic homebrew softwares...
+brew install bat
 brew install btop
 brew install eza
 brew install font-sf-pro
 brew install fzf
+brew install gh
 brew install jq
 brew install lazygit
+brew install neovim
 brew install nvm
+brew install ripgrep
 brew install speedtest-cli
+brew install sketchybar
 brew install starship
+brew install stow
 brew install tmux
+brew install yazi
 brew install zsh
 brew install zsh-syntax-highlighting
 brew install zsh-autosuggestions
+brew install zsh-vi-mode
 
 # window manager
 brew install koekeishiya/formulae/yabai
 brew install koekeishiya/formulae/skhd
+
+# prompt
+brew install jandedobbeleer/oh-my-posh/oh-my-posh
 
 # apps
 echo Installing desktop apps...
@@ -83,6 +95,7 @@ brew install --cask fork
 brew install --cask google-chrome
 brew install --cask imageoptim
 brew install --cask iterm2
+brew install --cask karabiner-elements
 brew install --cask logi-options-plus
 brew install --cask microsoft-edge
 brew install --cask mockoon
