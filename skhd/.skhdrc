@@ -13,15 +13,15 @@ lalt - k    : yabai -m window --focus north || yabai -m display --focus north
 lalt - l    : yabai -m window --focus east  || yabai -m display --focus east
 
 # Cycle through windows with in a space in bps and stack layout: lalt - {n, p}
-lalt - n: \
-  yabai -m window --focus stack.next || \
-  yabai -m window --focus stack.first || \
-  yabai -m window --focus next || \
+lalt - n:                                 \
+  yabai -m window --focus stack.next ||   \
+  yabai -m window --focus stack.first ||  \
+  yabai -m window --focus next ||         \
   yabai -m window --focus first
 lalt - p: \
-  yabai -m window --focus stack.prev || \
-  yabai -m window --focus stack.last || \
-  yabai -m window --focus prev || \
+  yabai -m window --focus stack.prev ||   \
+  yabai -m window --focus stack.last ||   \
+  yabai -m window --focus prev ||         \
   yabai -m window --focus last
 
 # Cycle through spaces (screens): shift + lalt - {n, p}
@@ -42,11 +42,27 @@ shift + lalt - m : yabai -m query --windows --space | jq '.[].id' | xargs -I{} y
 # Toggle maximise with in parent on current focused window: lalt - f 
 lalt - f : yabai -m window --toggle zoom-parent
 
-# Moving windows in and across spaces: shift + lalt - {h, j, k, l}
-shift + lalt - h : yabai -m window --warp west || $(yabai -m window --display west && yabai -m display --focus west && yabai -m window --warp last) || yabai -m window --move rel:-10:0
-shift + lalt - j : yabai -m window --warp south || $(yabai -m window --display south && yabai -m display --focus south) || yabai -m window --move rel:0:10
-shift + lalt - k : yabai -m window --warp north || $(yabai -m window --display north && yabai -m display --focus north) || yabai -m window --move rel:0:-10
-shift + lalt - l : yabai -m window --warp east || $(yabai -m window --display east && yabai -m display --focus east && yabai -m window --warp first) || yabai -m window --move rel:10:0
+# Moving windows in and across spaces
+# And moving floating windows around: shift + lalt - {h, j, k, l}
+shift + lalt - h :  yabai -m window --move rel:-100:0 || \
+                    yabai -m window --warp west || \
+                    $(yabai -m window --display west && yabai -m display --focus west && yabai -m window --warp last) || \
+                    # yabai -m window --move rel:-10:0
+
+shift + lalt - j :  yabai -m window --move rel:0:100 || \
+                    yabai -m window --warp south || \
+                    $(yabai -m window --display south && yabai -m display --focus south) || \
+                    # yabai -m window --move rel:0:10
+
+shift + lalt - k :  yabai -m window --move rel:0:-100 || \
+                    yabai -m window --warp north || \
+                    $(yabai -m window --display north && yabai -m display --focus north) || \
+                    # yabai -m window --move rel:0:-10
+
+shift + lalt - l :  yabai -m window --move rel:100:0 || \
+                    yabai -m window --warp east || \
+                    $(yabai -m window --display east && yabai -m display --focus east && yabai -m window --warp first) || \
+                    # yabai -m window --move rel:10:0
 
 # Toggle split orientation of the selected windows node: shift + lalt - s
 shift + lalt - s : yabai -m window --toggle split
