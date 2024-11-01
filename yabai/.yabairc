@@ -27,6 +27,12 @@ yabai -m mouse_drop_action swap
 # only show window shadow on floating windows
 yabai -m config window_shadow float
 
+# Pop recent window out of fullscreen when it looses focus 
+yabai -m signal --add event=window_focused action="yabai -m query --windows --window recent | jq -e '.\"has-fullscreen-zoom\"' && yabai -m window recent --toggle zoom-fullscreen"
+
+# Pop recent window out of parent zoom when it looses focus
+# yabai -m signal --add event=window_focused action="yabai -m query --windows --window recent | jq -e '.\"has-parent-zoom\"' && yabai -m window recent --toggle zoom-parent"
+
 # Disabled apps
 yabai -m rule --add app="^System Settings$" manage=off
 yabai -m rule --add app="^Calculator$" manage=off
