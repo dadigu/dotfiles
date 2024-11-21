@@ -1,34 +1,3 @@
-autoload edit-command-line; zle -N edit-command-line
-
-# +----------+
-# Keybindings
-# +----------+
-# Enable vim mode
-# bindkey -v
-# Bind v while in vim mode to edit promt with $EDITOR
-# bindkey -M vicmd v edit-command-line
-# Up and down to search history
-bindkey '^[[A' history-search-backward
-bindkey '^[[B' history-search-forward
-# Fix backspace bug when switching modes
-# bindkey "^?" backward-delete-char
-
-# Change cursor shape for different vi modes.
-# https://unix.stackexchange.com/questions/433273/changing-cursor-style-based-on-mode-in-both-zsh-and-vim
-# function zle-keymap-select {
-#   if [[ ${KEYMAP} == vicmd ]] ||
-#      [[ $1 = 'block' ]]; then
-#     echo -ne '\e[2 q'
-#   elif [[ ${KEYMAP} == main ]] ||
-#        [[ ${KEYMAP} == viins ]] ||
-#        [[ ${KEYMAP} = '' ]] ||
-#        [[ $1 = 'beam' ]]; then
-#     echo -ne '\e[6 q'
-#   fi
-# }
-# zle -N zle-keymap-select
-# echo -ne '\e[6 q' # Use beam shape cursor on startup.
-
 # +----------------+
 # Set shell options
 # +----------------+
@@ -47,6 +16,20 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 zstyle ':completion:*' menu select
+zmodload zsh/complist
+# +----------+
+# Keybindings
+# +----------+
+# Up and down to search history
+bindkey '^[[A' history-search-backward
+bindkey '^[[B' history-search-forward
+# Accept auto suggestion [shift+tab]
+bindkey '^[[Z' autosuggest-accept 
+# use the vi navigation keys in menu completion
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
 
 # +-------------+
 # Source aliases

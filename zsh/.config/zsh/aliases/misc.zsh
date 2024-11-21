@@ -19,6 +19,9 @@ alias c='clear'
 # Exit shell
 alias x='exit'
 
+# Neovim alias
+alias n='nvim'
+
 # Rerun prev command with sudo
 alias please='sudo $(fc -ln -1)'
 
