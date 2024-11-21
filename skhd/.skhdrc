@@ -6,6 +6,38 @@
 # Toggle between bsp and stack layout
 shift + lalt - space : yabai -m space --layout "$(yabai -m query --spaces --space | jq -r 'if .type == "bsp" then "stack" else "bsp" end')"
 
+# Navigate between spaces: lalt - {1..6}
+lalt - 1    : yabai -m space --focus 1
+lalt - 2    : yabai -m space --focus 2
+lalt - 3    : yabai -m space --focus 3
+lalt - 4    : yabai -m space --focus 4
+lalt - 5    : yabai -m space --focus 5
+lalt - 6    : yabai -m space --focus 6
+
+# Cycle spaces on current display: ctrl + lalt + {n, p}
+ctrl + lalt - n  : id="$(yabai -m query --spaces --display | jq 'sort_by(.index) | reverse | .[map(."has-focus") | index(true) - 1].index')" \
+                   && yabai -m space --focus "${id}"
+ctrl + lalt - p : id="$(yabai -m query --spaces --display | jq 'sort_by(.index) | .[map(."has-focus") | index(true) - 1].index')" \
+                   && yabai -m space --focus "${id}"
+
+# Send window to space: lalt + shift + {1..6}
+lalt + shift - 1    :   yabai -m window --space 1
+lalt + shift - 2    :   yabai -m window --space 2
+lalt + shift - 3    :   yabai -m window --space 3
+lalt + shift - 4    :   yabai -m window --space 4
+lalt + shift - 5    :   yabai -m window --space 5
+lalt + shift - 6    :   yabai -m window --space 6
+
+# Cycle spaces: ctrl ctrl + lalt + {n, p}
+ctrl + lalt - n   :   yabai -m space --focus next || yabai -m space --focus first
+ctrl + lalt - p   :   yabai -m space --focus prev || yabai -m space --focus last
+
+# Create new space
+ctrl + alt - t  : yabai -m space --create
+
+# Destroy space
+ctrl + alt - x  : yabai -m space --destroy
+
 # Window Navigation (through display borders): lalt - {h, j, k, l}
 lalt - h    : yabai -m window --focus west  || yabai -m display --focus west
 lalt - j    : yabai -m window --focus south || yabai -m display --focus south

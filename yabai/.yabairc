@@ -1,5 +1,8 @@
 #!/usr/bin/env sh
 
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+sudo yabai --load-sa
+
 # Default layout (can be bsp, stack or float)
 yabai -m config layout bsp
 
@@ -12,6 +15,14 @@ yabai -m config window_placement second_child
 # yabai -m config left_padding 6
 # yabai -m config right_padding 6
 yabai -m config window_gap 12
+
+# yabai -m config window_opacity on
+# yabai -m conifig window_opacity_duration 0.2
+# yabai -m config active_window_opacity 1.0
+# yabai -m config normal_window_opacity 0.8
+
+# yabai -m config window_animation_duration 0.5
+# yabai -m config window_animation_easing ease_out_quint
 
 ## Mouse support
 # center mouse on window with focus
@@ -34,19 +45,20 @@ yabai -m signal --add event=window_focused action="yabai -m query --windows --wi
 # yabai -m signal --add event=window_focused action="yabai -m query --windows --window recent | jq -e '.\"has-parent-zoom\"' && yabai -m window recent --toggle zoom-parent"
 
 # Disabled apps
+yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off
 yabai -m rule --add app="^System Settings$" manage=off
 yabai -m rule --add app="^Calculator$" manage=off
 yabai -m rule --add app="^Weather$" manage=off grid=6:4:1:1:2:4
 yabai -m rule --add app="^Messages$" manage=off grid=6:4:1:1:2:4
 yabai -m rule --add app="^Calendar$" manage=off grid=10:8:1:1:6:8
 yabai -m rule --add app="^Microsoft Outlook$" manage=off grid=10:8:1:1:6:8
-yabai -m rule --add app="^Karabiner-Elements$" manage=off grid=6:4:1:1:2:4
+# yabai -m rule --add app="^Karabiner-Elements$" manage=off grid=6:4:1:1:2:4
 yabai -m rule --add app="iTerm2" manage=off
 yabai -m rule --add app="Raycast" manage=off
 # yabai -m rule --add app="CleanShotX manage=off
 
 # Add spacing for sketchybar
-# yabai -m config external_bar all:32:0
+yabai -m config external_bar all:38:0
 
 # Activate JankyBorders
-# borders active_color=0xffFFA000 inactive_color=0x00494d64 width=5.0 &
+# borders active_color=0xffc499df inactive_color=0x00494d64 width=4.0 &
