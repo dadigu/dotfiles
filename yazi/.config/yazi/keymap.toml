@@ -1,0 +1,5 @@
+[manager]
+append_keymap = [
+    { on = [ "g", "q" ],       run = "cd ~/dotfiles",             desc = "Goto dotfiles" },
+    { on = "<C-p>",            run = ''' shell 'qlmanage -p "$@"' ''', desc = "Preview" },
+]
