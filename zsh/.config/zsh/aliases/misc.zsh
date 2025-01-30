@@ -19,9 +19,6 @@ alias c='clear'
 # Exit shell
 alias x='exit'
 
-# Neovim alias
-alias n='nvim'
-
 # Rerun prev command with sudo
 alias please='sudo $(fc -ln -1)'
 
@@ -30,9 +27,8 @@ alias grep='grep --color'
 
 # Overwrite ls with eza
 alias ls='eza --icons=auto --group-directories-first'
-alias ll='ls --long --no-user'
-alias lla='ll -a'
-alias lt='ls --tree --level=2'
+alias la='ls --long --no-user --all'
+alias lt='ls --tree --all'
 
 # Kill MS Defender launch agent
 alias kill_md="launchctl unload /Library/LaunchAgents/com.microsoft.wdav.tray.plist"
@@ -75,3 +71,6 @@ function y() {
 	fi
 	rm -f -- "$tmp"
 }
+
+# Display most used commands based of history
+alias zsh_stats="history 1 | awk '{CMD[\$2]++;count++;} END { for (a in CMD) print CMD[a] \" \" CMD[a]/count*100 \"% \" a;}' | grep -v './' | column -c3 -s ' ' -t | sort -nr | nl | head -n10"

@@ -9,6 +9,8 @@ function lb() {
         devkit start
     elif [ $1 = 'stop' ]; then
         devkit stop
+    elif [ $1 = 'app' ]; then
+	cd ~/Development/Learningbank/app
     else
        cd ~/Development/Learningbank/devkit/services/"$1"
     fi
