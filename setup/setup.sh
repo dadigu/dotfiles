@@ -68,6 +68,7 @@ brew install starship
 brew install stow
 brew install tmux
 brew install yazi
+brew install zoxide
 brew install zsh
 brew install zsh-syntax-highlighting
 brew install zsh-autosuggestions

@@ -44,6 +44,7 @@ unset conf
 # Shell integrations
 # +-----------------+
 eval "$(/opt/homebrew/bin/brew shellenv)" # Load homebrew
+eval "$(zoxide init zsh --cmd cd)" # Load zoxide
 source <(fzf --zsh) # Load fzf
 eval "$(oh-my-posh init zsh --config $ZDOTDIR/omp-zen.toml)" # Load prompt
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
