@@ -1,10 +1,10 @@
 gui:
-  branchColors:
-    'conflicts': '#e78284'
-    'hotfix': '#ea999c'
-    'feature': '#a6d189'
-    'bugfix': '#e5c890'
-    'chore': '#8caaee'
+  branchColorPatterns:
+    '^conflicts/': '#e78284'
+    '^hotfix/': '#ea999c'
+    '^feature/': '#a6d189'
+    '^bugfix/': '#e5c890'
+    '^chore/': '#8caaee'
   theme:
     activeBorderColor:
       - '#ef9f76'
@@ -29,7 +29,12 @@ gui:
   authorColors:
     '*': '#babbf1'
   # showFileTree: false
+  switchTabsWithPanelJumpKeys: true
 git:
   paging:
     colorArg: always
     pager: diff-so-fancy
+# git:
+#   paging:
+#     colorArg: always
+#     pager: delta --dark --paging=never
