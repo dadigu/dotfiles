@@ -5,5 +5,15 @@ return {
     indent = {
       enabled = false,
     },
+    styles = {
+      zen = {
+        width = 130,
+      },
+    },
+    zen = {
+      toggles = {
+        dim = false,
+      },
+    },
   },
 }
