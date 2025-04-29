@@ -34,6 +34,10 @@ ctrl + lalt - p   :   yabai -m space --focus prev || yabai -m space --focus last
 
 # Create new space
 ctrl + alt - t  : yabai -m space --create
+# ctrl + alt - c  : yabai -m space --create
+ctrl + alt - c : yabai -m space --create && \
+             index="$(yabai -m query --spaces --display | jq 'map(select(.["is-native-fullscreen"] == false))[-1].index')" && \
+             yabai -m space --focus "${index}"
 
 # Destroy space
 ctrl + alt - x  : yabai -m space --destroy
@@ -127,7 +131,7 @@ ctrl + alt - r : yabai --restart-service
 
 # App Shortcuts
 rcmd - t : open /Applications/WezTerm.app
-rcmd - b : open /Applications/Firefox.app
+rcmd - b : open /Applications/Zen\ Browser.app
 rcmd - c : open /Applications/Visual\ Studio\ Code.app
 rcmd - g : open /Applications/Fork.app
 rcmd - f : open /Applications/Ferdium.app
