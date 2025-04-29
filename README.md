@@ -18,6 +18,10 @@ Available packages:
 - yabai
 - yazi
 
+### Karabiner elements
+- Run `npm install` inside /karabiner
+- Run `npm run build` to generate config
+
 ## Macbook reinstall checklist
 
 - [] 
