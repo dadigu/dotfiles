@@ -5,7 +5,8 @@ local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 
 -- Color scheme
-config.color_scheme = "Catppuccin Frappe"
+-- config.color_scheme = "Catppuccin Frappe"
+config.color_scheme = "Catppuccin Macchiato"
 
 -- Font settings
 config.font = wezterm.font("FiraCode Nerd Font Mono")
