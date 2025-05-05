@@ -1,62 +1,124 @@
 import {
-  hyperLayer,
+  FromAndToKeyCode,
+  ifDevice,
+  ifVar,
   layer,
-  LayerKeyParam,
   map,
+  ModifierKeyCode,
   rule,
-  toApp,
+  toRemoveNotificationMessage,
+  toUnsetVar,
+  withCondition,
+  withMapper,
   writeToProfile,
+  ToEvent,
+  ManipulatorMap,
 } from 'karabiner.ts'
 
-// // ! Change '--dry-run' to your Karabiner-Elements Profile name.
-// // (--dry-run print the config json into console)
-// // + Create a new profile if needed.
-// writeToProfile('--dry-run', [
-//   // It is not required, but recommended to put symbol alias to layers,
-//   // (If you type fast, use simlayer instead, see https://evan-liu.github.io/karabiner.ts/rules/simlayer)
-//   // to make it easier to write '←' instead of 'left_arrow'.
-//   // Supported alias: https://github.com/evan-liu/karabiner.ts/blob/main/src/utils/key-alias.ts
-//   layer('/', 'symbol-mode').manipulators([
-//     //     / + [ 1    2    3    4    5 ] =>
-//     withMapper(['⌘', '⌥', '⌃', '⇧', '⇪'])((k, i) =>
-//       map((i + 1) as NumberKeyValue).toPaste(k),
-//     ),
-//     withMapper(['←', '→', '↑', '↓', '␣', '⏎', '⇥', '⎋', '⌫', '⌦', '⇪'])((k) =>
-//       map(k).toPaste(k),
-//     ),
-//   ]),
-//
-//   rule('Key mapping').manipulators([
-//     // config key mappings
-//     map(1).to(1)
-//   ]),
-// ])
+/**
+ * Generate notifications and manipulators for raycast
+ */
+function app_raycast_map(toEach: ToEvent[] = []) {
+  const keyMap = {
+    e: {
+      desc: 'Emoji picker',
+      cmd: 'open -g raycast://extensions/raycast/emoji-symbols/search-emoji-symbols',
+    },
+    c: {
+      desc: 'Color picker',
+      cmd: 'open -g raycast://extensions/thomas/color-picker/pick-color',
+    },
+    o: {
+      desc: 'Recognise text (OCR)',
+      cmd: 'open -g raycast://extensions/huzef44/screenocr/recognize-text',
+    }
+  }
+
+  const notification = 'Raycast: \n\n' + Object.entries(keyMap)
+    .map(([key, { desc }]) => `${key} → ${desc}`)
+    .join('\n')
+
+  const manipulators = withMapper(keyMap)((k, { cmd }) => {
+    return map(k).to$(cmd).to(toEach)
+  })
+
+  return { notification, manipulators }
+}
 
 /**
- * Application launcher with Hyper + leaderKey 
+ * Generate notifications and manipulators for apps
  */
-function app_launcher(leaderKey: LayerKeyParam) {
-  const map = {
+function open_apps_map(toEach: ToEvent[] = []) {
+  const keyMap = {
     t: 'WezTerm',
     b: 'Zen Browser',
-    f: 'Ferdium',
+    v: 'Ferdium',
     c: 'Visual Studio Code',
   }
 
-  const notification = Object.entries(map).reduce((acc, [key, app]) => {
-    acc = acc + `${key}  →  ${app} \n`
+  const notification = 'Open apps: \n\n' + Object.entries(keyMap)
+    .map(([key, app]) => `${key} → ${app}`)
+    .join('\n')
 
-    return acc
-  }, 'Open apps: \n \n')
+  const manipulators = withMapper(keyMap)((k, app) => {
+    return map(k).toApp(app).to(toEach)
+  })
 
-  return hyperLayer(leaderKey)
-    .description('Open Apps')
-    .leaderMode()
-    .notification(notification)
-    .manipulators(Object.entries(map).reduce((acc, [key, app]) => {
-      acc[key] = toApp(app)
-      return acc
-    }, {}))
+  return { notification, manipulators }
+
+}
+
+function nested_leader() {
+  const escape = [toUnsetVar('leader'), toRemoveNotificationMessage('leader')]
+  const raycast = app_raycast_map(escape)
+  const openApps = open_apps_map(escape)
+
+  const sublayerMap = {
+    r: {
+      desc: 'Raycast',
+      notification: raycast.notification,
+      manipulators: raycast.manipulators
+    },
+    o: {
+      desc: 'Open apps',
+      notification: openApps.notification,
+      manipulators: openApps.manipulators
+    }
+  }
+
+  const leaderNotification = 'Leader key: \n\n' + Object.entries(sublayerMap)
+    .map(([key, { desc }]) => `${key} → ${desc}`)
+    .join('\n')
+
+  return rule('Leader Key').manipulators([
+    // When no leader key or nested leader key is on
+    withCondition(ifVar('leader', 0))([
+      // Leader key
+      map('spacebar', 'Hyper') // Or mapSimultaneous(['l', ';']) ...
+        .toVar('leader', 1)
+        .toNotificationMessage('leader', leaderNotification),
+    ]),
+
+    // When leader key or nested leader key is on
+    withCondition(ifVar('leader', 0).unless())([
+      // Escape key(s)
+      map('escape').to(escape),
+    ]),
+
+    // When leader key but no nested leader key is on
+    withCondition(ifVar('leader', 1))([
+      // Nested leader keys
+      withMapper(sublayerMap)((k, { notification }) =>
+        map(k)
+          .toVar('leader', k)
+          .toNotificationMessage('leader', notification),
+      ),
+    ]),
+    // Generate sublayers
+    ...Object.entries(sublayerMap).map(([k, { manipulators }]) => {
+      return withCondition(ifVar('leader', k))(manipulators as unknown as ManipulatorMap)
+    }),
+  ])
 }
 
 /**
@@ -74,27 +136,45 @@ function motion_layer() {
   ])
 }
 
+const mapHomerowModKey = (key: FromAndToKeyCode, modifier: ModifierKeyCode) => {
+  return map(key, 'optionalAny')
+    .toIfAlone(key, undefined, { halt: true })
+    .toIfHeldDown(modifier, undefined, {})
+    .toDelayedAction([], { key_code: key })
+    .parameters({
+      'basic.to_if_held_down_threshold_milliseconds': 100,
+      'basic.to_delayed_action_delay_milliseconds': 100
+    })
+}
+
 const rules = [
   // Add hyper key
   rule('Caps lock -> Hyper').manipulators([
     map('caps_lock').toHyper().toIfAlone('escape'),
   ]),
 
-  // Disable minimizing
-  rule('Disable Cmd+m (minimize) on all applications').manipulators([
+  rule('Homerow mods').manipulators([
+    mapHomerowModKey('f', 'left_option')
+    // map('f').toIfHeldDown('left_option').toIfAlone('f').parameters({
+    //   'basic.to_if_held_down_threshold_milliseconds': 150,
+    // })
+  ]),
+
+  rule('Overwrites: All').manipulators([
+    map('right_shift').to('fn'),
+    map('fn').to('right_control'),
     map('m', 'left_command').to('m')
   ]),
 
-  rule('Homerow mods').manipulators([
-    map('f').toIfHeldDown('left_option').toIfAlone('f')
-  ]),
-
-  rule('Various overwrites').manipulators([
-    map('right_shift').to('fn')
-  ]),
+  // rule('Overwrites: Apple keyboards',
+  //   ifDevice([{ vendor_id: 76 }, { vendor_id: 1452 }]),
+  // ).manipulators([
+  //   map('grave_accent_and_tilde').to('non_us_backslash'),
+  //   map('non_us_backslash').to('grave_accent_and_tilde')
+  // ]),
 
   motion_layer(),
-  app_launcher('spacebar'),
+  nested_leader(),
 ]
 
 const profileName = 'Default profile'
@@ -102,7 +182,7 @@ const profileName = 'Default profile'
 writeToProfile(profileName, rules, {
   'simlayer.threshold_milliseconds': 125,
   'duo_layer.threshold_milliseconds': 125,
-  'basic.to_if_alone_timeout_milliseconds': 150,
+  'basic.to_if_alone_timeout_milliseconds': 500, //150,
   'basic.to_if_held_down_threshold_milliseconds': 150,
   'basic.to_delayed_action_delay_milliseconds': 200,
 })
