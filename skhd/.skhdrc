@@ -122,9 +122,9 @@ ctrl + lalt - l    : yabai -m window --resize right:100:0 || yabai -m window --r
 ctrl + lalt - e : yabai -m space --balance
 
 # stop/start/restart yabai
-ctrl + alt - q : yabai --stop-service
-ctrl + alt - s : yabai --start-service
-ctrl + alt - r : yabai --restart-service
+ctrl + lalt - q : yabai --stop-service
+ctrl + lalt - s : yabai --start-service
+ctrl + lalt - r : yabai --restart-service
 
 # Toggle sketchybar
 # shift + lalt - space : sketchybar --bar hidden=toggle
