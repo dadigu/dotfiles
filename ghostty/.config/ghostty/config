@@ -1,0 +1,22 @@
+# ghostty +show-config --default --docs
+
+background = #24273A
+
+# font-family = FiraCode Nerd Font Mono
+font-family = CaskaydiaCove Nerd Font Mono
+font-size = 16
+font-feature = -calt
+# line height
+adjust-cell-height = 25%
+
+# Macos specific
+macos-titlebar-style = hidden
+macos-option-as-alt = right
+
+# Look => and feel
+theme = catppuccin-macchiato
+mouse-hide-while-typing = true
+cursor-invert-fg-bg = true
+window-vsync = true
+
+confirm-close-surface = false
