@@ -1,0 +1,9 @@
+{
+  "waitOneliner": {
+    "prefix": "dx:wait",
+    "body": [
+      "const wait = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms))"
+    ],
+    "description": "Generate promise timeout one-liner for typescript"
+  }
+}

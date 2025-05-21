@@ -1,0 +1,58 @@
+{
+  "Console log": {
+    "prefix": "cl",
+    "body": "console.log(${0})",
+    "description": "Simple console.log"
+  },
+  "import": {
+    "prefix": "imp",
+    "body": "import ${2:moduleName} from '${1:module}';$0",
+    "description": "Imports entire module statement in ES6 syntax"
+  },
+  "importDestructing": {
+    "prefix": "imd",
+    "body": "import { $2 } from '${1:module}';$0",
+    "description": "Imports only a portion of the module in ES6 syntax"
+  },
+  "destructingObject": {
+    "prefix": "dob",
+    "body": "const {${2:propertyName}} = ${1:objectToDestruct};",
+    "description": "Creates and assigns a local variable using object destructing"
+  },
+  "destructingArray": {
+    "prefix": "dar",
+    "body": "const [${2:propertyName}] = ${1:arrayToDestruct};",
+    "description": "Creates and assigns a local variable using array destructing"
+  },
+  "promise": {
+    "prefix": "prom",
+    "body": "return new Promise((resolve, reject) => {\n\t${1}\n});",
+    "description": "Creates and returns a new Promise in the standard ES6 syntax"
+  },
+  "thenCatch": {
+    "prefix": "thenc",
+    "body": ".then((${1:result}) => {\n\t${2}\n}).catch((${3:err}) => {\n\t${4}\n});",
+    "description": "Add the .then and .catch methods to handle promises"
+  },
+  "await Promise.resolve()": {
+    "prefix": "ar",
+    "body": [
+      "await Promise.resolve()"
+    ],
+    "description": "Slap in a await promise resolve to typass missing awaits in async functions. Cuz I'm lazy"
+  },
+  "tryCatch": {
+    "prefix": "tc",
+    "body": [
+      "try {\n\t${1}\n} catch (e) {\n\t${2:throw e}\n}\n${0}"
+    ],
+    "description": "Creates a try-catch statement"
+  },
+  "tryCatchFinally": {
+    "prefix": "tcf",
+    "body": [
+      "try {\n\t${1:// Something}\n} catch (e) {\n\t${2:throw e}\n} finally {\n\t${3:// Something else}\n}\n${0}"
+    ],
+    "description": "Creates a try-catch-finally statement"
+  }
+}
