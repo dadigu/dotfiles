@@ -50,7 +50,7 @@ function app_raycast_map(toEach: ToEvent[] = []) {
  */
 function open_apps_map(toEach: ToEvent[] = []) {
   const keyMap = {
-    t: 'WezTerm',
+    t: 'Ghostty',
     b: 'Zen Browser',
     v: 'Ferdium',
     c: 'Visual Studio Code',
