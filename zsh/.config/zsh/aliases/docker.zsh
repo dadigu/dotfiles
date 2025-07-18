@@ -41,13 +41,19 @@ function dlf-fn {
     docker logs -f --tail="$tail_len" "$container_id"
 }
 
-# Exectute command inside docker container
+# Execute command inside docker container
 # Defaults to logging you into container
 # Usage: dex-fn <containerName> <optional: command>
 function dex-fn {
-	container_name=$1
-    command=${2:-/bin/sh}
-    docker exec -it "$container_name" "$command"
+    container_name=$1
+    shift  # Remove the first argument, which is the container name
+    if [ "$#" -eq 0 ]; then
+        # No command provided, default to shell
+        docker exec -it "$container_name" /bin/sh
+    else
+        # Command provided, execute it through a shell
+        docker exec -it "$container_name" /bin/sh -c "$*"
+    fi
 }
 
 # Run docker tail on multiple containers and open in tmux session
