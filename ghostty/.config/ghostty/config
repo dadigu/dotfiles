@@ -1,4 +1,5 @@
 # ghostty +show-config --default --docs
+# reload config: cmd+shift+,
 
 background = #24273A
 
@@ -20,3 +21,8 @@ cursor-invert-fg-bg = true
 window-vsync = true
 
 confirm-close-surface = false
+
+# Quick terminal
+keybind = global:°=toggle_quick_terminal
+quick-terminal-position = top
+quick-terminal-screen = mouse
