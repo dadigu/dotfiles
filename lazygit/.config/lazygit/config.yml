@@ -31,10 +31,45 @@ gui:
   # showFileTree: false
   switchTabsWithPanelJumpKeys: true
 git:
+  autoForwardBranches: none
   paging:
     colorArg: always
     pager: diff-so-fancy
-# git:
-#   paging:
-#     colorArg: always
-#     pager: delta --dark --paging=never
+customCommands:
+  - key: <c-g>
+    description: "Github pull requests"
+    commandMenu:
+      - key: n
+        command: "gh pr create --fill --web --base {{.Form.Branch}} --label {{.Form.Label}}"
+        context: "global"
+        description: "Create pull request on Github"
+        loadingText: "Creating pull reques on Github"
+        prompts:
+          - type: "input"
+            title: "Which branch?"
+            key: "Branch"
+            suggestions:
+              preset: 'branches'
+          - type: 'input'
+            title: 'Choose label'
+            key: 'Label'
+            initialValue: "feature"
+            suggestions:
+              command: "gh label list --json name --jq '.[].name'"
+      - key: l
+        command: "gh dash"
+        context: "global"
+        output: "terminal"
+        description: "View pull requests (gh-dash)"
+  - key: X
+    description: "Various commands"
+    commandMenu:
+      - key: p
+        command: "git fetch -p"
+        context: "global"
+        description: "Fetch (and prune)"
+        loadingText: "Fetching"
+        prompts:
+          - type: "confirm"
+            title: "Fetch and Prune?"
+            body: "Are you sure?"
