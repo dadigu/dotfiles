@@ -130,8 +130,9 @@ ctrl + lalt - r : yabai --restart-service
 # shift + lalt - space : sketchybar --bar hidden=toggle
 
 # App Shortcuts
-rcmd - t : open /Applications/WezTerm.app
+rcmd - t : open /Applications/Ghostty.app
 rcmd - b : open /Applications/Zen\ Browser.app
 rcmd - c : open /Applications/Visual\ Studio\ Code.app
-rcmd - g : open /Applications/Fork.app
 rcmd - f : open /Applications/Ferdium.app
+rcmd - d : open /Applications/Figma.app
+rcmd - m : open /Applications/Spotify.app
