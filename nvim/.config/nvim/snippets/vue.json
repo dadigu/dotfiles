@@ -1,0 +1,6 @@
+{
+  "Template tag": {
+    "prefix": "tpl",
+    "body": "<template ${1}>${2}</template>"
+  }
+}
