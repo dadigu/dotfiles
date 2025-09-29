@@ -33,7 +33,7 @@ update() {
     PADDING=0
 
     if [ "${repo}" = "" ] && [ "${title}" = "" ]; then
-      repo="Note"
+      repo="Github"
       title="No new notifications"
     fi 
     case "${type}" in
@@ -80,6 +80,7 @@ update() {
   sketchybar -m "${args[@]}" > /dev/null
 
   if [ $COUNT -gt $PREV_COUNT ] 2>/dev/null || [ "$SENDER" = "forced" ]; then
+    afplay /System/Library/Sounds/Morse.aiff
     sketchybar --animate tanh 15 --set github.bell label.y_offset=5 label.y_offset=0
   fi
 }
@@ -93,8 +94,8 @@ case "$SENDER" in
   ;;
   # "mouse.entered") popup on
   # ;;
-  # "mouse.exited"|"mouse.exited.global") popup off
-  # ;;
+  "mouse.exited"|"mouse.exited.global") popup off
+  ;;
   "mouse.clicked") popup toggle
   ;;
 esac
