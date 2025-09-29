@@ -15,7 +15,7 @@ macos-titlebar-style = hidden
 macos-option-as-alt = right
 
 # Look => and feel
-theme = catppuccin-macchiato
+theme = Catppuccin Macchiato
 mouse-hide-while-typing = true
 cursor-invert-fg-bg = true
 window-vsync = true
