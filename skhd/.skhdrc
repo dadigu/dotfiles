@@ -136,3 +136,7 @@ rcmd - c : open /Applications/Visual\ Studio\ Code.app
 rcmd - f : open /Applications/Ferdium.app
 rcmd - d : open /Applications/Figma.app
 rcmd - m : open /Applications/Spotify.app
+hyper - 1 : open /Applications/Ghostty.app
+hyper - 2 : open /Applications/Visual\ Studio\ Code.app
+hyper - 3 : open /Applications/Zen\ Browser.app
+hyper - 4 : open /Applications/Ferdium.app
