@@ -2,141 +2,159 @@
 # Inspiration
 # https://github.com/FelixKratz/dotfiles
 # #######################################
- 
+
 # Toggle between bsp and stack layout
-shift + lalt - space : yabai -m space --layout "$(yabai -m query --spaces --space | jq -r 'if .type == "bsp" then "stack" else "bsp" end')"
+shift + lalt - space : yabai -m space --layout "$(yabai -m query --spaces --space | jq -r 'if .type == "bsp" then "stack" else "bsp" end')" # Toggle layout bsp/stack
+alt - t : yabai -m space --layout "$(yabai -m query --spaces --space | jq -r 'if .type == "bsp" then "stack" else "bsp" end')" # Toggle layout bsp/stack
 
-# Navigate between spaces: lalt - {1..6}
-lalt - 1    : yabai -m space --focus 1
-lalt - 2    : yabai -m space --focus 2
-lalt - 3    : yabai -m space --focus 3
-lalt - 4    : yabai -m space --focus 4
-lalt - 5    : yabai -m space --focus 5
-lalt - 6    : yabai -m space --focus 6
+# Navigate between spaces
+lalt - 1    : yabai -m space --focus 1 # Go to space 1
+lalt - 2    : yabai -m space --focus 2 # Go to space 2
+lalt - 3    : yabai -m space --focus 3 # Go to space 3
+lalt - 4    : yabai -m space --focus 4 # Go to space 4
+lalt - 5    : yabai -m space --focus 5 # Go to space 5
+lalt - 6    : yabai -m space --focus 6 # Go to space 6
 
-# Cycle spaces on current display: ctrl + lalt + {n, p}
-ctrl + lalt - n  : id="$(yabai -m query --spaces --display | jq 'sort_by(.index) | reverse | .[map(."has-focus") | index(true) - 1].index')" \
-                   && yabai -m space --focus "${id}"
-ctrl + lalt - p : id="$(yabai -m query --spaces --display | jq 'sort_by(.index) | .[map(."has-focus") | index(true) - 1].index')" \
-                   && yabai -m space --focus "${id}"
+# Cycle all spaces
+# lalt - tab           :   yabai -m space --focus next || yabai -m space --focus first # Cycle all spaces forward
+# lalt + shift - tab   :   yabai -m space --focus prev || yabai -m space --focus last # Cycle all spaces backwards
 
-# Send window to space: lalt + shift + {1..6}
-lalt + shift - 1    :   yabai -m window --space 1
-lalt + shift - 2    :   yabai -m window --space 2
-lalt + shift - 3    :   yabai -m window --space 3
-lalt + shift - 4    :   yabai -m window --space 4
-lalt + shift - 5    :   yabai -m window --space 5
-lalt + shift - 6    :   yabai -m window --space 6
+# Cycle spaces on current display
+lalt - tab          : id="$(yabai -m query --spaces --display | jq 'sort_by(.index) | reverse | .[map(."has-focus") | index(true) - 1].index')" \
+                        && yabai -m space --focus "${id}" # Cycle spaces on current display forward
+lalt + shift - tab  : id="$(yabai -m query --spaces --display | jq 'sort_by(.index) | .[map(."has-focus") | index(true) - 1].index')" \
+                        && yabai -m space --focus "${id}" # Cycle spaces on current display backwards
 
-# Cycle spaces: ctrl ctrl + lalt + {n, p}
-ctrl + lalt - n   :   yabai -m space --focus next || yabai -m space --focus first
-ctrl + lalt - p   :   yabai -m space --focus prev || yabai -m space --focus last
+# Send window to space
+lalt + shift - 1    :   yabai -m window --space 1 # Send window to space 1
+lalt + shift - 2    :   yabai -m window --space 2 # Send window to space 2
+lalt + shift - 3    :   yabai -m window --space 3 # Send window to space 3
+lalt + shift - 4    :   yabai -m window --space 4 # Send window to space 4
+lalt + shift - 5    :   yabai -m window --space 5 # Send window to space 5
+lalt + shift - 6    :   yabai -m window --space 6 # Send window to space 6
 
 # Create new space
-ctrl + alt - t  : yabai -m space --create
-# ctrl + alt - c  : yabai -m space --create
-ctrl + alt - c : yabai -m space --create && \
-             index="$(yabai -m query --spaces --display | jq 'map(select(.["is-native-fullscreen"] == false))[-1].index')" && \
-             yabai -m space --focus "${index}"
+ctrl + alt - t      : yabai -m space --create # Create new space
+ctrl + alt - c      : yabai -m space --create && \
+                        index="$(yabai -m query --spaces --display | jq 'map(select(.["is-native-fullscreen"] == false))[-1].index')" && \
+                        yabai -m space --focus "${index}" # Create space and go to it
 
 # Destroy space
-ctrl + alt - x  : yabai -m space --destroy
+ctrl + alt - x  : yabai -m space --destroy # Delete current space
 
-# Window Navigation (through display borders): lalt - {h, j, k, l}
-lalt - h    : yabai -m window --focus west  || yabai -m display --focus west
-lalt - j    : yabai -m window --focus south || yabai -m display --focus south
-lalt - k    : yabai -m window --focus north || yabai -m display --focus north
-lalt - l    : yabai -m window --focus east  || yabai -m display --focus east
+# Window Navigation (through display borders)
+lalt - h    : yabai -m window --focus west  || yabai -m display --focus west # Navigate window left
+lalt - j    : yabai -m window --focus south || yabai -m display --focus south # Navigate window down
+lalt - k    : yabai -m window --focus north || yabai -m display --focus north # Navigate window up
+lalt - l    : yabai -m window --focus east  || yabai -m display --focus east # Navigate window right
 
-# Cycle through windows with in a space in bps and stack layout: lalt - {n, p}
+# Cycle through windows with in a space in bps and stack layout
 lalt - n:                                 \
   yabai -m window --focus stack.next ||   \
   yabai -m window --focus stack.first ||  \
   yabai -m window --focus next ||         \
-  yabai -m window --focus first
+  yabai -m window --focus first # Cycle windows in current space
 lalt - p: \
   yabai -m window --focus stack.prev ||   \
   yabai -m window --focus stack.last ||   \
   yabai -m window --focus prev ||         \
-  yabai -m window --focus last
+  yabai -m window --focus last # Cycle windows backwards in current space
 
-# Cycle through spaces (screens): shift + lalt - {n, p}
-shift + lalt - n : yabai -m display --focus next || yabai -m display --focus first
-shift + lalt - p : yabai -m display --focus prev || yabai -m display --focus last
+# Cycle through spaces (screens)
+shift + lalt - n    : yabai -m display --focus next || yabai -m display --focus first # Cycle screens
+shift + lalt - p    : yabai -m display --focus prev || yabai -m display --focus last # Cycle screens backwards
 
-# Float / Unfloat window: lalt - space
+# Float / Unfloat window
 lalt - space : \
     yabai -m window --toggle float;\
-    yabai -m window --grid 8:8:1:1:6:6
+    yabai -m window --grid 8:8:1:1:6:6 # Toggle float
 
-# Toggle maximise on current focused window: lalt - m
-lalt - m : yabai -m window --toggle zoom-fullscreen
+# Toggle maximise on current focused window
+alt - m : yabai -m window --toggle zoom-fullscreen # Toggle maximize on current window
 
-# Toggle maximize on all windows in current space: shift + lalt - m
-shift + lalt - m : yabai -m query --windows --space | jq '.[].id' | xargs -I{} yabai -m window {} --toggle zoom-fullscreen
+# Toggle maximize on all windows in current space
+# shift + lalt - m : yabai -m query --windows --space | jq '.[].id' | xargs -I{} yabai -m window {} --toggle zoom-fullscreen
 
-# Toggle maximise with in parent on current focused window: lalt - f 
-lalt - f : yabai -m window --toggle zoom-parent
+# Toggle maximise with in parent on current focused window
+lalt - f : yabai -m window --toggle zoom-parent # Maximize in focued window with-in parent
 
-# Moving windows in and across spaces
-# And moving floating windows around: shift + lalt - {h, j, k, l}
+# Moving windows in and across spaces and moving floating windows around
 shift + lalt - h :  yabai -m window --move rel:-100:0 || \
                     yabai -m window --warp west || \
-                    $(yabai -m window --display west && yabai -m display --focus west && yabai -m window --warp last) || \
+                    $(yabai -m window --display west && yabai -m display --focus west && yabai -m window --warp last) || \ # Move window left
                     # yabai -m window --move rel:-10:0
 
 shift + lalt - j :  yabai -m window --move rel:0:100 || \
                     yabai -m window --warp south || \
-                    $(yabai -m window --display south && yabai -m display --focus south) || \
+                    $(yabai -m window --display south && yabai -m display --focus south) || \ # Move window down
                     # yabai -m window --move rel:0:10
 
 shift + lalt - k :  yabai -m window --move rel:0:-100 || \
                     yabai -m window --warp north || \
-                    $(yabai -m window --display north && yabai -m display --focus north) || \
+                    $(yabai -m window --display north && yabai -m display --focus north) || \ # Move window up
                     # yabai -m window --move rel:0:-10
 
 shift + lalt - l :  yabai -m window --move rel:100:0 || \
                     yabai -m window --warp east || \
-                    $(yabai -m window --display east && yabai -m display --focus east && yabai -m window --warp first) || \
+                    $(yabai -m window --display east && yabai -m display --focus east && yabai -m window --warp first) || \ # Move window right
                     # yabai -m window --move rel:10:0
 
-# Toggle split orientation of the selected windows node: shift + lalt - s
-shift + lalt - s : yabai -m window --toggle split
+# Toggle split orientation of the selected windows node
+lalt - s : yabai -m window --toggle split # Toggle split orientation
 
 # Mirror Space on X Axis
-shift + lalt - x : yabai -m space --mirror x-axis
+lalt - x : yabai -m space --mirror x-axis # Mirror split X-axis
 
 # Mirror Space on Y Axis
-shift + lalt - y : yabai -m space --mirror y-axis
+lalt - y : yabai -m space --mirror y-axis # Mirror split Y-axis
 
 # Rotate layout clockwise
-shift + lalt - r : yabai -m space --rotate 270
+lalt - r : yabai -m space --rotate 270 # Rotate layout
 
-# Resize windows: ctrl + lalt - {h, j, k, l}
-ctrl + lalt - h    : yabai -m window --resize right:-100:0 || yabai -m window --resize left:-100:0
-ctrl + lalt - j    : yabai -m window --resize bottom:0:100 || yabai -m window --resize top:0:100
-ctrl + lalt - k    : yabai -m window --resize bottom:0:-100 || yabai -m window --resize top:0:-100
-ctrl + lalt - l    : yabai -m window --resize right:100:0 || yabai -m window --resize left:100:0
+# Resize windows
+ctrl + lalt - h    : yabai -m window --resize right:-100:0 || yabai -m window --resize left:-100:0 # Resize window left
+ctrl + lalt - j    : yabai -m window --resize bottom:0:100 || yabai -m window --resize top:0:100 # Resize window down
+ctrl + lalt - k    : yabai -m window --resize bottom:0:-100 || yabai -m window --resize top:0:-100 # Resize window up
+ctrl + lalt - l    : yabai -m window --resize right:100:0 || yabai -m window --resize left:100:0 # Resize window right
 
-# Equalize size of windows: ctrl + lalt - e
-ctrl + lalt - e : yabai -m space --balance
+# Grow focused window (both axes)
+lalt - up : \
+    yabai -m window --resize left:-30:0  || true; \
+    yabai -m window --resize right:30:0  || true; \
+    yabai -m window --resize top:0:-30   || true; \
+    yabai -m window --resize bottom:0:30 || true # Grow focused window
+
+# Shrink focused window (both axes) — exact inverse
+lalt - down : \
+    yabai -m window --resize left:30:0   || true; \
+    yabai -m window --resize right:-30:0 || true; \
+    yabai -m window --resize top:0:30    || true; \
+    yabai -m window --resize bottom:0:-30 || true # Shrink focused window
+
+
+# Equalize size of windows: ctrl + lalt - 0
+alt - 0 : yabai -m space --balance # Equalize window size
 
 # stop/start/restart yabai
-ctrl + lalt - q : yabai --stop-service
-ctrl + lalt - s : yabai --start-service
-ctrl + lalt - r : yabai --restart-service
+ctrl + lalt - q : yabai --stop-service # Yabai stop
+ctrl + lalt - s : yabai --start-service # Yabai start
+ctrl + lalt - r : yabai --restart-service # Yabai restart
 
 # Toggle sketchybar
 # shift + lalt - space : sketchybar --bar hidden=toggle
 
 # App Shortcuts
-rcmd - t : open /Applications/Ghostty.app
-rcmd - b : open /Applications/Zen\ Browser.app
-rcmd - c : open /Applications/Visual\ Studio\ Code.app
-rcmd - f : open /Applications/Ferdium.app
-rcmd - d : open /Applications/Figma.app
-rcmd - m : open /Applications/Spotify.app
-hyper - 1 : open /Applications/Ghostty.app
-hyper - 2 : open /Applications/Visual\ Studio\ Code.app
-hyper - 3 : open /Applications/Zen\ Browser.app
-hyper - 4 : open /Applications/Ferdium.app
+alt + shift - return : open /Applications/Ghostty.app # Open terminal
+alt + shift - b : open /Applications/Vivaldi.app/ # Open browser
+alt + shift - v : open /Applications/Visual\ Studio\ Code.app # Open code editor
+alt + shift - g : open /Applications/Ferdium.app # Open chat
+alt + shift - m : open /Applications/Spotify.app # Open Spotify
+alt + shift - f : open /Applications/Figma.app # Open Figma
+alt + shift - o : open /Applications/Obsidian.app # Open notes
+alt + shift - c : open -a "Calendar" # Open calendar
+alt + shift - e : open raycast://extensions/raycast/emoji-symbols/search-emoji-symbols # Open emoji picker
+rcmd - m : open /Applications/Spotify.app # Open music
+hyper - 1 : open /Applications/Ghostty.app # Open terminal
+hyper - 2 : open /Applications/Visual\ Studio\ Code.app # Open code editor
+hyper - 3 : open /Applications/Vivaldi.app/ # Open browser
+hyper - 4 : open /Applications/Ferdium.app # Open chat
