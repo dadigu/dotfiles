@@ -1,43 +1,45 @@
-" Disable compatibility with vi which can cause unexpected issues.
+" General defaults
+syntax enable
+colorscheme habamax
+nnoremap q: <nop>
 set nocompatible
-
-" Enable type file detection. Vim will be able to try to detect the type of file in use.
-filetype on
-
-" Enable plugins and load plugin for the detected file type.
-filetype plugin on
-
-" Load an indent file for the detected file type.
-filetype indent on
-
-" Enable syntax highlighting
-syntax on
-
-" Highlight cursor line underneath the cursor horizontally.
-"set cursorline
-
-" Highlight cursor line underneath the cursor vertically.
-"set cursorcolumn
-
-" Show line numbers
-set number  
-
-" Status bar
-set laststatus=2
-
-" Enable text wrap
-set wrap
-
+set relativenumber
+set nohlsearch
+set smartcase
+set ignorecase
+set incsearch
+set autoindent
+set nowrap
+set nobackup
+set noswapfile
+set autoread
 set wildmenu
+set encoding=utf8
+set backspace=2
+set scrolloff=4
 
-" Set shift width to 4 spaces
-set shiftwidth=4
+let &t_SI = "\e[6 q"
+let &t_EI = "\e[2 q"
 
-" Set tab widht to 4 columns
-set tabstop=4
+" Status line enhancements
+set laststatus=2
+set statusline=%f%m%=%y\ %{strlen(&fenc)?&fenc:'none'}\ %l:%c\ %L\ %P
+hi StatusLine cterm=NONE ctermbg=black ctermfg=brown
+hi StatusLineNC cterm=NONE ctermbg=black ctermfg=darkgray
 
-" Use space characters instead of tabs
-set expandtab
+" Commenting blocks of code.
+augroup commenting_blocks_of_code
+  autocmd!
+  autocmd FileType c,cpp,go,scala,ts,js   let b:comment_leader = '// '
+  autocmd FileType sh,ruby,python   	  let b:comment_leader = '# '
+  autocmd FileType conf,fstab       	  let b:comment_leader = '# '
+  autocmd FileType lua              	  let b:comment_leader = '-- '
+  autocmd FileType vim              	  let b:comment_leader = '" '
+augroup END
+noremap <silent> gc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
+noremap <silent> ,cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 
-" Use highligting when doing a search
-set hlsearch
+" Language specific indentation.
+filetype plugin indent on
+autocmd Filetype make,go,c,cpp setlocal noexpandtab tabstop=4 shiftwidth=4
+autocmd Filetype html,js,css setlocal expandtab tabstop=2 shiftwidth=2
