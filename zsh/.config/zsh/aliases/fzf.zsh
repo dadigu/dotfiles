@@ -28,6 +28,86 @@ fzfalias() {
 }
 
 skhd_fzf_cheatsheet() {
+    local len
+    len=$(awk '
+        function clean(s) { gsub(/\t+/, " ", s); gsub(/[[:space:]]+/, " ", s); gsub(/^ +| +$/, "", s); return s }
+        /^[[:space:]]*#/ || /^[[:space:]]*$/ { next }
+        /^[^#].*:/ { split($0, a, ":"); s=clean(a[1]); if (length(s) > l) l = length(s) }
+        END { print l }
+    ' ~/.skhdrc)
+
+    awk -v slen="$len" '
+        function clean(s) { gsub(/\t+/, " ", s); gsub(/[[:space:]]+/, " ", s); gsub(/^ +| +$/, "", s); return s }
+        function rtrim_bs(s) { return substr(s, 1, length(s)-1) }
+
+        # Flush a completed binding
+        function print_binding() {
+            desc = ""
+            last = last_line
+
+            # Find a trailing inline comment and extract it
+            # We look for the last "#" that starts a comment (ignore "#!" shebang-like and keep it simple here)
+            if (match(last, /(^|[[:space:]])#[[:space:]]*.*$/)) {
+                # Extract after the "#"
+                desc = substr(last, RSTART + RLENGTH - length(substr(last, RSTART)))
+                # Remove leading up to and including "#" and following spaces
+                sub(/^([[:space:]]*)#([[:space:]]*)/, "", desc)
+                desc = clean(desc)
+            }
+
+            out = (desc != "" ? desc : clean(action))
+            printf("%-*s  %s\n", slen, shortcut, out)
+        }
+
+        /^[[:space:]]*#/ || /^[[:space:]]*$/ { next }
+
+        /^[^#].*:/ {
+            if (inblock) { print_binding(); inblock=0 }
+
+            split($0, a, ":")
+            shortcut = clean(a[1])
+
+            rest = substr($0, index($0, ":") + 1)
+            rest = clean(rest)
+
+            action = ""
+            last_line = ""
+
+            if (rest ~ /\\$/) {
+                action = action (action==""?"":" ") rtrim_bs(rest)
+                last_line = rest
+                inblock = 1
+            } else {
+                action = clean(rest)
+                last_line = rest
+                print_binding()
+                inblock = 0
+            }
+            next
+        }
+
+        inblock {
+            line = clean($0)
+            if (line ~ /\\$/) {
+                action = action " " rtrim_bs(line)
+                last_line = line
+            } else {
+                action = action " " line
+                last_line = line
+                print_binding()
+                inblock = 0
+            }
+            next
+        }
+
+        END {
+            if (inblock) print_binding()
+        }
+    ' ~/.skhdrc | fzf
+}
+
+
+skhd_fzf_cheatsheet_backup() {
   local len
   len=$(awk '
     function clean(s) { gsub(/\t+/, " ", s); gsub(/[[:space:]]+/, " ", s); gsub(/^ +| +$/, "", s); return s }
