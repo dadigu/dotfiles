@@ -65,13 +65,32 @@ function open_apps_map(toEach: ToEvent[] = []) {
   })
 
   return { notification, manipulators }
+}
 
+function yabai_map(toEach: ToEvent[] = []) {
+  const keyMap = {
+    e: {
+      desc: 'Create new space',
+      cmd: 'yabai -m space --create && yabai -m space --focus recent',
+    },
+  }
+
+  const notification = 'Yabai: \n\n' + Object.entries(keyMap)
+    .map(([key, { desc }]) => `${key} → ${desc}`)
+    .join('\n')
+
+  const manipulators = withMapper(keyMap)((k, { cmd }) => {
+    return map(k).to$(cmd).to(toEach)
+  })
+
+  return { notification, manipulators }
 }
 
 function nested_leader() {
   const escape = [toUnsetVar('leader'), toRemoveNotificationMessage('leader')]
   const raycast = app_raycast_map(escape)
   const openApps = open_apps_map(escape)
+  const yabai = yabai_map(escape)
 
   const sublayerMap = {
     r: {
@@ -83,6 +102,11 @@ function nested_leader() {
       desc: 'Open apps',
       notification: openApps.notification,
       manipulators: openApps.manipulators
+    },
+    y: {
+      desc: 'Yabai',
+      notification: yabai.notification,
+      manipulators: yabai.manipulators,
     }
   }
 
@@ -154,7 +178,8 @@ const rules = [
   ]),
 
   rule('Homerow mods').manipulators([
-    mapHomerowModKey('f', 'left_option')
+    mapHomerowModKey('f', 'left_option'),
+    // mapHomerowModKey('h', 'left_option')
     // map('f').toIfHeldDown('left_option').toIfAlone('f').parameters({
     //   'basic.to_if_held_down_threshold_milliseconds': 150,
     // })
