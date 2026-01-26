@@ -26,3 +26,4 @@ confirm-close-surface = false
 keybind = global:°=toggle_quick_terminal
 quick-terminal-position = top
 quick-terminal-screen = mouse
+quick-terminal-size = 55%
