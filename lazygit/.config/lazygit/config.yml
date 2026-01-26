@@ -2,9 +2,10 @@ gui:
   branchColorPatterns:
     '^conflicts/': '#e78284'
     '^hotfix/': '#ea999c'
-    '^feature/': '#a6d189'
+    '^feature/': '#7dc4e4'
     '^bugfix/': '#e5c890'
     '^chore/': '#8caaee'
+    '^release/': '#a6da95'
   theme:
     activeBorderColor:
       - '#ef9f76'
@@ -36,17 +37,39 @@ git:
     colorArg: always
     pager: diff-so-fancy
 customCommands:
+  - key: o
+    context: 'localBranches'
+    command: 'gh pr view --web {{.SelectedLocalBranch.Name }}'
+    description: 'Open PR for selected branch (web)'
+    loadingText: "Opening pr in browser..."
+  - key: O
+    command: "gh pr create --fill --web --base {{.Form.Branch}} --label {{.Form.Label}}"
+    context: 'localBranches'
+    description: "Create pull request on Github (web)"
+    loadingText: "Creating pull reques on Github..."
+    prompts:
+      - type: "input"
+        title: "Choose BASE branch"
+        key: "Branch"
+        suggestions:
+          preset: 'branches'
+      - type: 'input'
+        title: 'Choose label'
+        key: 'Label'
+        initialValue: "feature"
+        suggestions:
+          command: "gh label list --json name --jq '.[].name'"
   - key: <c-g>
     description: "Github pull requests"
     commandMenu:
       - key: n
         command: "gh pr create --fill --web --base {{.Form.Branch}} --label {{.Form.Label}}"
         context: "global"
-        description: "Create pull request on Github"
-        loadingText: "Creating pull reques on Github"
+        description: "Create pull request on Github (web)"
+        loadingText: "Creating pull reques on Github..."
         prompts:
           - type: "input"
-            title: "Which branch?"
+            title: "Choose BASE branch"
             key: "Branch"
             suggestions:
               preset: 'branches'
@@ -56,6 +79,10 @@ customCommands:
             initialValue: "feature"
             suggestions:
               command: "gh label list --json name --jq '.[].name'"
+      - key: o
+        context: 'localBranches'
+        command: 'gh pr view --web {{.SelectedLocalBranch.Name }}'
+        description: 'Open PR for selected branch (web)'
       - key: l
         command: "gh dash"
         context: "global"
