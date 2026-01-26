@@ -107,7 +107,8 @@ dktail-fn() {
     fi
 }
 
-alias dk=oxker
+# alias dk=oxker
+alias dk=lazydocker
 alias dkps='docker ps'
 alias dkpsa='docker ps -a'
 alias dkip=dkip-fn
