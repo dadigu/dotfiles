@@ -4,6 +4,7 @@ local map = vim.keymap.set
 -- Add any additional keymaps here
 if vim.g.vscode then
   -- VSCode extension
+  require("config.keymaps_vscode")
 else
   -- ordinary Neovim
   map("i", "jj", "<ESC>", { silent = true })
