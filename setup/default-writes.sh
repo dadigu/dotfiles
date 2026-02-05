@@ -3,14 +3,20 @@
 # Disable “natural” (Lion-style) scrolling
 defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 
+# Disable press and hold accent menu
+defaults write NSGlobalDomain "ApplePressAndHoldEnabled" -bool false
+
+# Enable keyboard navigation
+defaults write NSGlobalDomain AppleKeyboardUIMode -int 2
+
 # Enable tap-clicking
-sudo defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
-sudo defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
-sudo defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
 # Keyboard repeat settings
-defaults write -g InitialKeyRepeat -int 10          # normal minimum is 15 (225 ms)
-defaults write -g KeyRepeat -int 1                  # normal minimum is 2 (30 ms)
+defaults write -g InitialKeyRepeat -int 10 # normal minimum is 15 (225 ms)
+defaults write -g KeyRepeat -int 1         # normal minimum is 2 (30 ms)
 
 # Use scroll gesture with the Ctrl (^) modifier key to zoom
 defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
@@ -42,7 +48,6 @@ defaults write com.apple.screencapture disable-shadow -bool true
 # Enable subpixel font rendering on non-Apple LCDs
 defaults write NSGlobalDomain AppleFontSmoothing -int 2
 
-
 ##########
 # Finder #
 ##########
@@ -62,7 +67,10 @@ defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true
 defaults write com.apple.finder DisableAllAnimations -bool true
 
 # Use list view in all Finder windows by default
-# Four-letter codes for the other view modes: `icnv`, `clmv`, `Flwv`
+# List View - `Nlsv`
+# Icon View - `icnv`
+# Column view - `clmv`
+# Gallery view - `Flwv`
 defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
 
 # Enable snap-to-grid for desktop icons
@@ -93,9 +101,6 @@ defaults write NSGlobalDomain com.apple.springing.delay -float .5
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 
-# Empty Trash securely by default
-defaults write com.apple.finder EmptyTrashSecurely -bool true
-
 # Keep folders on top when sorting by name
 defaults write com.apple.finder "_FXSortFoldersFirst" -bool "true"
 
@@ -104,33 +109,34 @@ defaults write com.apple.finder "_FXSortFoldersFirst" -bool "true"
 ####################################
 
 # Set auto hide option on dock
-defaults write com.apple.dock "autohide" -bool "true"
+defaults write com.apple.dock "autohide" -bool true
 
 # Set dock icon size
-defaults write com.apple.dock "tilesize" -float "18"
+defaults write com.apple.dock "tilesize" -float 16
 
 # Set dock magnified size
-defaults write com.apple.dock "largesize" -float "26"
+defaults write com.apple.dock "largesize" -float 16
 
 # Set dock magnification on
-defaults write com.apple.dock "magnification" -bool "true"
+defaults write com.apple.dock "magnification" -bool false
 
 # Set autohide dock delay
-defaults write com.apple.dock "autohide-time-modifier" -float "0.25"
+defaults write com.apple.dock "autohide-time-modifier" -float 0.0
 
 # Set autohide timing for dock to appear
-defaults write com.apple.dock "autohide-delay" -float "1.5" 
+defaults write com.apple.dock "autohide-delay" -float 0.0
 
 # Wipe all (default) app icons from the Dock
 # This is only really useful when setting up a new Mac, or if you don’t use
 # the Dock to launch apps.
 defaults write com.apple.dock "persistent-apps" -array
+defaults write com.apple.dock persistent-others -array
 
 # Don’t automatically rearrange Spaces based on most recent use
-defaults write com.apple.dock "mru-spaces" -bool "false"
+defaults write com.apple.dock "mru-spaces" -bool false
 
 # Don't show recent apps in the dock
-defaults write com.apple.dock "show-recents" -bool "false"
+defaults write com.apple.dock "show-recents" -bool false
 
 ################
 # Time Machine #
@@ -138,7 +144,6 @@ defaults write com.apple.dock "show-recents" -bool "false"
 
 # Prevent Time Machine from prompting to use new hard drives as backup volume
 defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
-
 
 ###############################################################################
 # Kill affected applications                                                  #
