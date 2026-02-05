@@ -1,4 +1,4 @@
-[manager]
+[mgr]
 append_keymap = [
     { on = [ "g", "q" ],       run = "cd ~/dotfiles",                   desc = "Goto dotfiles" },
     { on = [ "g", "?" ],       run = "help",                            desc = "View help" },
