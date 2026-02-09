@@ -122,6 +122,7 @@ casks=(
   imageoptim
   iterm2
   karabiner-elements
+  leader-key
   linear-linear
   lunar
   logi-options-plus
@@ -132,6 +133,7 @@ casks=(
   onyx
   raycast
   sf-symbols
+  shortcat
   spotify
   sublime-text
   tableplus
