@@ -1,192 +1,197 @@
 {
-  "actions": [
+  "actions" : [
     {
-      "actions": [
+      "actions" : [
         {
-          "key": "enter",
-          "type": "application",
-          "value": "/Applications/Ghostty.app"
+          "key" : "enter",
+          "type" : "application",
+          "value" : "/Applications/Ghostty.app"
         },
         {
-          "key": "b",
-          "type": "application",
-          "value": "/Applications/Vivaldi.app"
+          "key" : "b",
+          "type" : "application",
+          "value" : "/Applications/Vivaldi.app"
         },
         {
-          "key": "g",
-          "type": "application",
-          "value": "/Applications/Ferdium.app"
+          "key" : "g",
+          "type" : "application",
+          "value" : "/Applications/Ferdium.app"
         },
         {
-          "key": "v",
-          "type": "application",
-          "value": "/Applications/Visual Studio Code.app"
+          "key" : "v",
+          "type" : "application",
+          "value" : "/Applications/Visual Studio Code.app"
         },
         {
-          "key": "f",
-          "type": "application",
-          "value": "/Applications/Figma.app"
+          "key" : "f",
+          "type" : "application",
+          "value" : "/Applications/Figma.app"
         },
         {
-          "key": "m",
-          "type": "application",
-          "value": "/Applications/Spotify.app"
+          "key" : "m",
+          "type" : "application",
+          "value" : "/Applications/Spotify.app"
         },
         {
-          "key": "c",
-          "type": "application",
-          "value": "/System/Applications/Calendar.app"
+          "key" : "c",
+          "type" : "application",
+          "value" : "/System/Applications/Calendar.app"
         },
         {
-          "key": "o",
-          "type": "application",
-          "value": "/Applications/Obsidian.app"
+          "key" : "o",
+          "type" : "application",
+          "value" : "/Applications/Obsidian.app"
         },
         {
-          "key": "e",
-          "type": "application",
-          "value": "/Applications/Microsoft Outlook.app"
+          "key" : "e",
+          "type" : "application",
+          "value" : "/Applications/Microsoft Outlook.app"
         }
       ],
-      "iconPath": "/System/Applications/App Store.app",
-      "key": "o",
-      "label": "Open apps",
-      "type": "group"
+      "iconPath" : "/System/Applications/App Store.app",
+      "key" : "o",
+      "label" : "Open apps",
+      "type" : "group"
     },
     {
-      "actions": [
+      "actions" : [
         {
-          "key": "e",
-          "label": "Emoji picker",
-          "type": "url",
-          "value": "open -g raycast://extensions/raycast/emoji-symbols/search-emoji-symbols"
+          "iconPath" : "face.smiling.inverse",
+          "key" : "e",
+          "label" : "Emoji picker",
+          "type" : "url",
+          "value" : "open -g raycast://extensions/raycast/emoji-symbols/search-emoji-symbols"
         },
         {
-          "key": "t",
-          "label": "Tada!",
-          "type": "url",
-          "value": "raycast://confetti"
+          "iconPath" : "party.popper",
+          "key" : "t",
+          "label" : "Tada!",
+          "type" : "url",
+          "value" : "raycast://confetti"
         },
         {
-          "key": "v",
-          "label": "Open camera",
-          "type": "url",
-          "value": "raycast://extensions/raycast/system/open-camera"
+          "iconPath" : "web.camera",
+          "key" : "v",
+          "label" : "Open camera",
+          "type" : "url",
+          "value" : "raycast://extensions/raycast/system/open-camera"
         },
         {
-          "key": "c",
-          "label": "Color picker",
-          "type": "url",
-          "value": "raycast://extensions/thomas/color-picker/pick-color"
+          "iconPath" : "eyedropper.halffull",
+          "key" : "c",
+          "label" : "Color picker",
+          "type" : "url",
+          "value" : "raycast://extensions/thomas/color-picker/pick-color"
         },
         {
-          "key": "o",
-          "label": "OCR",
-          "type": "url",
-          "value": "raycast://extensions/huzef44/screenocr/recognize-text"
+          "iconPath" : "character.textbox",
+          "key" : "o",
+          "label" : "OCR",
+          "type" : "url",
+          "value" : "raycast://extensions/huzef44/screenocr/recognize-text"
         }
       ],
-      "iconPath": "/Applications/Raycast.app",
-      "key": "r",
-      "label": "Raycast",
-      "type": "group"
+      "iconPath" : "/Applications/Raycast.app",
+      "key" : "r",
+      "label" : "Raycast",
+      "type" : "group"
     },
     {
-      "actions": [
+      "actions" : [
         {
-          "iconPath": "camera",
-          "key": "c",
-          "label": "Capture & Copy",
-          "type": "url",
-          "value": "cleanshot://capture-area?action=copy"
+          "iconPath" : "camera",
+          "key" : "c",
+          "label" : "Capture & Copy",
+          "type" : "url",
+          "value" : "cleanshot://capture-area?action=copy"
         },
         {
-          "iconPath": "camera.fill",
-          "key": "s",
-          "label": "Capture full screen & Copy",
-          "type": "url",
-          "value": "      cmd: 'open -g cleanshot://capture-fullscreen?action=copy',\n      cmd: 'open -g cleanshot://capture-fullscreen?action=copy',\ncleanshot://capture-fullscreen?action=copy"
+          "iconPath" : "camera.fill",
+          "key" : "s",
+          "label" : "Capture full screen & Copy",
+          "type" : "url",
+          "value" : "      cmd: 'open -g cleanshot://capture-fullscreen?action=copy',\n      cmd: 'open -g cleanshot://capture-fullscreen?action=copy',\ncleanshot://capture-fullscreen?action=copy"
         },
         {
-          "iconPath": "document.on.clipboard",
-          "key": "a",
-          "label": "Annotate from clipboard",
-          "type": "url",
-          "value": "cleanshot://open-from-clipboard"
+          "iconPath" : "document.on.clipboard",
+          "key" : "a",
+          "label" : "Annotate from clipboard",
+          "type" : "url",
+          "value" : "cleanshot://open-from-clipboard"
         },
         {
-          "iconPath": "video",
-          "key": "r",
-          "label": "Screen recording",
-          "type": "url",
-          "value": "cleanshot://record-screen"
+          "iconPath" : "video",
+          "key" : "r",
+          "label" : "Screen recording",
+          "type" : "url",
+          "value" : "cleanshot://record-screen"
         },
         {
-          "iconPath": "arrowshape.turn.up.backward.badge.clock",
-          "key": "h",
-          "label": "Open history",
-          "type": "url",
-          "value": "cleanshot://open-history"
+          "iconPath" : "arrowshape.turn.up.backward.badge.clock",
+          "key" : "h",
+          "label" : "Open history",
+          "type" : "url",
+          "value" : "cleanshot://open-history"
         },
         {
-          "iconPath": "apple.meditate.square.stack",
-          "key": "u",
-          "label": "All-in-one-mode",
-          "type": "url",
-          "value": "cleanshot://all-in-one"
+          "iconPath" : "apple.meditate.square.stack",
+          "key" : "u",
+          "label" : "All-in-one-mode",
+          "type" : "url",
+          "value" : "cleanshot://all-in-one"
         },
         {
-          "iconPath": "gearshape",
-          "key": ",",
-          "label": "Open settings",
-          "type": "url",
-          "value": "cleanshot://open-settings"
+          "iconPath" : "gearshape",
+          "key" : ",",
+          "label" : "Open settings",
+          "type" : "url",
+          "value" : "cleanshot://open-settings"
         }
       ],
-      "iconPath": "/Applications/CleanShot X.app",
-      "key": "c",
-      "label": "CleanshotX",
-      "type": "group"
+      "iconPath" : "/Applications/CleanShot X.app",
+      "key" : "c",
+      "label" : "CleanshotX",
+      "type" : "group"
     },
     {
-      "actions": [
+      "actions" : [
         {
-          "key": "d",
-          "label": "Downloads",
-          "type": "folder",
-          "value": "/Users/dadigudjonsson/Downloads"
+          "key" : "d",
+          "label" : "Downloads",
+          "type" : "folder",
+          "value" : "/Users/dadigudjonsson/Downloads"
         },
         {
-          "key": "c",
-          "label": "Development",
-          "type": "folder",
-          "value": "/Users/dadigudjonsson/Development"
+          "key" : "c",
+          "label" : "Development",
+          "type" : "folder",
+          "value" : "/Users/dadigudjonsson/Development"
         },
         {
-          "key": "e",
-          "label": "Desktop",
-          "type": "folder",
-          "value": "/Users/dadigudjonsson/Desktop"
+          "key" : "e",
+          "label" : "Desktop",
+          "type" : "folder",
+          "value" : "/Users/dadigudjonsson/Desktop"
         },
         {
-          "key": "t",
-          "label": "Test files",
-          "type": "folder",
-          "value": "/Users/dadigudjonsson/Library/Mobile Documents/com~apple~CloudDocs/Development/Test Files"
+          "key" : "t",
+          "label" : "Test files",
+          "type" : "folder",
+          "value" : "/Users/dadigudjonsson/Library/Mobile Documents/com~apple~CloudDocs/Development/Test Files"
         }
       ],
-      "iconPath": "/System/Library/CoreServices/Finder.app",
-      "key": "g",
-      "label": "Places",
-      "type": "group"
+      "iconPath" : "/System/Library/CoreServices/Finder.app",
+      "key" : "g",
+      "label" : "Places",
+      "type" : "group"
     },
     {
-      "iconPath": "gearshape",
-      "key": ",",
-      "label": "Settings",
-      "type": "url",
-      "value": "leaderkey://settings"
+      "iconPath" : "gearshape",
+      "key" : ",",
+      "label" : "Settings",
+      "type" : "url",
+      "value" : "leaderkey://settings"
     }
   ],
-  "type": "group"
+  "type" : "group"
 }
