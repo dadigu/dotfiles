@@ -60,6 +60,7 @@ yabai -m rule --add app="^Raycast$" manage=off
 yabai -m rule --add app="^AppCleaner$" manage=off
 yabai -m rule --add app="^Lunar$" manage=off
 yabai -m rule --add app="^ImageOptim$" manage=off
+yabai -m rule --add app="^Leader Key$" manage=off
 yabai -m rule --add app="^Logi.*" manage=off
 yabai -m rule --add app="^CleanShot X$" sticky=off layer=above manage=off
 
