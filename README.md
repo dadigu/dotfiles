@@ -47,6 +47,7 @@ Useful commands:
 * aerospace
 * ghostty
 * lazygit
+* leader-key[^1]
 * nvim
 * sketchybar
 * skhd
@@ -57,6 +58,8 @@ Useful commands:
 * yazi
 * zellij
 * zsh
+
+[^1]: Change config directory to `~/.config/leader-key` in app settings
 
 ## Post-install manual steps (macOS)
 
