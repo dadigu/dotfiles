@@ -2,6 +2,7 @@ import {
   FromAndToKeyCode,
   layer,
   map,
+  mapSimultaneous,
   ModifierKeyCode,
   rule,
   writeToProfile,
@@ -55,6 +56,13 @@ const rules = [
     map('m', 'left_command').to('m')
   ]),
 
+  rule('Left cmd + Right cmd to fn + F12').manipulators([
+    mapSimultaneous([
+      { key_code: 'left_command' },
+      { key_code: 'right_command' },
+    ]).to('f12', 'fn')
+  ]),
+
   // rule('Overwrites: Apple keyboards',
   //   ifDevice([{ vendor_id: 76 }, { vendor_id: 1452 }]),
   // ).manipulators([
@@ -63,7 +71,7 @@ const rules = [
   // ]),
 
   motion_layer(),
-  nestedLeader()
+  // nestedLeader()
 ]
 
 const profileName = 'Default profile'
