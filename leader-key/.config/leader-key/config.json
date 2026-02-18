@@ -46,6 +46,11 @@
           "key" : "e",
           "type" : "application",
           "value" : "/Applications/Microsoft Outlook.app"
+        },
+        {
+          "key" : "x",
+          "type" : "application",
+          "value" : "/Applications/Codex.app"
         }
       ],
       "iconPath" : "/System/Applications/App Store.app",
