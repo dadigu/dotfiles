@@ -35,7 +35,7 @@ git:
   autoForwardBranches: none
   paging:
     colorArg: always
-    pager: diff-so-fancy
+    pager: delta --dark --paging=never
 customCommands:
   - key: o
     context: 'localBranches'
