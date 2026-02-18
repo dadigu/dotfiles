@@ -40,7 +40,7 @@ alias ssh-fix="ssh-add -K ~/.ssh/id_rsa"
 alias weather="curl -4 https://wttr.in/\?M"
 
 # Improved touch - creates folder path
-mtouch () {
+mkdir_touch () {
     if [ $# -lt 1 ]; then
         echo "Missing argument";
         return 1;
@@ -74,3 +74,4 @@ function y() {
 
 # Display most used commands based of history
 alias zsh_stats="history 1 | awk '{CMD[\$2]++;count++;} END { for (a in CMD) print CMD[a] \" \" CMD[a]/count*100 \"% \" a;}' | grep -v './' | column -c3 -s ' ' -t | sort -nr | nl | head -n10"
+alias mktouch=mkdir_touch # Recursively create parent directories and touch file
