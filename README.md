@@ -45,6 +45,7 @@ Useful commands:
 ### Available packages
 
 * aerospace
+* bat
 * ghostty
 * lazygit
 * leader-key[^1]

@@ -84,6 +84,7 @@ formulae=(
   fd
   fzf
   gh
+  git-delta
   jq
   lazydocker
   lazygit
@@ -108,6 +109,7 @@ formulae=(
 casks=(
   1password
   appcleaner
+  beekeeper-studio
   brave-browser
   bruno
   cleanshot
