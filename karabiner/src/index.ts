@@ -42,12 +42,15 @@ const rules = [
     map('caps_lock').toHyper().toIfAlone('escape'),
   ]),
 
-  rule('Homerow mods').manipulators([
+  rule('Homerow mods [SCGA]').manipulators([
+    // mapHomerowModKey('a', 'left_shift'),
+    // mapHomerowModKey('s', 'left_control'),
+    // mapHomerowModKey('d', 'left_command'),
     mapHomerowModKey('f', 'left_option'),
-    // mapHomerowModKey('h', 'left_option')
-    // map('f').toIfHeldDown('left_option').toIfAlone('f').parameters({
-    //   'basic.to_if_held_down_threshold_milliseconds': 150,
-    // })
+    // mapHomerowModKey('j', 'right_option')
+    // mapHomerowModKey('k', 'right_command')
+    // mapHomerowModKey('l', 'right_control')
+    // mapHomerowModKey('æ', 'right_shift')
   ]),
 
   rule('Overwrites: All').manipulators([
