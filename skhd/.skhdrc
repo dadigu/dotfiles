@@ -4,7 +4,6 @@
 # #######################################
 
 # Toggle between bsp and stack layout
-shift + lalt - space : yabai -m space --layout "$(yabai -m query --spaces --space | jq -r 'if .type == "bsp" then "stack" else "bsp" end')" # Toggle layout bsp/stack
 alt - t : yabai -m space --layout "$(yabai -m query --spaces --space | jq -r 'if .type == "bsp" then "stack" else "bsp" end')" # Toggle layout bsp/stack
 
 # Navigate between spaces
@@ -37,7 +36,7 @@ lalt + shift - 6    :   yabai -m window --space 6 # Send window to space 6
 ctrl + alt - t      : yabai -m space --create # Create new space
 ctrl + alt - c      : yabai -m space --create && \
                         index="$(yabai -m query --spaces --display | jq 'map(select(.["is-native-fullscreen"] == false))[-1].index')" && \
-                        yabai -m space --focus "${index}" # Create space and go to it
+                        yabai -m space --focus "${index}" # Create new space and go to it
 
 # Destroy space
 ctrl + alt - x  : yabai -m space --destroy # Delete current space
@@ -69,14 +68,11 @@ lalt - space : \
     yabai -m window --toggle float;\
     yabai -m window --grid 8:8:1:1:6:6 # Toggle float
 
-# Toggle maximise on current focused window
-alt - m : yabai -m window --toggle zoom-fullscreen # Toggle maximize on current window
+# Toggle maximise on current window
+alt + shift - m : yabai -m window --toggle zoom-fullscreen # Maximize current window
 
-# Toggle maximize on all windows in current space
-# shift + lalt - m : yabai -m query --windows --space | jq '.[].id' | xargs -I{} yabai -m window {} --toggle zoom-fullscreen
-
-# Toggle maximise with in parent on current focused window
-lalt - f : yabai -m window --toggle zoom-parent # Maximize in focued window with-in parent
+# Toggle maximise on current window with in parent
+lalt - m : yabai -m window --toggle zoom-parent # Maximize current window relative to parent
 
 # Moving windows in and across spaces and moving floating windows around
 shift + lalt - h :  yabai -m window --move rel:-100:0 || \
@@ -153,8 +149,3 @@ alt + shift - f : open /Applications/Figma.app # Open Figma
 alt + shift - o : open /Applications/Obsidian.app # Open notes
 alt + shift - c : open -a "Calendar" # Open calendar
 alt + shift - e : open raycast://extensions/raycast/emoji-symbols/search-emoji-symbols # Open emoji picker
-rcmd - m : open /Applications/Spotify.app # Open music
-hyper - 1 : open /Applications/Ghostty.app # Open terminal
-hyper - 2 : open /Applications/Visual\ Studio\ Code.app # Open code editor
-hyper - 3 : open /Applications/Vivaldi.app/ # Open browser
-hyper - 4 : open /Applications/Ferdium.app # Open chat
