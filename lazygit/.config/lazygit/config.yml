@@ -26,16 +26,20 @@ gui:
       - '#c6d0f5'
     searchingActiveBorderColor:
       - '#e5c890'
-
   authorColors:
     '*': '#babbf1'
   # showFileTree: false
   switchTabsWithPanelJumpKeys: true
 git:
   autoForwardBranches: none
-  paging:
-    colorArg: always
-    pager: delta --dark --paging=never
+  pagers:
+    - pager: delta --paging=never
+      colorArg: always
+    - pager: delta --paging=never --line-numbers
+      colorArg: always
+    - pager: delta --paging=never --side-by-side
+      colorArg: always
+    - pager: diff-so-fancy
 customCommands:
   - key: o
     context: 'localBranches'
