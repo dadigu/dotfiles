@@ -1,0 +1,33 @@
+format = """
+$directory\
+$git_branch\
+$git_status\
+$line_break\
+$character"""
+
+[character]
+success_symbol = "[❯](purple)"
+error_symbol = "[❯](bold red)"
+
+[directory]
+style = "blue"
+truncation_length = 3
+truncate_to_repo = true
+
+[git_branch]
+format = "[$branch]($style)"
+style = "dimmed"
+
+[git_status]
+format = "([$modified $ahead_behind $conflicted]($style))"
+style = "cyan"
+conflicted = '[CONFLICTED](bold red)'
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+untracked = "?"
+modified = '[*](dimmed)'
+staged = "+"
+renamed = "»"
+deleted = "✘"
+
