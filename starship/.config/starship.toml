@@ -5,6 +5,10 @@ $git_status\
 $line_break\
 $character"""
 
+right_format = """
+$cmd_duration\
+"""
+
 [character]
 success_symbol = "[❯](purple)"
 error_symbol = "[❯](bold red)"
@@ -13,6 +17,12 @@ error_symbol = "[❯](bold red)"
 style = "blue"
 truncation_length = 3
 truncate_to_repo = true
+
+[cmd_duration]
+min_time = 3000
+format = "[$duration]($style)"
+style = "bold yellow"
+show_milliseconds = false
 
 [git_branch]
 format = "[$branch]($style)"
