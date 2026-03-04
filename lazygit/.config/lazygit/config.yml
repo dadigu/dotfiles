@@ -104,3 +104,6 @@ customCommands:
           - type: "confirm"
             title: "Fetch and Prune?"
             body: "Are you sure?"
+keybinding:
+  files:
+    toggleTreeView: "'"
