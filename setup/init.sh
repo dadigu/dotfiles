@@ -90,9 +90,9 @@ formulae=(
   lazygit
   lazysql
   neovim
+  nmap
   nvm
   ripgrep
-  speedtest-cli
   sketchybar
   starship
   stow
