@@ -174,6 +174,9 @@ brew_install FelixKratz/formulae/sketchybar
 # Oh My Posh (author-maintained tap)
 brew_install jandedobbeleer/oh-my-posh/oh-my-posh
 
+# DiffNav
+brew_install dlvhdr/formulae/diffnav
+
 # Brew clean up
 brew cleanup || true
 
