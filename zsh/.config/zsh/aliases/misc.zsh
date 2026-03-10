@@ -7,6 +7,9 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 
+cx() { cd "$@" && la }
+fcd() { cd "$(find . -type d -not -path '*/.*' | fzf)" && la; }
+
 # Go to dotfiles
 alias dot='cd $DOTFILES_PATH'
 
