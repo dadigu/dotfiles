@@ -17,8 +17,10 @@ vicmd_symbol = "[N](bold yellow)"
 
 [directory]
 style = "blue"
-truncation_length = 3
-truncate_to_repo = true
+repo_root_style = "bold purple"
+before_repo_root_style = "blue"
+truncation_length = 2
+truncate_to_repo = false
 
 [cmd_duration]
 min_time = 3000
