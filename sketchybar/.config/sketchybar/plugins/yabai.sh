@@ -1,53 +1,46 @@
 #!/bin/bash
 
-window_state() {
-	source "$CONFIG_DIR/colors.sh"
-	source "$CONFIG_DIR/icons.sh"
+source "$CONFIG_DIR/colors.sh"
+source "$CONFIG_DIR/icons.sh"
 
-	SPACE=$(yabai -m query --spaces --space)
-	WINDOW=$(yabai -m query --windows --window)
-	STACK_INDEX=$(echo "$WINDOW" | jq '.["stack-index"]')
+SPACE=$(yabai -m query --spaces --space 2>/dev/null)
+WINDOW=$(yabai -m query --windows --window 2>/dev/null)
+STACK_INDEX=$(echo "$WINDOW" | jq -r '.["stack-index"]' 2>/dev/null)
+SPACE_TYPE=$(echo "$SPACE" | jq -r '.type' 2>/dev/null)
+IS_FLOATING=$(echo "$WINDOW" | jq -r '.["is-floating"]' 2>/dev/null)
 
-	COLOR=$BAR_BORDER_COLOR
-	ICON=""
+COLOR=$BAR_BORDER_COLOR
+ICON=""
+LABEL=""
 
-	if [ "$(echo "$WINDOW" | jq '.["is-floating"]')" = "true" ]; then
-		ICON=$YABAI_FLOAT
-		COLOR=$RED
-	elif [ "$(echo "$SPACE" | jq '.["type"]' | cut -d'"' -f 2)" = "float" ]; then
-		ICON=$YABAI_FLOAT
-		COLOR=$RED
-		# LABEL="float"
-	elif [ "$(echo "$SPACE" | jq '.["type"]' | cut -d'"' -f 2)" = "bsp" ]; then
-		ICON=$YABAI_GRID
-		COLOR=$BLUE
-		# LABEL="bsp"
-	elif [[ $STACK_INDEX -gt 0 ]]; then
-		LAST_STACK_INDEX=$(yabai -m query --windows --window stack.last | jq '.["stack-index"]')
-		ICON=$YABAI_STACK
-		LABEL="$(printf "[%s/%s]" "$STACK_INDEX" "$LAST_STACK_INDEX")"
-		COLOR=$MAGENTA
-	fi
+if [ "$IS_FLOATING" = "true" ]; then
+	ICON=$YABAI_FLOAT
+	COLOR=$RED
+elif [ "$SPACE_TYPE" = "float" ]; then
+	ICON=$YABAI_FLOAT
+	COLOR=$RED
+elif [ "$SPACE_TYPE" = "bsp" ]; then
+	ICON=$YABAI_GRID
+	COLOR=$BLUE
+elif [ "${STACK_INDEX:-0}" -gt 0 ]; then
+	LAST_STACK_INDEX=$(yabai -m query --windows --window stack.last | jq -r '.["stack-index"]')
+	ICON=$YABAI_STACK
+	LABEL="[$STACK_INDEX/$LAST_STACK_INDEX]"
+	COLOR=$MAGENTA
+fi
 
-	args=(--set "$NAME" icon.color="$COLOR")
+args=(--set "$NAME" icon.color="$COLOR")
 
-	[ -z "$LABEL" ] && args+=(label.width=0) ||
-		args+=(
-			label="$LABEL"
-			# label.width=40
-			label.color="$COLOR"
-			# label.font.size=12.0
-			# label.y_offset=5
-			# label.padding_left=-1
-		)
+if [ -n "$ICON" ]; then
+	args+=(icon="$ICON" icon.width=30)
+else
+	args+=(icon.width=0)
+fi
 
-	[ -z "$ICON" ] && args+=(icon.width=0) ||
-		args+=(
-			icon="$ICON" 
-			icon.width=30
-		)
+if [ -n "$LABEL" ]; then
+	args+=(label="$LABEL" label.color="$COLOR")
+else
+	args+=(label.width=0)
+fi
 
-	sketchybar -m "${args[@]}"
-}
-
-window_state
+sketchybar -m "${args[@]}"
