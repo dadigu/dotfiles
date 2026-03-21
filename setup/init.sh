@@ -216,6 +216,6 @@ if [[ "$answer" =~ ^[Yy]$ ]]; then
     echo "Skip: destination exists and is not empty: $dest"
   else
     mkdir -p "$(dirname "$dest")"
-    git clone --recurse-submodules https://github.com/dadigu/dotfiles.git "$dest"
+    git clone --recurse-submodules git@github.com:dadigu/dotfiles.git "$dest"
   fi
 fi
