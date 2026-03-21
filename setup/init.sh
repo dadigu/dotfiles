@@ -74,6 +74,7 @@ fonts=(
   font-fira-code-nerd-font
   font-hack-nerd-font
   font-sf-pro
+  font-space-mono-nerd-font
 )
 
 formulae=(
@@ -91,7 +92,6 @@ formulae=(
   lazysql
   neovim
   nmap
-  nvm
   ripgrep
   sketchybar
   starship
@@ -113,6 +113,10 @@ casks=(
   brave-browser
   bruno
   cleanshot
+  claude
+  claude-code
+  codex
+  codex-app
   docker
   displaylink
   ferdium
@@ -174,11 +178,26 @@ brew_install FelixKratz/formulae/sketchybar
 # Oh My Posh (author-maintained tap)
 brew_install jandedobbeleer/oh-my-posh/oh-my-posh
 
+# Taproom
+brew_install gromgit/brewtils/taproom
+
 # DiffNav
 brew_install dlvhdr/formulae/diffnav
 
 # Brew clean up
 brew cleanup || true
+
+# Install nvm and node
+echo "Install NVM"
+mkdir -p ~/.nvm
+NVM_LATEST=$(curl -s https://api.github.com/repos/nvm-sh/nvm/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
+curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/${NVM_LATEST}/install.sh" | bash
+
+# Load nvm and install latest LTS Node
+echo "Install Node (latest lts)"
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+nvm install --lts
 
 # default-writes
 echo Setting default-writes...
