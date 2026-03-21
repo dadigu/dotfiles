@@ -52,6 +52,7 @@ Useful commands:
 * nvim
 * sketchybar
 * skhd
+* starship
 * tmux
 * vim
 * wezterm
