@@ -5,3 +5,6 @@
 *.zcompcache
 node_modules
 .env
+*.so
+*.so.dSYM
+sketchybar/.config/sketchybar/helpers/lua
