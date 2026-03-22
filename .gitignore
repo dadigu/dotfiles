@@ -4,3 +4,4 @@
 *.zsh_sessions
 *.zcompcache
 node_modules
+.env
