@@ -7,7 +7,7 @@ cpu=(
     update_freq=15
     popup.align=right
     script="$PLUGIN_DIR/system.sh"
-    label.font="$FONT:Semibold:12.0"
+    label.font="$FONT:Semibold:14.0"
     padding_right=0
 )
 
@@ -15,7 +15,7 @@ ram=(
     icon=􀫦
     popup.align=right
     script="$PLUGIN_DIR/system.sh"
-    label.font="$FONT:Semibold:12.0"
+    label.font="$FONT:Semibold:14.0"
     padding_left=0
 )
 

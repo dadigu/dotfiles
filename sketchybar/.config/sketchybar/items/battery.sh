@@ -2,6 +2,7 @@
 
 battery=(
 	script="$PLUGIN_DIR/battery.sh"
+	popup.align=right
 	padding_right=0
 	padding_left=0
 	update_freq=120
@@ -17,7 +18,8 @@ status_bracket=(
 
 sketchybar --add item battery right \
 	--set battery "${battery[@]}" \
-	--subscribe battery power_source_change system_woke
+	--subscribe battery power_source_change system_woke \
+	                    mouse.clicked mouse.exited.global
 
 sketchybar --add bracket status volume battery \
 	--set status "${status_bracket[@]}"

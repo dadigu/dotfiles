@@ -30,3 +30,7 @@ BATTERY_50=􀺶
 BATTERY_25=􀛩
 BATTERY_0=􀛪
 BATTERY_CHARGING=􀢋
+
+# App font icons (require sketchybar-app-font)
+GITHUB_ICON=":git_hub:"
+LINEAR_ICON=":linear:"

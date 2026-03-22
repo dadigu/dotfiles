@@ -5,11 +5,10 @@ source "$CONFIG_DIR/icons.sh"
 
 github_bell=(
   update_freq=180
-  icon.font="$FONT:Bold:15.0"
-  icon=$BELL
-  icon.color=$BLUE
-  label=$LOADING
-  label.highlight_color=$BLUE
+  icon.font="sketchybar-app-font:Regular:16.0"
+  icon=$GITHUB_ICON
+  icon.color=$WHITE
+  label="..."
   popup.align=right
   script="$PLUGIN_DIR/github_notifications.sh"
 )

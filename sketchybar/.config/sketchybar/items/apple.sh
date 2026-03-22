@@ -13,7 +13,7 @@ apple_logo=(
   icon.padding_left=10
   icon.padding_right=10
   label.drawing=off
-  click_script="sketchybar --set \$NAME popup.drawing=toggle"
+  click_script="$CONFIG_DIR/helpers/popup_dismiss.sh apple.logo; sketchybar --set \$NAME popup.drawing=toggle"
   script="$PLUGIN_DIR/apple.sh"
 )
 

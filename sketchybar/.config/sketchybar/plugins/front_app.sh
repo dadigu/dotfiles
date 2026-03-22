@@ -53,6 +53,6 @@ popup() {
 
 case "$SENDER" in
   "front_app_switched") update ;;
-  "mouse.clicked") popup ;;
+  "mouse.clicked") "$CONFIG_DIR/helpers/popup_dismiss.sh" front_app; popup ;;
   "mouse.exited.global") sketchybar --set front_app popup.drawing=off ;;
 esac

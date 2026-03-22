@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Source dotfiles .env for API keys (gitignored)
+[ -f "$HOME/dotfiles/.env" ] && source "$HOME/dotfiles/.env"
+
 export FONT="SF Pro"
 
 ### Catppuccin Macchiato

@@ -86,25 +86,20 @@ render_page() {
     HEADER_LABEL="$TYPE_LABEL"
     [ -n "$REASON_LABEL" ] && HEADER_LABEL="· $REASON_LABEL"
 
-    # Pull headers up to reduce between-notification gap (except first)
-    local H_OFFSET=0
-    [ $SHOWN -gt 1 ] && H_OFFSET=8
-
     # Header: type icon + repo + reason
     args+=(
       --add item github.n.h$SHOWN popup.github.bell
       --set github.n.h$SHOWN
             icon="$TYPE_ICON $owner/$repo"
-            icon.font="$FONT:Bold:12.0"
+            icon.font="$FONT:Bold:15.0"
             icon.color="$TYPE_COLOR"
             icon.padding_left=10
             icon.padding_right=0
             label="$HEADER_LABEL"
-            label.font="$FONT:Regular:10.0"
+            label.font="$FONT:Regular:12.0"
             label.color="$GREY"
             label.padding_left=6
             label.padding_right=10
-            y_offset=$H_OFFSET
             background.color=0x00000000
             background.border_width=0
             click_script="open '$URL'; sketchybar --set github.bell popup.drawing=off"
@@ -120,7 +115,7 @@ render_page() {
             label.color="$TITLE_COLOR"
             label.padding_left=22
             label.padding_right=10
-            y_offset=16
+            y_offset=15
             background.color=0x00000000
             background.border_width=0
             click_script="open '$URL'; sketchybar --set github.bell popup.drawing=off"
@@ -163,7 +158,7 @@ render_page() {
           y_offset=8
           background.color=0x00000000
           background.border_width=0
-          click_script="gh api -X PUT notifications > /dev/null 2>&1; sketchybar --set github.bell popup.drawing=off icon=$BELL icon.color=$BLUE label=0 --remove '/github.n\..*/'"
+          click_script="gh api -X PUT notifications > /dev/null 2>&1; sketchybar --set github.bell popup.drawing=off icon.color=$GREY label.drawing=off --remove '/github.n\..*/'"
     --add item github.n.open popup.github.bell
     --set github.n.open
           icon="􀆅 Open on GitHub"
@@ -185,7 +180,7 @@ update() {
   NOTIFICATIONS="$(gh api notifications 2>/dev/null)"
 
   if [ -z "$NOTIFICATIONS" ] || [ "$NOTIFICATIONS" = "[]" ]; then
-    sketchybar --set $NAME icon=$BELL icon.color=$BLUE label="0" \
+    sketchybar --set $NAME icon.color=$GREY label.drawing=off \
                --remove '/github.n\..*/'
     rm -f "$CACHE_FILE" "$PAGE_FILE"
     return
@@ -198,9 +193,9 @@ update() {
   echo 1 > "$PAGE_FILE"
 
   if echo "$NOTIFICATIONS" | jq -r '.[].subject.title' | grep -qiE '(deprecat|break|broke|urgent|critical)'; then
-    sketchybar --set github.bell icon=$BELL_DOT icon.color=$RED label="$COUNT"
+    sketchybar --set github.bell icon.color=$RED label="$COUNT" label.drawing=on
   else
-    sketchybar --set github.bell icon=$BELL_DOT icon.color=$BLUE label="$COUNT"
+    sketchybar --set github.bell icon.color=$BLUE label="$COUNT" label.drawing=on
   fi
 
   render_page
@@ -214,6 +209,6 @@ update() {
 case "$SENDER" in
   "routine"|"forced") update ;;
   "page") render_page ;;
-  "mouse.clicked") sketchybar --set $NAME popup.drawing=toggle ;;
+  "mouse.clicked") "$CONFIG_DIR/helpers/popup_dismiss.sh" "$NAME"; sketchybar --set $NAME popup.drawing=toggle ;;
   "mouse.exited.global") sketchybar --set $NAME popup.drawing=off ;;
 esac

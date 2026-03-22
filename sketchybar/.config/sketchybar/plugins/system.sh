@@ -286,13 +286,13 @@ case "$NAME" in
   "cpu")
     case "$SENDER" in
       "routine"|"forced") update ;;
-      "mouse.clicked") cpu_popup ;;
+      "mouse.clicked") "$CONFIG_DIR/helpers/popup_dismiss.sh" cpu; cpu_popup ;;
       "mouse.exited.global") sketchybar --set cpu popup.drawing=off ;;
     esac
     ;;
   "ram")
     case "$SENDER" in
-      "mouse.clicked") ram_popup ;;
+      "mouse.clicked") "$CONFIG_DIR/helpers/popup_dismiss.sh" ram; ram_popup ;;
       "mouse.exited.global") sketchybar --set ram popup.drawing=off ;;
     esac
     ;;

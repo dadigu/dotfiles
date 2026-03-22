@@ -97,6 +97,6 @@ update() {
 
 case "$SENDER" in
   "routine"|"forced") update ;;
-  "mouse.clicked") sketchybar --set "$NAME" popup.drawing=toggle ;;
+  "mouse.clicked") "$CONFIG_DIR/helpers/popup_dismiss.sh" "$NAME"; sketchybar --set "$NAME" popup.drawing=toggle ;;
   "mouse.exited.global") sketchybar --set "$NAME" popup.drawing=off ;;
 esac

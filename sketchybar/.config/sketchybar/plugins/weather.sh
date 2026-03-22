@@ -18,13 +18,28 @@ get_icon() {
   esac
 }
 
-update() {
-  DATA=$(curl -s --max-time 10 "wttr.in/?format=j1" 2>/dev/null)
+WEATHER_CACHE="/tmp/sketchybar_weather.json"
 
-  # Validate response
-  if [ -z "$DATA" ] || ! echo "$DATA" | jq -e '.current_condition[0]' >/dev/null 2>&1; then
-    sketchybar --set "$NAME" icon="􀇀" label="--"
-    return
+update() {
+  # Try up to 3 times (wttr.in sometimes returns null)
+  DATA=""
+  for i in 1 2 3; do
+    DATA=$(curl -s --max-time 10 "wttr.in/?format=j1" 2>/dev/null)
+    echo "$DATA" | jq -e '.current_condition[0]' >/dev/null 2>&1 && break
+    DATA=""
+    [ $i -lt 3 ] && sleep 2
+  done
+
+  # Fall back to cached data if fetch failed
+  if [ -z "$DATA" ]; then
+    if [ -f "$WEATHER_CACHE" ]; then
+      DATA=$(cat "$WEATHER_CACHE")
+    else
+      sketchybar --set "$NAME" icon="􀇀" label="--"
+      return
+    fi
+  else
+    echo "$DATA" > "$WEATHER_CACHE"
   fi
 
   # Current conditions for bar label
@@ -265,6 +280,6 @@ update() {
 
 case "$SENDER" in
   "routine"|"forced") update ;;
-  "mouse.clicked") sketchybar --set "$NAME" popup.drawing=toggle ;;
+  "mouse.clicked") "$CONFIG_DIR/helpers/popup_dismiss.sh" "$NAME"; sketchybar --set "$NAME" popup.drawing=toggle ;;
   "mouse.exited.global") sketchybar --set "$NAME" popup.drawing=off ;;
 esac
