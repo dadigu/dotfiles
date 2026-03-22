@@ -9,17 +9,12 @@ local cal = sbar.add("item", {
     padding_left = 8,
     font = {
       style = settings.font.style_map["Heavy"],
-      size = 13.0,
     },
   },
   label = {
     color = colors.white,
     padding_right = 8,
     align = "right",
-    font = {
-      style = settings.font.style_map["Semibold"],
-      size = 13.0,
-    },
   },
   position = "right",
   update_freq = 30,

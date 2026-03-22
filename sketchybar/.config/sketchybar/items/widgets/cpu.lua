@@ -15,7 +15,6 @@ local cpu = sbar.add("item", "widgets.cpu", {
   },
   label = {
     string = "??%",
-    font = { family = settings.font.numbers },
   },
 })
 

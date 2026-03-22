@@ -8,11 +8,6 @@ for i = 1, 10, 1 do
   local space = sbar.add("space", "space." .. i, {
     space = i,
     icon = {
-      font = {
-        family = settings.font.text,
-        style = settings.font.style_map["Heavy"],
-        size = 13.0,
-      },
       string = i,
       padding_left = 10,
       padding_right = 10,
@@ -30,7 +25,6 @@ for i = 1, 10, 1 do
     padding_left = 1,
     background = {
       color = colors.bg1,
-      height = 26,
     },
     click_script = "yabai -m space --focus " .. i,
   })

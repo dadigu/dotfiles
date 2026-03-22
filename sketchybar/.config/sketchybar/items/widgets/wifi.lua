@@ -6,10 +6,6 @@ local wifi = sbar.add("item", "widgets.wifi", {
   position = "right",
   icon = {
     string = icons.wifi.connected,
-    font = {
-      style = settings.font.style_map["Regular"],
-      size = 16.0,
-    },
   },
   label = { drawing = false },
   popup = { align = "center" },
@@ -20,45 +16,92 @@ local popup_width = 250
 local ssid = sbar.add("item", {
   position = "popup." .. wifi.name,
   icon = {
-    font = { style = settings.font.style_map["Bold"] },
     string = icons.wifi.router,
+    font = {
+      style = settings.font.style_map["Bold"]
+    },
   },
   width = popup_width,
   align = "center",
   label = {
-    font = { size = 15, style = settings.font.style_map["Bold"] },
+    font = {
+      size = settings.font.size.xl,
+      style = settings.font.style_map["Bold"]
+    },
     max_chars = 18,
     string = "????????????",
-  },
-  background = {
-    height = 2,
-    color = colors.grey,
-    y_offset = -15,
   },
 })
 
 local hostname = sbar.add("item", {
   position = "popup." .. wifi.name,
-  icon = { align = "left", string = "Hostname:", width = popup_width / 2 },
-  label = { max_chars = 20, string = "????????????", width = popup_width / 2, align = "right" },
+  icon = {
+    align = "left",
+    string = "Hostname:", width = popup_width / 2,
+    color = colors.grey,
+    font = {
+      size = settings.font.size.sm,
+    }
+  },
+  label = {
+    max_chars = 20,
+    string = "????????????",
+    width = popup_width / 2,
+    align = "right"
+  },
 })
 
 local ip = sbar.add("item", {
   position = "popup." .. wifi.name,
-  icon = { align = "left", string = "IP:", width = popup_width / 2 },
-  label = { string = "???.???.???.???", width = popup_width / 2, align = "right" },
+  icon = {
+    align = "left",
+    string = "IP:",
+    width = popup_width / 2,
+    color = colors.grey,
+    font = {
+      size = settings.font.size.sm,
+    }
+  },
+  label = {
+    string = "???.???.???.???",
+    width = popup_width / 2,
+    align = "right"
+  },
 })
 
 local mask = sbar.add("item", {
   position = "popup." .. wifi.name,
-  icon = { align = "left", string = "Subnet mask:", width = popup_width / 2 },
-  label = { string = "???.???.???.???", width = popup_width / 2, align = "right" },
+  icon = {
+    align = "left",
+    string = "Subnet mask:", width = popup_width / 2,
+    color = colors.grey,
+    font = {
+      size = settings.font.size.sm,
+    }
+  },
+  label = {
+    string = "???.???.???.???",
+    width = popup_width / 2,
+    align = "right"
+  },
 })
 
 local router = sbar.add("item", {
   position = "popup." .. wifi.name,
-  icon = { align = "left", string = "Router:", width = popup_width / 2 },
-  label = { string = "???.???.???.???", width = popup_width / 2, align = "right" },
+  icon = {
+    align = "left",
+    string = "Router:",
+    width = popup_width / 2,
+    color = colors.grey,
+    font = {
+      size = settings.font.size.sm,
+    }
+  },
+  label = {
+    string = "???.???.???.???",
+    width = popup_width / 2,
+    align = "right"
+  },
 })
 
 sbar.add("bracket", "widgets.wifi.bracket", { wifi.name }, {

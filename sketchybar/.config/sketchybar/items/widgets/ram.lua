@@ -15,7 +15,6 @@ local ram = sbar.add("item", "widgets.ram", {
   },
   label = {
     string = "??%",
-    font = { family = settings.font.numbers },
   },
 })
 

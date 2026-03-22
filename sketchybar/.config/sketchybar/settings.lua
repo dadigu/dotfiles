@@ -14,5 +14,12 @@ return {
       ["Heavy"] = "Heavy",
       ["Black"] = "Black",
     },
+    size = {
+      xs = 11,
+      sm = 12,
+      md = 13,
+      lg = 14,
+      xl = 16,
+    }
   },
 }

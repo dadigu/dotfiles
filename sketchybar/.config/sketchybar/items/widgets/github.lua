@@ -12,7 +12,7 @@ local github = sbar.add("item", "widgets.github", {
   label = { drawing = false },
   updates = "on",
   update_freq = 180,
-  popup = { align = "right" },
+  popup = { align = "center" },
 })
 
 sbar.add("bracket", "widgets.github.bracket", { github.name }, {
@@ -68,18 +68,49 @@ local function render_page()
     local header = info.label
     if reason ~= "" then header = header .. " · " .. reason end
 
+    -- Title item
     sbar.add("item", "github.n.h" .. i, {
       position = "popup." .. github.name,
-      icon = { string = info.icon .. " " .. n.owner .. "/" .. n.repo, font = { style = "Bold", size = 14 }, color = info.color, padding_left = 10 },
-      label = { string = header, font = { size = 11 }, color = colors.grey, padding_left = 6, padding_right = 10 },
-      background = { color = colors.transparent, border_width = 0 },
-      padding_left = 0, padding_right = 0,
+      icon = {
+        string = info.icon .. " " .. n.owner .. "/" .. n.repo,
+        font = {
+          style = settings.font.style_map['Bold'],
+          size = settings.font.size.lg
+        },
+        color = info.color,
+        padding_left = 10
+      },
+      label = {
+        string = header,
+        font = {
+          size = settings.font.size.xs
+        },
+        color = colors.grey,
+        padding_left = 6,
+        padding_right = 10
+      },
+      background = {
+        color = colors.transparent,
+        border_width = 0
+      },
+      padding_left = 0,
+      padding_right = 0,
       click_script = "open '" .. url .. "'; sketchybar --set " .. github.name .. " popup.drawing=off",
     })
+    -- Subtitle item
     sbar.add("item", "github.n.t" .. i, {
       position = "popup." .. github.name,
       icon = { drawing = false },
-      label = { string = title, font = { size = 12 }, color = colors.white, padding_left = 22, padding_right = 10 },
+      label = {
+        string = title,
+        font = {
+          style = settings.font.style_map["Semibold"],
+          size = settings.font.size.md
+        },
+        color = colors.white,
+        padding_left = 25,
+        padding_right = 10
+      },
       y_offset = 15,
       background = { color = colors.transparent, border_width = 0 },
       padding_left = 0, padding_right = 0,
@@ -90,8 +121,24 @@ local function render_page()
   if total_pages > 1 then
     sbar.add("item", "github.n.page", {
       position = "popup." .. github.name,
-      icon = { string = "Page " .. page .. "/" .. total_pages, font = { size = 11 }, color = colors.grey, padding_left = 10 },
-      label = { string = "Next 􀆊", font = { size = 11, style = "Semibold" }, color = colors.blue, padding_left = 8, padding_right = 10 },
+      icon = {
+        string = "Page " .. page .. "/" .. total_pages,
+        font = {
+          size = settings.font.size.xs,
+        },
+        color = colors.grey,
+        padding_left = 10
+      },
+      label = {
+        string = "Next 􀆊",
+        font = {
+          size = settings.font.size.xs,
+          style = settings.font.style_map['Semibold']
+        },
+        color = colors.blue,
+        padding_left = 8,
+        padding_right = 10
+      },
       y_offset = 8,
       background = { color = colors.transparent, border_width = 0 },
       click_script = "sketchybar --trigger github_next_page",
@@ -100,7 +147,14 @@ local function render_page()
 
   sbar.add("item", "github.n.open", {
     position = "popup." .. github.name,
-    icon = { string = "􀆅 Open on GitHub", font = { size = 11 }, color = colors.blue, padding_left = 10 },
+    icon = {
+      string = "􀆪  Open on GitHub",
+      font = {
+        size = settings.font.size.xs,
+      },
+      color = colors.blue,
+      padding_left = 10
+    },
     label = { drawing = false },
     y_offset = 8,
     background = { color = colors.transparent, border_width = 0 },

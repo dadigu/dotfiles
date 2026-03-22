@@ -12,7 +12,7 @@ local linear = sbar.add("item", "widgets.linear", {
   label = { drawing = false },
   updates = "on",
   update_freq = 180,
-  popup = { align = "right" },
+  popup = { align = "center" },
 })
 
 sbar.add("bracket", "widgets.linear.bracket", { linear.name }, {
@@ -81,21 +81,60 @@ local function render_page()
     if n.actor ~= "" then subtitle = n.actor .. " · " .. subtitle end
     subtitle = subtitle .. " · " .. relative_time(n.created)
 
+    -- Title item
     sbar.add("item", "linear.n.h" .. i, {
       position = "popup." .. linear.name,
-      icon = { string = info.icon, font = { style = "Bold", size = 14 }, color = info.color, padding_left = 10, padding_right = 6 },
-      label = { string = title, font = { style = "Semibold", size = 14 }, color = colors.white, padding_right = 10 },
-      background = { color = colors.transparent, border_width = 0 },
-      padding_left = 0, padding_right = 0,
+      icon = {
+        string = info.icon,
+        font = {
+          style = settings.font.style_map['Bold'],
+          size = settings.font.size.lg
+        },
+        color = info.color,
+        padding_left = 10,
+        padding_right = 6
+      },
+      label = {
+        string = title,
+        font = {
+          style = settings.font.style_map["Bold"],
+          size = settings.font.size.lg
+        },
+        color = colors.white,
+        padding_right = 10
+      },
+      background = {
+        color = colors.transparent,
+        border_width = 0
+      },
+      padding_left = 0,
+      padding_right = 0,
       click_script = "open '" .. (n.url or "") .. "'; sketchybar --set " .. linear.name .. " popup.drawing=off",
     })
+
+    -- Subtitle item
     sbar.add("item", "linear.n.t" .. i, {
       position = "popup." .. linear.name,
-      icon = { drawing = false },
-      label = { string = subtitle, font = { size = 12 }, color = colors.grey, padding_left = 26, padding_right = 10 },
+      icon = {
+        drawing = false
+      },
+      label = {
+        string = subtitle,
+        font = {
+          style = settings.font.style_map["Semibold"],
+          size = settings.font.size.md
+        },
+        color = colors.grey,
+        padding_left = 35,
+        padding_right = 10
+      },
       y_offset = 15,
-      background = { color = colors.transparent, border_width = 0 },
-      padding_left = 0, padding_right = 0,
+      background = {
+        color = colors.transparent,
+        border_width = 0
+      },
+      padding_left = 0,
+      padding_right = 0,
       click_script = "open '" .. (n.url or "") .. "'; sketchybar --set " .. linear.name .. " popup.drawing=off",
     })
   end
@@ -103,8 +142,24 @@ local function render_page()
   if total_pages > 1 then
     sbar.add("item", "linear.n.page", {
       position = "popup." .. linear.name,
-      icon = { string = "Page " .. page .. "/" .. total_pages, font = { size = 11 }, color = colors.grey, padding_left = 10 },
-      label = { string = "Next 􀆊", font = { size = 11, style = "Semibold" }, color = colors.magenta, padding_left = 8, padding_right = 10 },
+      icon = {
+        string = "Page " .. page .. "/" .. total_pages,
+        font = {
+          size = settings.font.size.xs,
+        },
+        color = colors.grey,
+        padding_left = 10
+      },
+      label = {
+        string = "Next 􀆊",
+        font = {
+          size = settings.font.size.xs,
+          style = settings.font.style_map['Semibold']
+        },
+        color = colors.magenta,
+        padding_left = 8,
+        padding_right = 10
+      },
       y_offset = 8,
       background = { color = colors.transparent, border_width = 0 },
       click_script = "sketchybar --trigger linear_next_page",
@@ -113,7 +168,14 @@ local function render_page()
 
   sbar.add("item", "linear.n.open", {
     position = "popup." .. linear.name,
-    icon = { string = "􀆅 Open Linear", font = { size = 11 }, color = colors.magenta, padding_left = 10 },
+    icon = {
+      string = "􀆪  Open on Linear",
+      font = {
+        size = settings.font.size.xs,
+      },
+      color = colors.magenta,
+      padding_left = 10
+    },
     label = { drawing = false },
     y_offset = 8,
     background = { color = colors.transparent, border_width = 0 },
