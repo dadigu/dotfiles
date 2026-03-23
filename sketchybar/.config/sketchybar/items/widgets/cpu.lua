@@ -1,6 +1,7 @@
 local icons = require("icons")
 local colors = require("colors")
 local settings = require("settings")
+local widgets = require("helpers.widgets")
 
 local cpu = sbar.add("item", "widgets.cpu", {
   position = "right",
@@ -8,10 +9,6 @@ local cpu = sbar.add("item", "widgets.cpu", {
   update_freq = 5,
   icon = {
     string = icons.cpu,
-    font = {
-      style = settings.font.style_map["Bold"],
-      size = 14.0,
-    },
   },
   label = {
     string = "??%",
@@ -41,11 +38,4 @@ cpu:subscribe("mouse.clicked", function(env)
   sbar.exec("open -a 'Activity Monitor'")
 end)
 
-sbar.add("bracket", "widgets.cpu.bracket", { cpu.name }, {
-  background = { color = colors.bg1 },
-})
-
-sbar.add("item", "widgets.cpu.padding", {
-  position = "right",
-  width = settings.group_paddings,
-})
+widgets.bracket(cpu)

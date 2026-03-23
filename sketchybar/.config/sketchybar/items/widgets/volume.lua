@@ -1,6 +1,7 @@
 local colors = require("colors")
 local icons = require("icons")
 local settings = require("settings")
+local widgets = require("helpers.widgets")
 
 local volume_percent = sbar.add("item", "widgets.volume1", {
   position = "right",
@@ -23,7 +24,6 @@ local volume_icon = sbar.add("item", "widgets.volume2", {
     color = colors.grey,
     font = {
       style = settings.font.style_map["Regular"],
-      size = 14.0,
     },
   },
   label = {
@@ -31,23 +31,12 @@ local volume_icon = sbar.add("item", "widgets.volume2", {
     align = "left",
     font = {
       style = settings.font.style_map["Regular"],
-      size = 14.0,
+      size = settings.font.size.lg,
     },
   },
 })
 
-local volume_bracket = sbar.add("bracket", "widgets.volume.bracket", {
-  volume_icon.name,
-  volume_percent.name,
-}, {
-  background = { color = colors.bg1 },
-  popup = { align = "center" },
-})
-
-sbar.add("item", "widgets.volume.padding", {
-  position = "right",
-  width = settings.group_paddings,
-})
+widgets.bracket(volume_icon, { volume_icon.name, volume_percent.name })
 
 volume_percent:subscribe("volume_change", function(env)
   local volume = tonumber(env.INFO)

@@ -1,6 +1,7 @@
 local icons = require("icons")
 local colors = require("colors")
 local settings = require("settings")
+local widgets = require("helpers.widgets")
 
 local battery = sbar.add("item", "widgets.battery", {
 	position = "right",
@@ -14,59 +15,30 @@ local battery = sbar.add("item", "widgets.battery", {
 	popup = { align = "center" },
 })
 
-local popup_width = 250
-
 -- Header: shows charging state with icon
 local status = sbar.add("item", {
 	position = "popup." .. battery.name,
 	icon = {
 		string = icons.battery.charging,
-		font = { style = settings.font.style_map["Bold"] },
 	},
-	width = popup_width,
+	width = settings.popup_width,
 	align = "center",
 	label = {
 		font = {
-			size = settings.font.size.xl,
 			style = settings.font.style_map["Bold"],
+			size = settings.font.size.xl,
 		},
 		string = "????????????",
 	},
 })
 
--- Helper to create popup info rows
-local function popup_row(label, placeholder)
-	return sbar.add("item", {
-		position = "popup." .. battery.name,
-		icon = {
-			align = "left",
-			string = label,
-			width = popup_width / 2,
-			color = colors.grey,
-			font = { size = settings.font.size.sm },
-		},
-		label = {
-			string = placeholder or "—",
-			width = popup_width / 2,
-			align = "right",
-		},
-	})
-end
+local time_left = widgets.popup_row(battery, "Time remaining:")
+local health = widgets.popup_row(battery, "Health:")
+local cycles = widgets.popup_row(battery, "Cycle count:")
+local temp = widgets.popup_row(battery, "Temperature:")
+local source = widgets.popup_row(battery, "Power source:")
 
-local time_left = popup_row("Time remaining:")
-local health = popup_row("Health:")
-local cycles = popup_row("Cycle count:")
-local temp = popup_row("Temperature:")
-local source = popup_row("Power source:")
-
-sbar.add("bracket", "widgets.battery.bracket", { battery.name }, {
-	background = { color = colors.bg1 },
-})
-
-sbar.add("item", "widgets.battery.padding", {
-	position = "right",
-	width = settings.group_paddings,
-})
+widgets.bracket(battery)
 
 -- Icon update on routine / power change
 battery:subscribe({ "routine", "power_source_change", "system_woke" }, function()

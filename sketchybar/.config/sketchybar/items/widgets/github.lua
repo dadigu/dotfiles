@@ -1,6 +1,7 @@
 local icons = require("icons")
 local colors = require("colors")
 local settings = require("settings")
+local widgets = require("helpers.widgets")
 
 local github = sbar.add("item", "widgets.github", {
   position = "right",
@@ -15,14 +16,7 @@ local github = sbar.add("item", "widgets.github", {
   popup = { align = "center" },
 })
 
-sbar.add("bracket", "widgets.github.bracket", { github.name }, {
-  background = { color = colors.bg1 },
-})
-
-sbar.add("item", "widgets.github.padding", {
-  position = "right",
-  width = settings.group_paddings,
-})
+widgets.bracket(github)
 
 local type_map = {
   Issue       = { icon = icons.git.issue,        color = colors.green,   label = "Issue" },

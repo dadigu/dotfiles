@@ -1,5 +1,5 @@
 local colors = require("colors")
-local settings = require("settings")
+local widgets = require("helpers.widgets")
 
 -- Check every 2 hours (7200 seconds)
 local CHECK_INTERVAL = 7200
@@ -9,26 +9,14 @@ local brew = sbar.add("item", "widgets.brew", {
 	icon = {
 		string = "􀐛",
 		color = colors.yellow,
-		font = {
-			style = settings.font.style_map["Bold"],
-			size = settings.font.size.lg,
-		},
-		padding_left = 8,
-		padding_right = 4,
-	},
-	label = {
-		color = colors.white,
-		font = {
-			style = settings.font.style_map["Semibold"],
-			size = settings.font.size.md,
-		},
-		padding_right = 8,
 	},
 	drawing = false,
 	update_freq = CHECK_INTERVAL,
 	updates = "on",
 	click_script = [[yabai -m rule --add label=taproom app='Ghostty' title='taproom' manage=off grid=10:8:1:1:6:8 && open -na Ghostty.app --args -e taproom -f Outdated && sleep 2 && yabai -m rule --remove taproom]],
 })
+
+widgets.bracket(brew)
 
 local is_visible = false
 

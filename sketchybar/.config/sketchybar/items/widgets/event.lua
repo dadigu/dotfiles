@@ -1,6 +1,5 @@
 local icons = require("icons")
 local colors = require("colors")
-local settings = require("settings")
 
 -- How many minutes before an event to show it in the bar
 local SHOW_BEFORE_MIN = 30
@@ -10,17 +9,9 @@ local cal = sbar.add("item", "widgets.calendar_event", {
 	icon = {
 		string = icons.linear.calendar,
 		color = colors.yellow,
-		padding_left = 8,
-		padding_right = 4,
 	},
 	label = {
 		string = "",
-		color = colors.white,
-		font = {
-			style = settings.font.style_map["Semibold"],
-			size = settings.font.size.md,
-		},
-		padding_right = 8,
 	},
 	drawing = false,
 	update_freq = 60,

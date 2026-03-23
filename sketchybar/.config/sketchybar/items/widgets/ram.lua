@@ -1,6 +1,6 @@
-local icons = require("icons")
 local colors = require("colors")
 local settings = require("settings")
+local widgets = require("helpers.widgets")
 
 local ram = sbar.add("item", "widgets.ram", {
   position = "right",
@@ -8,10 +8,6 @@ local ram = sbar.add("item", "widgets.ram", {
   update_freq = 5,
   icon = {
     string = "􀫦",
-    font = {
-      style = settings.font.style_map["Bold"],
-      size = 14.0,
-    },
   },
   label = {
     string = "??%",
@@ -50,11 +46,4 @@ ram:subscribe("mouse.clicked", function(env)
   sbar.exec("open -a 'Activity Monitor'")
 end)
 
-sbar.add("bracket", "widgets.ram.bracket", { ram.name }, {
-  background = { color = colors.bg1 },
-})
-
-sbar.add("item", "widgets.ram.padding", {
-  position = "right",
-  width = settings.group_paddings,
-})
+widgets.bracket(ram)

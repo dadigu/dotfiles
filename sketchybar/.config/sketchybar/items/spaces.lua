@@ -11,7 +11,6 @@ for i = 1, 10, 1 do
 			string = i,
 			padding_left = 10,
 			padding_right = 10,
-			color = colors.white,
 			highlight_color = colors.green,
 		},
 		label = {

@@ -1,6 +1,7 @@
 local icons = require("icons")
 local colors = require("colors")
 local settings = require("settings")
+local widgets = require("helpers.widgets")
 
 local wifi = sbar.add("item", "widgets.wifi", {
 	position = "right",
@@ -11,61 +12,32 @@ local wifi = sbar.add("item", "widgets.wifi", {
 	popup = { align = "center" },
 })
 
-local popup_width = 250
-
--- Helper to create popup info rows
-local function popup_row(label, placeholder)
-	return sbar.add("item", {
-		position = "popup." .. wifi.name,
-		icon = {
-			align = "left",
-			string = label,
-			width = popup_width / 2,
-			color = colors.grey,
-			font = { size = settings.font.size.sm },
-		},
-		label = {
-			string = placeholder or "???.???.???.???",
-			width = popup_width / 2,
-			align = "right",
-		},
-	})
-end
-
 -- Popup items
 local ssid = sbar.add("item", {
 	position = "popup." .. wifi.name,
 	icon = {
 		string = icons.wifi.router,
-		font = { style = settings.font.style_map["Bold"] },
 	},
-	width = popup_width,
+	width = settings.popup_width,
 	align = "center",
 	label = {
 		font = {
-			size = settings.font.size.xl,
 			style = settings.font.style_map["Bold"],
+			size = settings.font.size.xl,
 		},
 		max_chars = 18,
 		string = "????????????",
 	},
 })
 
-local hostname = popup_row("Hostname:", "????????????")
-local ip = popup_row("IP:")
-local mask = popup_row("Subnet mask:")
-local router = popup_row("Router:")
-local ext_ip = popup_row("External IP:")
-local vpn = popup_row("VPN:", "—")
+local hostname = widgets.popup_row(wifi, "Hostname:", "????????????")
+local ip = widgets.popup_row(wifi, "IP:", "???.???.???.???")
+local mask = widgets.popup_row(wifi, "Subnet mask:", "???.???.???.???")
+local router = widgets.popup_row(wifi, "Router:", "???.???.???.???")
+local ext_ip = widgets.popup_row(wifi, "External IP:", "???.???.???.???")
+local vpn = widgets.popup_row(wifi, "VPN:")
 
-sbar.add("bracket", "widgets.wifi.bracket", { wifi.name }, {
-	background = { color = colors.bg1 },
-})
-
-sbar.add("item", "widgets.wifi.padding", {
-	position = "right",
-	width = settings.group_paddings,
-})
+widgets.bracket(wifi)
 
 -- Detect active connection: default route for VPN, first en* in scutil for physical interface
 local function detect_connection(callback)

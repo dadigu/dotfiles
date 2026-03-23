@@ -6,7 +6,7 @@ sbar.default({
 	icon = {
 		font = {
 			family = settings.font.text,
-			-- style = settings.font.style_map["Bold"],
+			style = settings.font.style_map["Bold"],
 			size = settings.font.size.lg,
 		},
 		color = colors.white,

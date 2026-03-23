@@ -1,6 +1,7 @@
 local icons = require("icons")
 local colors = require("colors")
 local settings = require("settings")
+local widgets = require("helpers.widgets")
 
 local docker = sbar.add("item", "widgets.docker", {
 	position = "right",
@@ -15,14 +16,7 @@ local docker = sbar.add("item", "widgets.docker", {
 	popup = { align = "center" },
 })
 
-sbar.add("bracket", "widgets.docker.bracket", { docker.name }, {
-	background = { color = colors.bg1 },
-})
-
-sbar.add("item", "widgets.docker.padding", {
-	position = "right",
-	width = settings.group_paddings,
-})
+widgets.bracket(docker)
 
 local popup_width = 300
 local PATH = 'export PATH="$PATH:/usr/local/bin"; '

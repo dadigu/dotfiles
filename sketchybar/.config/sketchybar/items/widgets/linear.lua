@@ -1,6 +1,7 @@
 local icons = require("icons")
 local colors = require("colors")
 local settings = require("settings")
+local widgets = require("helpers.widgets")
 
 local linear = sbar.add("item", "widgets.linear", {
   position = "right",
@@ -15,14 +16,7 @@ local linear = sbar.add("item", "widgets.linear", {
   popup = { align = "center" },
 })
 
-sbar.add("bracket", "widgets.linear.bracket", { linear.name }, {
-  background = { color = colors.bg1 },
-})
-
-sbar.add("item", "widgets.linear.padding", {
-  position = "right",
-  width = settings.group_paddings,
-})
+widgets.bracket(linear)
 
 local type_map = {
   issueAssignment             = { icon = icons.git.issue,       color = colors.green,   label = "Assigned to you" },
