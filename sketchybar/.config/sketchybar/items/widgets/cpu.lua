@@ -15,6 +15,8 @@ local cpu = sbar.add("item", "widgets.cpu", {
   },
   label = {
     string = "??%",
+    width = 40,
+    align = "right",
   },
 })
 
