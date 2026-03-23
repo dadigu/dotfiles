@@ -28,10 +28,31 @@ local cal = sbar.add("item", "widgets.calendar_event", {
 	click_script = "open -a 'Calendar'",
 })
 
+local is_visible = false
+
+local function animate_in(icon_color, label)
+	-- Set initial state: invisible and offset
+	cal:set({
+		drawing = true,
+		y_offset = -20,
+		icon = { color = colors.with_alpha(icon_color, 0.0) },
+		label = { string = label, color = colors.with_alpha(colors.white, 0.0) },
+	})
+	-- Animate to final state
+	sbar.animate("tanh", 15, function()
+		cal:set({
+			y_offset = 0,
+			icon = { color = icon_color },
+			label = { color = colors.white },
+		})
+	end)
+end
+
 local function update_event()
 	sbar.exec("icalPal eventsRemaining -o json 2>/dev/null", function(events)
 		if type(events) ~= "table" or #events == 0 then
 			cal:set({ drawing = false })
+			is_visible = false
 			return
 		end
 
@@ -52,6 +73,7 @@ local function update_event()
 
 		if not next_event then
 			cal:set({ drawing = false })
+			is_visible = false
 			return
 		end
 
@@ -83,11 +105,15 @@ local function update_event()
 			icon_color = colors.orange
 		end
 
-		cal:set({
-			drawing = true,
-			icon = { color = icon_color },
-			label = { string = label },
-		})
+		if not is_visible then
+			animate_in(icon_color, label)
+			is_visible = true
+		else
+			cal:set({
+				icon = { color = icon_color },
+				label = { string = label },
+			})
+		end
 	end)
 end
 
