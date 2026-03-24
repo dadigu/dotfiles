@@ -1,7 +1,7 @@
 local icons = require("icons")
 local colors = require("colors")
 local settings = require("settings")
-local widgets = require("helpers.widgets")
+local popup_row = require("helpers.widgets").popup_row
 
 local battery = sbar.add("item", "widgets.battery", {
 	position = "right",
@@ -32,13 +32,11 @@ local status = sbar.add("item", {
 	},
 })
 
-local time_left = widgets.popup_row(battery, "Time remaining:")
-local health = widgets.popup_row(battery, "Health:")
-local cycles = widgets.popup_row(battery, "Cycle count:")
-local temp = widgets.popup_row(battery, "Temperature:")
-local source = widgets.popup_row(battery, "Power source:")
-
-widgets.bracket(battery)
+local time_left = popup_row(battery, "Time remaining:")
+local health = popup_row(battery, "Health:")
+local cycles = popup_row(battery, "Cycle count:")
+local temp = popup_row(battery, "Temperature:")
+local source = popup_row(battery, "Power source:")
 
 -- Icon update on routine / power change
 battery:subscribe({ "routine", "power_source_change", "system_woke" }, function()
@@ -175,3 +173,4 @@ end)
 battery:subscribe("mouse.exited.global", function()
 	battery:set({ popup = { drawing = false } })
 end)
+return battery

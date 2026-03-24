@@ -2,21 +2,23 @@ local icons = require("icons")
 local colors = require("colors")
 local settings = require("settings")
 local widgets = require("helpers.widgets")
+local relative_time = widgets.relative_time
 
 local github = sbar.add("item", "widgets.github", {
   position = "right",
   icon = {
     string = ":git_hub:",
     font = "sketchybar-app-font:Regular:16.0",
-    color = colors.grey,
+    color = colors.blue,
   },
   label = { drawing = false },
+  drawing = false,
   updates = "on",
   update_freq = 180,
   popup = { align = "center" },
 })
 
-widgets.bracket(github)
+local is_visible = false
 
 local type_map = {
   Issue       = { icon = icons.git.issue,        color = colors.green,   label = "Issue" },
@@ -27,8 +29,10 @@ local type_map = {
 }
 
 local reason_map = {
-  mention = "mentioned", review_requested = "review", assign = "assigned",
-  ci_activity = "CI", state_change = "changed", comment = "comment",
+  mention = "Mentioned you", review_requested = "Review requested", assign = "Assigned to you",
+  ci_activity = "CI activity", state_change = "State changed", comment = "New comment",
+  author = "You authored", team_mention = "Team mentioned", subscribed = "Subscribed",
+  approval_requested = "Approval requested",
 }
 
 local function build_url(owner, repo, type_str, api_url)
@@ -57,10 +61,12 @@ local function render_page()
     local info = type_map[n.type] or { icon = icons.git.issue, color = colors.blue, label = n.type }
     local title = n.title
     if #title > 55 then title = title:sub(1, 52) .. "..." end
+    local header = reason_map[n.reason] or n.reason or ""
+    local time = relative_time(n.updated)
+    if time ~= "" then header = (header ~= "" and header .. " · " or "") .. time end
+
     local url = build_url(n.owner, n.repo, n.type, n.api_url)
-    local reason = reason_map[n.reason] or ""
-    local header = info.label
-    if reason ~= "" then header = header .. " · " .. reason end
+    local click = "gh api --method PATCH notifications/threads/" .. n.id .. " &>/dev/null & open '" .. url .. "'; sketchybar --set " .. github.name .. " popup.drawing=off"
 
     -- Title item
     sbar.add("item", "github.n.h" .. i, {
@@ -89,7 +95,7 @@ local function render_page()
       },
       padding_left = 0,
       padding_right = 0,
-      click_script = "open '" .. url .. "'; sketchybar --set " .. github.name .. " popup.drawing=off",
+      click_script = click,
     })
     -- Subtitle item
     sbar.add("item", "github.n.t" .. i, {
@@ -108,7 +114,7 @@ local function render_page()
       y_offset = 15,
       background = { color = colors.transparent, border_width = 0 },
       padding_left = 0, padding_right = 0,
-      click_script = "open '" .. url .. "'; sketchybar --set " .. github.name .. " popup.drawing=off",
+      click_script = click,
     })
   end
 
@@ -147,7 +153,8 @@ local function render_page()
         size = settings.font.size.xs,
       },
       color = colors.blue,
-      padding_left = 10
+      width = settings.notification_popup_width,
+      align = "center",
     },
     label = { drawing = false },
     y_offset = 8,
@@ -166,9 +173,10 @@ end)
 github:subscribe({ "routine", "forced" }, function()
   sbar.exec("gh api notifications", function(notifications)
     if type(notifications) ~= "table" or #notifications == 0 then
-      github:set({ icon = { color = colors.grey }, label = { drawing = false } })
+      github:set({ drawing = false })
       sbar.remove("/github.n\\..*/")
       cache = {}
+      is_visible = false
       return
     end
 
@@ -178,19 +186,22 @@ github:subscribe({ "routine", "forced" }, function()
       local subject = n.subject or {}
       local repo = n.repository or {}
       table.insert(cache, {
+        id = n.id or "",
         owner = (repo.owner or {}).login or "",
         repo = repo.name or "",
         type = subject.type or "",
         title = subject.title or "",
         reason = n.reason or "",
         api_url = subject.url or "",
+        updated = n.updated_at or "",
       })
     end
 
-    github:set({
-      icon = { color = colors.blue },
-      label = { string = tostring(#cache), drawing = true },
-    })
+    github:set({ label = { string = tostring(#cache), drawing = true } })
+    if not is_visible then
+      widgets.animate_in(github, colors.blue, colors.white)
+      is_visible = true
+    end
     render_page()
   end)
 end)
@@ -202,3 +213,5 @@ end)
 github:subscribe("mouse.exited.global", function()
   github:set({ popup = { drawing = false } })
 end)
+
+return github

@@ -1,7 +1,7 @@
 local icons = require("icons")
 local colors = require("colors")
 local settings = require("settings")
-local widgets = require("helpers.widgets")
+local popup_row = require("helpers.widgets").popup_row
 
 local wifi = sbar.add("item", "widgets.wifi", {
 	position = "right",
@@ -30,14 +30,12 @@ local ssid = sbar.add("item", {
 	},
 })
 
-local hostname = widgets.popup_row(wifi, "Hostname:", "????????????")
-local ip = widgets.popup_row(wifi, "IP:", "???.???.???.???")
-local mask = widgets.popup_row(wifi, "Subnet mask:", "???.???.???.???")
-local router = widgets.popup_row(wifi, "Router:", "???.???.???.???")
-local ext_ip = widgets.popup_row(wifi, "External IP:", "???.???.???.???")
-local vpn = widgets.popup_row(wifi, "VPN:")
-
-widgets.bracket(wifi)
+local hostname = popup_row(wifi, "Hostname:", "????????????")
+local ip = popup_row(wifi, "IP:", "???.???.???.???")
+local mask = popup_row(wifi, "Subnet mask:", "???.???.???.???")
+local router = popup_row(wifi, "Router:", "???.???.???.???")
+local ext_ip = popup_row(wifi, "External IP:", "???.???.???.???")
+local vpn = popup_row(wifi, "VPN:")
 
 -- Detect active connection: default route for VPN, first en* in scutil for physical interface
 local function detect_connection(callback)
@@ -162,3 +160,5 @@ local popup_items = { ssid, hostname, ip, mask, router, ext_ip, vpn }
 for _, item in ipairs(popup_items) do
 	item:subscribe("mouse.clicked", copy_label_to_clipboard)
 end
+
+return wifi

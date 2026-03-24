@@ -8,15 +8,16 @@ local linear = sbar.add("item", "widgets.linear", {
   icon = {
     string = ":linear:",
     font = "sketchybar-app-font:Regular:16.0",
-    color = colors.grey,
+    color = colors.magenta,
   },
   label = { drawing = false },
+  drawing = false,
   updates = "on",
   update_freq = 180,
   popup = { align = "center" },
 })
 
-widgets.bracket(linear)
+local is_visible = false
 
 local type_map = {
   issueAssignment             = { icon = icons.git.issue,       color = colors.green,   label = "Assigned to you" },
@@ -34,16 +35,7 @@ local type_map = {
   projectUpdateNewComment     = { icon = icons.git.discussion,  color = colors.white,   label = "Replied" },
 }
 
-local function relative_time(created)
-  if not created then return "" end
-  local y, mo, d, h, mi, s = created:match("(%d+)-(%d+)-(%d+)T(%d+):(%d+):(%d+)")
-  if not y then return "" end
-  local ts = os.time({ year = tonumber(y), month = tonumber(mo), day = tonumber(d), hour = tonumber(h), min = tonumber(mi), sec = tonumber(s) })
-  local diff = os.time() - ts
-  if diff < 3600 then return math.floor(diff / 60) .. "m"
-  elseif diff < 86400 then return math.floor(diff / 3600) .. "h"
-  else return math.floor(diff / 86400) .. "d" end
-end
+local relative_time = require("helpers.widgets").relative_time
 
 local cache = {}
 local page = 1
@@ -53,7 +45,7 @@ local per_page = 10
 local query_file = "/tmp/sketchybar_linear_query.json"
 local qf = io.open(query_file, "w")
 if qf then
-  qf:write('{"query":"{ notifications(first: 30) { nodes { type readAt createdAt actor { name } ... on IssueNotification { issue { identifier title url team { name } } } ... on ProjectNotification { projectUpdate { body user { name } } project { name url } } } } }"}')
+  qf:write('{"query":"{ notifications(first: 30) { nodes { type readAt createdAt actor { name } ... on IssueNotification { issue { identifier title url team { name } } } ... on ProjectNotification { projectUpdate { url user { name } } project { name url } } } } }"}')
   qf:close()
 end
 
@@ -168,7 +160,8 @@ local function render_page()
         size = settings.font.size.xs,
       },
       color = colors.magenta,
-      padding_left = 10
+      width = settings.notification_popup_width,
+      align = "center",
     },
     label = { drawing = false },
     y_offset = 8,
@@ -193,7 +186,8 @@ linear:subscribe({ "routine", "forced" }, function()
 
   sbar.exec("curl -s --max-time 10 -H 'Authorization: " .. api_key .. "' -H 'Content-Type: application/json' -d @" .. query_file .. " https://api.linear.app/graphql", function(response)
     if type(response) ~= "table" or not response.data or not response.data.notifications then
-      linear:set({ icon = { color = colors.grey }, label = { drawing = false } })
+      linear:set({ drawing = false })
+      is_visible = false
       return
     end
 
@@ -208,22 +202,24 @@ linear:subscribe({ "routine", "forced" }, function()
           entry.url = n.issue.url or ""
         elseif n.project then
           entry.title = n.project.name or ""
-          entry.url = n.project.url or ""
+          entry.url = (n.projectUpdate and n.projectUpdate.url) or n.project.url or ""
         end
         if entry.title then table.insert(cache, entry) end
       end
     end
 
     if #cache == 0 then
-      linear:set({ icon = { color = colors.grey }, label = { drawing = false } })
+      linear:set({ drawing = false })
       sbar.remove("/linear.n\\..*/")
+      is_visible = false
       return
     end
 
-    linear:set({
-      icon = { color = colors.magenta },
-      label = { string = tostring(#cache), drawing = true },
-    })
+    linear:set({ label = { string = tostring(#cache), drawing = true } })
+    if not is_visible then
+      widgets.animate_in(linear, colors.magenta, colors.white)
+      is_visible = true
+    end
     render_page()
   end)
 end)
@@ -235,3 +231,5 @@ end)
 linear:subscribe("mouse.exited.global", function()
   linear:set({ popup = { drawing = false } })
 end)
+
+return linear

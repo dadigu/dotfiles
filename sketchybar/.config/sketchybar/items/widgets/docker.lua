@@ -1,7 +1,6 @@
 local icons = require("icons")
 local colors = require("colors")
 local settings = require("settings")
-local widgets = require("helpers.widgets")
 
 local docker = sbar.add("item", "widgets.docker", {
 	position = "right",
@@ -15,8 +14,6 @@ local docker = sbar.add("item", "widgets.docker", {
 	updates = "on",
 	popup = { align = "center" },
 })
-
-widgets.bracket(docker)
 
 local popup_width = 300
 local PATH = 'export PATH="$PATH:/usr/local/bin"; '
@@ -148,3 +145,5 @@ docker:subscribe("mouse.exited.global", function()
 	sbar.remove("/docker.s\\..*/")
 	loading:set({ drawing = true })
 end)
+
+return docker

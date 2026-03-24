@@ -1,5 +1,6 @@
 local icons = require("icons")
 local colors = require("colors")
+local widgets = require("helpers.widgets")
 
 -- How many minutes before an event to show it in the bar
 local SHOW_BEFORE_MIN = 30
@@ -21,23 +22,6 @@ local cal = sbar.add("item", "widgets.calendar_event", {
 
 local is_visible = false
 
-local function animate_in(icon_color, label)
-	-- Set initial state: invisible and offset
-	cal:set({
-		drawing = true,
-		y_offset = -20,
-		icon = { color = colors.with_alpha(icon_color, 0.0) },
-		label = { string = label, color = colors.with_alpha(colors.white, 0.0) },
-	})
-	-- Animate to final state
-	sbar.animate("tanh", 15, function()
-		cal:set({
-			y_offset = 0,
-			icon = { color = icon_color },
-			label = { color = colors.white },
-		})
-	end)
-end
 
 local function update_event()
 	sbar.exec("icalPal eventsRemaining -o json 2>/dev/null", function(events)
@@ -97,7 +81,8 @@ local function update_event()
 		end
 
 		if not is_visible then
-			animate_in(icon_color, label)
+			cal:set({ label = { string = label } })
+			widgets.animate_in(cal, icon_color, colors.white)
 			is_visible = true
 		else
 			cal:set({

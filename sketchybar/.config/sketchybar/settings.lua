@@ -2,6 +2,7 @@ return {
   paddings = 3,
   group_paddings = 5,
   popup_width = 250,
+  notification_popup_width = 350,
 
   icons = "sf-symbols",
 

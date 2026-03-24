@@ -1,6 +1,4 @@
 local colors = require("colors")
-local settings = require("settings")
-local widgets = require("helpers.widgets")
 
 local ram = sbar.add("item", "widgets.ram", {
   position = "right",
@@ -46,4 +44,4 @@ ram:subscribe("mouse.clicked", function(env)
   sbar.exec("open -a 'Activity Monitor'")
 end)
 
-widgets.bracket(ram)
+return ram

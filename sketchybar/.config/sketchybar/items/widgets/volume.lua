@@ -1,7 +1,6 @@
 local colors = require("colors")
 local icons = require("icons")
 local settings = require("settings")
-local widgets = require("helpers.widgets")
 
 local volume_percent = sbar.add("item", "widgets.volume1", {
   position = "right",
@@ -35,8 +34,6 @@ local volume_icon = sbar.add("item", "widgets.volume2", {
     },
   },
 })
-
-widgets.bracket(volume_icon, { volume_icon.name, volume_percent.name })
 
 volume_percent:subscribe("volume_change", function(env)
   local volume = tonumber(env.INFO)
@@ -84,3 +81,5 @@ volume_icon:subscribe("mouse.clicked", function(env)
     end
   end)
 end)
+
+return { volume_icon, volume_percent }
