@@ -3,6 +3,9 @@ local colors = require("colors")
 local settings = require("settings")
 local widgets = require("helpers.widgets")
 
+local api_key = ENV and ENV.LINEAR_API_KEY
+if not api_key or api_key == "" then return end
+
 local linear = sbar.add("item", "widgets.linear", {
   position = "right",
   icon = {
@@ -45,7 +48,7 @@ local per_page = 10
 local query_file = "/tmp/sketchybar_linear_query.json"
 local qf = io.open(query_file, "w")
 if qf then
-  qf:write('{"query":"{ notifications(first: 30) { nodes { type readAt createdAt actor { name } ... on IssueNotification { issue { identifier title url team { name } } } ... on ProjectNotification { projectUpdate { url user { name } } project { name url } } } } }"}')
+  qf:write('{"query":"{ notifications(first: 30) { nodes { id type readAt createdAt actor { name } ... on IssueNotification { issue { identifier title url team { name } } } ... on ProjectNotification { projectUpdate { url user { name } } project { name url } } } } }"}')
   qf:close()
 end
 
@@ -66,6 +69,16 @@ local function render_page()
     local subtitle = info.label
     if n.actor ~= "" then subtitle = n.actor .. " · " .. subtitle end
     subtitle = subtitle .. " · " .. relative_time(n.created)
+
+    local api_key = ENV and ENV.LINEAR_API_KEY or ""
+    local mutation_file = "/tmp/sketchybar_linear_read_" .. i .. ".json"
+    local mf = io.open(mutation_file, "w")
+    if mf then
+      mf:write('{"query":"mutation { notificationUpdate(id: \\"' .. n.id .. '\\", input: { readAt: \\"' .. os.date("!%Y-%m-%dT%H:%M:%SZ") .. '\\" }) { success } }"}')
+      mf:close()
+    end
+    local mark_read = "curl -s -H 'Authorization: " .. api_key .. "' -H 'Content-Type: application/json' -d @" .. mutation_file .. " https://api.linear.app/graphql &>/dev/null &"
+    local click = mark_read .. " open '" .. (n.url or "") .. "'; sketchybar --set " .. linear.name .. " popup.drawing=off; sketchybar --trigger linear_notification_clicked"
 
     -- Title item
     sbar.add("item", "linear.n.h" .. i, {
@@ -95,7 +108,7 @@ local function render_page()
       },
       padding_left = 0,
       padding_right = 0,
-      click_script = "open '" .. (n.url or "") .. "'; sketchybar --set " .. linear.name .. " popup.drawing=off; sketchybar --trigger linear_notification_clicked",
+      click_script = click,
     })
 
     -- Subtitle item
@@ -121,7 +134,7 @@ local function render_page()
       },
       padding_left = 0,
       padding_right = 0,
-      click_script = "open '" .. (n.url or "") .. "'; sketchybar --set " .. linear.name .. " popup.drawing=off; sketchybar --trigger linear_notification_clicked",
+      click_script = click,
     })
   end
 
@@ -178,12 +191,6 @@ linear:subscribe("linear_next_page", function()
 end)
 
 local function fetch_notifications()
-  local api_key = ENV and ENV.LINEAR_API_KEY
-  if not api_key or api_key == "" then
-    linear:set({ icon = { color = colors.grey }, label = { drawing = false } })
-    return
-  end
-
   sbar.exec("curl -s --max-time 10 -H 'Authorization: " .. api_key .. "' -H 'Content-Type: application/json' -d @" .. query_file .. " https://api.linear.app/graphql", function(response)
     if type(response) ~= "table" or not response.data or not response.data.notifications then
       linear:set({ drawing = false })
@@ -195,7 +202,7 @@ local function fetch_notifications()
     page = 1
     for _, n in ipairs(response.data.notifications.nodes) do
       if not n.readAt then
-        local entry = { type = n.type or "", actor = "", created = n.createdAt or "" }
+        local entry = { id = n.id or "", type = n.type or "", actor = "", created = n.createdAt or "" }
         if n.actor then entry.actor = n.actor.name or "" end
         if n.issue then
           entry.title = n.issue.title or ""

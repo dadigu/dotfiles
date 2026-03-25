@@ -26,7 +26,16 @@ local docker = require("items.widgets.docker")
 widgets.bracket(docker)
 
 -- Notifications group: shared bracket
-local github = require("items.widgets.github")
-local linear = require("items.widgets.linear")
-local brew   = require("items.widgets.brew")
-widgets.bracket("widgets.notifications", { github.name, linear.name, brew.name })
+local github  = require("items.widgets.github")
+local linear  = require("items.widgets.linear")
+local ferdium = require("items.widgets.ferdium")
+local brew    = require("items.widgets.brew")
+
+local notification_items = {}
+if github then table.insert(notification_items, github.name) end
+if linear then table.insert(notification_items, linear.name) end
+if ferdium then table.insert(notification_items, ferdium.name) end
+if brew then table.insert(notification_items, brew.name) end
+if #notification_items > 0 then
+  widgets.bracket("widgets.notifications", notification_items)
+end
