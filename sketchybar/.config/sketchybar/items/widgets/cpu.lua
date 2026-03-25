@@ -4,7 +4,7 @@ local colors = require("colors")
 local cpu = sbar.add("item", "widgets.cpu", {
   position = "right",
   updates = "on",
-  update_freq = 5,
+  update_freq = 10,
   icon = {
     string = icons.cpu,
   },

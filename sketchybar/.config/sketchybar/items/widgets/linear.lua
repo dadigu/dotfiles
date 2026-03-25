@@ -13,7 +13,7 @@ local linear = sbar.add("item", "widgets.linear", {
   label = { drawing = false },
   drawing = false,
   updates = "on",
-  update_freq = 180,
+  update_freq = 300,
   popup = { align = "center" },
 })
 
@@ -95,7 +95,7 @@ local function render_page()
       },
       padding_left = 0,
       padding_right = 0,
-      click_script = "open '" .. (n.url or "") .. "'; sketchybar --set " .. linear.name .. " popup.drawing=off",
+      click_script = "open '" .. (n.url or "") .. "'; sketchybar --set " .. linear.name .. " popup.drawing=off; sketchybar --trigger linear_notification_clicked",
     })
 
     -- Subtitle item
@@ -121,7 +121,7 @@ local function render_page()
       },
       padding_left = 0,
       padding_right = 0,
-      click_script = "open '" .. (n.url or "") .. "'; sketchybar --set " .. linear.name .. " popup.drawing=off",
+      click_script = "open '" .. (n.url or "") .. "'; sketchybar --set " .. linear.name .. " popup.drawing=off; sketchybar --trigger linear_notification_clicked",
     })
   end
 
@@ -177,7 +177,7 @@ linear:subscribe("linear_next_page", function()
   render_page()
 end)
 
-linear:subscribe({ "routine", "forced" }, function()
+local function fetch_notifications()
   local api_key = ENV and ENV.LINEAR_API_KEY
   if not api_key or api_key == "" then
     linear:set({ icon = { color = colors.grey }, label = { drawing = false } })
@@ -222,7 +222,14 @@ linear:subscribe({ "routine", "forced" }, function()
     end
     render_page()
   end)
+end
+
+sbar.add("event", "linear_notification_clicked")
+linear:subscribe("linear_notification_clicked", function()
+  sbar.delay(10, fetch_notifications)
 end)
+
+linear:subscribe({ "routine", "forced" }, fetch_notifications)
 
 linear:subscribe("mouse.clicked", function()
   linear:set({ popup = { drawing = "toggle" } })

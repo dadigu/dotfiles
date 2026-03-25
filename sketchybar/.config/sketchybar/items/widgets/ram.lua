@@ -3,7 +3,7 @@ local colors = require("colors")
 local ram = sbar.add("item", "widgets.ram", {
   position = "right",
   updates = "on",
-  update_freq = 5,
+  update_freq = 10,
   icon = {
     string = "􀫦",
   },

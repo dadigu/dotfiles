@@ -7,7 +7,7 @@ local wifi = sbar.add("item", "widgets.wifi", {
 	position = "right",
 	icon = { string = icons.wifi.connected },
 	label = { drawing = false },
-	update_freq = 10,
+	update_freq = 60,
 	updates = "on",
 	popup = { align = "center" },
 })
@@ -114,10 +114,7 @@ local function populate_popup()
 			service = service:match("^%s*(.-)%s*$") or ""
 
 			if kind == "wifi" then
-				ssid:set({ icon = { string = icons.wifi.router } })
-				sbar.exec("ipconfig getsummary en0 | awk -F ' SSID : ' '/ SSID : / {print $2}'", function(r)
-					ssid:set({ label = r })
-				end)
+				ssid:set({ icon = { string = icons.wifi.router }, label = { string = "Wi-Fi" } })
 			else
 				ssid:set({ icon = { string = icons.wifi.ethernet }, label = { string = service } })
 			end

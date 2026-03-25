@@ -14,7 +14,7 @@ local github = sbar.add("item", "widgets.github", {
   label = { drawing = false },
   drawing = false,
   updates = "on",
-  update_freq = 180,
+  update_freq = 300,
   popup = { align = "center" },
 })
 
@@ -66,7 +66,7 @@ local function render_page()
     if time ~= "" then header = (header ~= "" and header .. " · " or "") .. time end
 
     local url = build_url(n.owner, n.repo, n.type, n.api_url)
-    local click = "gh api --method PATCH notifications/threads/" .. n.id .. " &>/dev/null & open '" .. url .. "'; sketchybar --set " .. github.name .. " popup.drawing=off"
+    local click = "gh api --method PATCH notifications/threads/" .. n.id .. " &>/dev/null & open '" .. url .. "'; sketchybar --set " .. github.name .. " popup.drawing=off; sketchybar --trigger github_notification_clicked"
 
     -- Title item
     sbar.add("item", "github.n.h" .. i, {
@@ -170,7 +170,7 @@ github:subscribe("github_next_page", function()
   render_page()
 end)
 
-github:subscribe({ "routine", "forced" }, function()
+local function fetch_notifications()
   sbar.exec("gh api notifications", function(notifications)
     if type(notifications) ~= "table" or #notifications == 0 then
       github:set({ drawing = false })
@@ -204,6 +204,13 @@ github:subscribe({ "routine", "forced" }, function()
     end
     render_page()
   end)
+end
+
+github:subscribe({ "routine", "forced" }, fetch_notifications)
+
+sbar.add("event", "github_notification_clicked")
+github:subscribe("github_notification_clicked", function()
+  sbar.delay(10, fetch_notifications)
 end)
 
 github:subscribe("mouse.clicked", function()
