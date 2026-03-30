@@ -81,6 +81,7 @@ formulae=(
   bat
   btop
   diff-so-fancy
+  diffnav
   eza
   fd
   fzf
@@ -175,14 +176,11 @@ brew_install koekeishiya/formulae/skhd
 brew_install FelixKratz/formulae/borders
 brew_install FelixKratz/formulae/sketchybar
 
-# Oh My Posh (author-maintained tap)
-brew_install jandedobbeleer/oh-my-posh/oh-my-posh
-
 # Taproom
 brew_install gromgit/brewtils/taproom
 
-# DiffNav
-brew_install dlvhdr/formulae/diffnav
+# icalPal
+brew_install ajrosen/tap/icalPal
 
 # Brew clean up
 brew cleanup || true
