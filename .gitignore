@@ -8,3 +8,4 @@ node_modules
 *.so
 *.so.dSYM
 sketchybar/.config/sketchybar/helpers/lua
+tmux-*.log
