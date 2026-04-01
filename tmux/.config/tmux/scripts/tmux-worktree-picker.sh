@@ -11,6 +11,6 @@ dir=$(echo "$sel" | cut -f2)
 name=$(echo "$sel" | cut -f1)
 
 tmux new-window -n "app: $name" -c "$dir" \; \
+  split-window -h -p 40 -c "$dir" \; \
   split-window -v -c "$dir" \; \
-  split-window -h -c "$dir" \; \
   select-pane -t 1
