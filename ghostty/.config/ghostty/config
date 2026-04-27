@@ -27,3 +27,6 @@ keybind = global:°=toggle_quick_terminal
 quick-terminal-position = top
 quick-terminal-screen = mouse
 quick-terminal-size = 55%
+
+# Send backslash+enter for multi-line input in Claude Code CLI
+keybind = super+enter=text:\x5c\x0a
