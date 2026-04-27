@@ -37,7 +37,7 @@ alias lt='ls --tree --all'
 alias kill_md="launchctl unload /Library/LaunchAgents/com.microsoft.wdav.tray.plist"
 
 # Fix ssh
-alias ssh-fix="ssh-add -K ~/.ssh/id_rsa"
+alias ssh-fix="ssh-add --apple-use-keychain ~/.ssh/id_ed25519"
 
 # Output weather forecast
 alias weather="curl -4 https://wttr.in/\?M"
