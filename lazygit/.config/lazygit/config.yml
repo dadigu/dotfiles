@@ -104,6 +104,11 @@ customCommands:
           - type: "confirm"
             title: "Fetch and Prune?"
             body: "Are you sure?"
+      - key: m
+        command: "git merge-tree --write-tree HEAD {{.SelectedLocalBranch.Name}} > /dev/null 2>&1 && echo '✅ Clean merge possible' || echo '❌ Conflicts detected'"
+        context: "localBranches"
+        description: "Dry-run merge check"
+        output: popup
 keybinding:
   files:
     toggleTreeView: "'"
