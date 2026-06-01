@@ -1,33 +1,33 @@
 gui:
   branchColorPatterns:
-    '^conflicts/': '#e78284'
-    '^hotfix/': '#ea999c'
+    '^conflicts/': '#ed8796'
+    '^hotfix/': '#ee99a0'
     '^feature/': '#7dc4e4'
-    '^bugfix/': '#e5c890'
-    '^chore/': '#8caaee'
+    '^bugfix/': '#eed49f'
+    '^chore/': '#8aadf4'
     '^release/': '#a6da95'
   theme:
     activeBorderColor:
-      - '#ef9f76'
+      - '#f5a97f'
       - bold
     inactiveBorderColor:
-      - '#a5adce'
+      - '#a5adcb'
     optionsTextColor:
-      - '#8caaee'
+      - '#8aadf4'
     selectedLineBgColor:
-      - '#414559'
+      - '#363a4f'
     cherryPickedCommitBgColor:
-      - '#51576d'
+      - '#494d64'
     cherryPickedCommitFgColor:
-      - '#ef9f76'
+      - '#f5a97f'
     unstagedChangesColor:
-      - '#e78284'
+      - '#ed8796'
     defaultFgColor:
-      - '#c6d0f5'
+      - '#cad3f5'
     searchingActiveBorderColor:
-      - '#e5c890'
+      - '#eed49f'
   authorColors:
-    '*': '#babbf1'
+    '*': '#b7bdf8'
   # showFileTree: false
   switchTabsWithPanelJumpKeys: true
 git:
