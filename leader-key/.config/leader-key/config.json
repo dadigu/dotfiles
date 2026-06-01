@@ -115,7 +115,7 @@
           "key" : "s",
           "label" : "Capture full screen & Copy",
           "type" : "url",
-          "value" : "      cmd: 'open -g cleanshot://capture-fullscreen?action=copy',\n      cmd: 'open -g cleanshot://capture-fullscreen?action=copy',\ncleanshot://capture-fullscreen?action=copy"
+          "value" : "cleanshot://capture-fullscreen?action=copy"
         },
         {
           "iconPath" : "document.on.clipboard",
