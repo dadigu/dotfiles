@@ -51,6 +51,7 @@ yabai -m signal --add event=window_focused action="yabai -m query --windows --wi
 yabai -m rule --add app=".*" subrole="^(AXFloatingWindow|AXSystemDialog|AXSystemFloatingWindow)$" manage=off
 yabai -m rule --add app="^AppCleaner$" manage=off
 yabai -m rule --add app="^Calendar$" manage=off grid=10:8:1:1:6:8
+yabai -m rule --add app="^Claude$" sticky=on manage=off
 yabai -m rule --add app="^CleanShot X$" sticky=off sub-layer=above manage=off
 yabai -m rule --add app="^ImageOptim$" manage=off
 yabai -m rule --add app="^Karabiner-Elements$" manage=off grid=6:4:1:1:2:4
@@ -60,6 +61,7 @@ yabai -m rule --add app="^Lunar$" manage=off
 yabai -m rule --add app="^Messages$" manage=off grid=6:4:1:1:2:4
 yabai -m rule --add app="^Microsoft Outlook$" manage=off grid=10:8:1:1:6:8
 yabai -m rule --add app="^Raycast$" manage=off
+yabai -m rule --add app="^Raycast Beta$" sticky=on manage=off
 yabai -m rule --add app="^System Settings$" manage=off
 yabai -m rule --add app="^Weather$" manage=off grid=6:4:1:1:2:4
 
