@@ -131,10 +131,10 @@ casks=(
   karabiner-elements
   leader-key
   linear-linear
-  lunar
   logi-options-plus
   microsoft-edge
   mockoon
+  monitorcontrol
   nordvpn
   obsidian
   onyx
