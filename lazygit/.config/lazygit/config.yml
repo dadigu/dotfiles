@@ -6,6 +6,7 @@ gui:
     '^bugfix/': '#eed49f'
     '^chore/': '#8aadf4'
     '^release/': '#a6da95'
+    '^adhoc/': '#f5bde6'
   theme:
     activeBorderColor:
       - '#f5a97f'
