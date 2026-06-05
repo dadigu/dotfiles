@@ -39,7 +39,7 @@ ctrl + alt - c      : yabai -m space --create && \
                         yabai -m space --focus "${index}" # Create new space and go to it
 
 # Destroy space
-ctrl + alt - x  : yabai -m space --destroy # Delete current space
+ctrl + alt - d  : yabai -m space --destroy # Delete current space
 
 # Window Navigation (through display borders)
 lalt - h    : yabai -m window --focus west  || yabai -m display --focus west # Navigate window left
@@ -99,10 +99,10 @@ shift + lalt - l :  yabai -m window --move rel:100:0 || \
 lalt - s : yabai -m window --toggle split # Toggle split orientation
 
 # Mirror Space on X Axis
-lalt - x : yabai -m space --mirror x-axis # Mirror split X-axis
+ctrl + lalt - x : yabai -m space --mirror x-axis # Mirror split X-axis
 
 # Mirror Space on Y Axis
-lalt - y : yabai -m space --mirror y-axis # Mirror split Y-axis
+ctrl + lalt - y : yabai -m space --mirror y-axis # Mirror split Y-axis
 
 # Rotate layout clockwise
 lalt - r : yabai -m space --rotate 270 # Rotate layout
@@ -146,6 +146,5 @@ alt + shift - v : open /Applications/Visual\ Studio\ Code.app # Open code editor
 alt + shift - g : open /Applications/Ferdium.app # Open chat
 alt + shift - m : open /Applications/Spotify.app # Open Spotify
 alt + shift - f : open /Applications/Figma.app # Open Figma
-alt + shift - o : open /Applications/Obsidian.app # Open notes
+alt + shift - n : open /Applications/Obsidian.app # Open notes
 alt + shift - c : open -a "Calendar" # Open calendar
-alt + shift - e : open raycast://extensions/raycast/emoji-symbols/search-emoji-symbols # Open emoji picker
