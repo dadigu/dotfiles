@@ -23,8 +23,6 @@ count_selected = { fg = "#24273a", bg = "#8aadf4" }
 border_symbol = "│"
 border_style  = { fg = "#8087a2" }
 
-syntect_theme = "~/.config/yazi/Catppuccin-macchiato.tmTheme"
-
 [mode]
 normal_main = { fg = "#24273a", bg = "#8aadf4", bold = true }
 normal_alt  = { fg = "#8aadf4", bg = "#363a4f"}
