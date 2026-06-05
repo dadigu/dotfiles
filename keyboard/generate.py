@@ -1,0 +1,170 @@
+#!/usr/bin/env python3
+"""
+Generate the "US-Icelandic" macOS keyboard layout.
+
+A standard US ISO keyboard where the Option (alt) key produces Icelandic
+characters directly (single press, no dead keys). Everything else is plain US.
+This only writes a NEW .keylayout file; it does not touch the built-in US or
+Icelandic layouts.
+
+Mapping (Option = ⌥, Option+Shift = ⌥⇧ for capitals):
+    ⌥a á   ⌥e é   ⌥i í   ⌥o ó   ⌥u ú   ⌥y ý      (acute vowels on their base key)
+    ⌥[ ð   ⌥; æ   ⌥/ þ   ⌥- ö                     (positioned as on the Icelandic board)
+    ⌥<iso> |                                        (Nordic pipe on the ISO key, left of Z)
+
+All other Option combos fall through to the plain character (predictable for
+programming). To change the mapping, edit OPT_OVERRIDES below and re-run:
+    python3 generate.py
+"""
+
+import os
+
+# keycode -> (base, shift)  -- US ISO printable keys
+PRINTABLE = {
+    0: ("a", "A"), 1: ("s", "S"), 2: ("d", "D"), 3: ("f", "F"), 4: ("h", "H"),
+    5: ("g", "G"), 6: ("z", "Z"), 7: ("x", "X"), 8: ("c", "C"), 9: ("v", "V"),
+    11: ("b", "B"), 12: ("q", "Q"), 13: ("w", "W"), 14: ("e", "E"),
+    15: ("r", "R"), 16: ("y", "Y"), 17: ("t", "T"), 31: ("o", "O"),
+    32: ("u", "U"), 34: ("i", "I"), 35: ("p", "P"), 37: ("l", "L"),
+    38: ("j", "J"), 40: ("k", "K"), 45: ("n", "N"), 46: ("m", "M"),
+    18: ("1", "!"), 19: ("2", "@"), 20: ("3", "#"), 21: ("4", "$"),
+    23: ("5", "%"), 22: ("6", "^"), 26: ("7", "&"), 28: ("8", "*"),
+    25: ("9", "("), 29: ("0", ")"),
+    24: ("=", "+"), 27: ("-", "_"), 30: ("]", "}"), 33: ("[", "{"),
+    39: ("'", '"'), 41: (";", ":"), 42: ("\\", "|"), 43: (",", "<"),
+    44: ("/", "?"), 47: (".", ">"), 50: ("`", "~"),
+    10: ("§", "±"),  # ISO key, left of Z (matches §/± hardware legend)
+}
+
+# keycode -> Option / Option+Shift output (overrides the passthrough)
+OPT_OVERRIDES = {
+    0:  ("á", "Á"),   # a
+    14: ("é", "É"),   # e
+    34: ("í", "Í"),   # i
+    31: ("ó", "Ó"),   # o
+    32: ("ú", "Ú"),   # u
+    16: ("ý", "Ý"),   # y
+    33: ("ð", "Ð"),   # [
+    41: ("æ", "Æ"),   # ;
+    44: ("þ", "Þ"),   # /
+    27: ("ö", "Ö"),   # -
+}
+
+# keycode -> output for non-printable keys (identical across every keymap).
+# Ints are codepoints; PUA values (0xF7xx) are macOS function-key glyphs.
+# Escape/Backspace/Enter use C0 control bytes (0x1B/0x08/0x03). Strict XML 1.0
+# forbids those char refs (so `xmllint` rejects them), but macOS's keylayout
+# parser accepts them exactly as Apple's built-in layouts do. Without these
+# entries the keys emit nothing and the system just beeps.
+SPECIAL = {
+    36: 0x0D, 48: 0x09, 49: 0x20, 51: 0x08, 53: 0x1B, 76: 0x03, 117: 0x7F,
+    # keypad
+    65: ".", 67: "*", 69: "+", 75: "/", 78: "-", 81: "=",
+    82: "0", 83: "1", 84: "2", 85: "3", 86: "4", 87: "5",
+    88: "6", 89: "7", 91: "8", 92: "9",
+    # arrows + navigation
+    123: 0xF702, 124: 0xF703, 125: 0xF701, 126: 0xF700,
+    115: 0xF729, 119: 0xF72B, 116: 0xF72C, 121: 0xF72D, 114: 0xF727,
+    # function keys F1-F19
+    122: 0xF704, 120: 0xF705, 99: 0xF706, 118: 0xF707, 96: 0xF708,
+    97: 0xF709, 98: 0xF70A, 100: 0xF70B, 101: 0xF70C, 109: 0xF70D,
+    103: 0xF70E, 111: 0xF70F, 105: 0xF710, 107: 0xF711, 113: 0xF712,
+    106: 0xF713, 64: 0xF714, 79: 0xF715, 80: 0xF716,
+}
+
+
+def esc(v):
+    """Render a key output value as a keylayout output= attribute value.
+
+    macOS's keylayout parser does NOT understand named XML entities
+    (&lt; &gt; &quot; &amp;) - those keys silently produce nothing. Use
+    numeric character references for the XML-significant characters instead.
+    """
+    if isinstance(v, int):
+        return "&#x%04X;" % v
+    return {"&": "&#x0026;", "<": "&#x003C;", ">": "&#x003E;",
+            '"': "&#x0022;"}.get(v, v)
+
+
+def value_for(kc, keymap):
+    """Return the output for keycode kc in the given keymap name."""
+    if kc in SPECIAL:
+        return SPECIAL[kc]
+    base, shift = PRINTABLE[kc]
+    if keymap == "base":
+        return base
+    if keymap == "shift":
+        return shift
+    if keymap == "caps":
+        return shift if base.isalpha() else base
+    if keymap == "opt":
+        return OPT_OVERRIDES[kc][0] if kc in OPT_OVERRIDES else base
+    if keymap == "optshift":
+        return OPT_OVERRIDES[kc][1] if kc in OPT_OVERRIDES else shift
+    raise ValueError(keymap)
+
+
+def keymap_xml(index, keymap):
+    codes = sorted(set(PRINTABLE) | set(SPECIAL))
+    rows = [
+        '      <key code="%d" output="%s"/>' % (kc, esc(value_for(kc, keymap)))
+        for kc in codes
+    ]
+    return '    <keyMap index="%d">\n%s\n    </keyMap>' % (index, "\n".join(rows))
+
+
+def main():
+    keymaps = "\n".join([
+        keymap_xml(0, "base"),
+        keymap_xml(1, "shift"),
+        keymap_xml(2, "caps"),
+        keymap_xml(3, "opt"),
+        keymap_xml(4, "optshift"),
+    ])
+
+    doc = '''<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE keyboard SYSTEM "file://localhost/System/Library/DTDs/KeyboardLayout.dtd">
+<!-- Generated by generate.py - do not edit by hand; edit the script and re-run. -->
+<keyboard group="126" id="-19284" name="US-Icelandic" maxout="1">
+  <layouts>
+    <layout first="0" last="255" mapSet="iceland" modifiers="modifiers"/>
+  </layouts>
+  <modifierMap id="modifiers" defaultIndex="0">
+    <keyMapSelect mapIndex="0">
+      <modifier keys="command?"/>
+      <modifier keys="anyControl command?"/>
+    </keyMapSelect>
+    <keyMapSelect mapIndex="1">
+      <modifier keys="anyShift command?"/>
+      <modifier keys="anyShift anyControl command?"/>
+      <modifier keys="caps anyShift"/>
+    </keyMapSelect>
+    <keyMapSelect mapIndex="2">
+      <modifier keys="caps command?"/>
+      <modifier keys="caps anyControl"/>
+    </keyMapSelect>
+    <keyMapSelect mapIndex="3">
+      <modifier keys="anyOption command?"/>
+      <modifier keys="anyOption anyControl command?"/>
+      <modifier keys="caps anyOption"/>
+    </keyMapSelect>
+    <keyMapSelect mapIndex="4">
+      <modifier keys="anyShift anyOption command?"/>
+      <modifier keys="caps anyShift anyOption"/>
+    </keyMapSelect>
+  </modifierMap>
+  <keyMapSet id="iceland">
+%s
+  </keyMapSet>
+</keyboard>
+''' % keymaps
+
+    out_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                            "US-Icelandic.keylayout")
+    with open(out_path, "w", encoding="utf-8") as fh:
+        fh.write(doc)
+    print("wrote", out_path)
+
+
+if __name__ == "__main__":
+    main()
