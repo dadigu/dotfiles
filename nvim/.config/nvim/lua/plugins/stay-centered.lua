@@ -1,15 +1,21 @@
 return {
   "arnamak/stay-centered.nvim",
-  opts = function()
-    require("stay-centered").setup({
-      -- Add any configurations here, like skip_filetypes if needed
-      -- skip_filetypes = {"lua", "typescript"}
-    })
-
-    -- Define the keymap to toggle the stay-centered plugin
-    vim.keymap.set("n", "<leader>ut", function()
-      require("stay-centered").toggle()
-      vim.notify("Toggled stay-centered", vim.log.levels.INFO)
-    end, { desc = "Toggle stay-centered.nvim" })
+  -- Load on VeryLazy so the Snacks toggle can be registered up front,
+  -- which is what gives the which-key on/off switch icon.
+  event = "VeryLazy",
+  opts = {
+    -- skip_filetypes = { "lua", "typescript" },
+  },
+  config = function(_, opts)
+    require("stay-centered").setup(opts)
+    Snacks.toggle({
+      name = "Stay Centered",
+      get = function()
+        return require("stay-centered").cfg.enabled
+      end,
+      set = function(state)
+        require("stay-centered")[state and "enable" or "disable"]()
+      end,
+    }):map("<leader>ut")
   end,
 }
