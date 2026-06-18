@@ -8,7 +8,7 @@ font-family = CaskaydiaCove Nerd Font Mono
 font-size = 16
 font-feature = -calt
 # line height
-adjust-cell-height = 25%
+adjust-cell-height = 30%
 
 # Macos specific
 macos-titlebar-style = hidden
@@ -30,3 +30,18 @@ quick-terminal-size = 55%
 
 # Send backslash+enter for multi-line input in Claude Code CLI
 keybind = super+enter=text:\x5c\x0a
+
+# Cmd+<n> selects tmux window <n>. Terminals can't see Cmd (it has no byte
+# encoding), so Ghostty translates it to "tmux prefix + digit": \x00 is the
+# prefix (C-Space) and \x30-\x39 are the digits 0-9. Lets the thumb drive
+# window switching instead of prefix-then-number.
+keybind = super+physical:one=text:\x00\x31
+keybind = super+physical:two=text:\x00\x32
+keybind = super+physical:three=text:\x00\x33
+keybind = super+physical:four=text:\x00\x34
+keybind = super+physical:five=text:\x00\x35
+keybind = super+physical:six=text:\x00\x36
+keybind = super+physical:seven=text:\x00\x37
+keybind = super+physical:eight=text:\x00\x38
+keybind = super+physical:nine=text:\x00\x39
+keybind = super+physical:zero=text:\x00\x30
