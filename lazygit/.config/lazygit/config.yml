@@ -43,6 +43,16 @@ git:
     - pager: diff-so-fancy
 customCommands:
   - key: o
+    context: 'files'
+    description: 'Open file in neovim (tmux popup, else current terminal)'
+    command: "~/.config/lazygit/scripts/edit.sh {{.SelectedFile.Name}}"
+    output: terminal
+  - key: o
+    context: 'commitFiles'
+    description: "Open file's commit diff in neovim (before/after, side-by-side)"
+    command: "~/.config/lazygit/scripts/diff-commit.sh {{.SelectedLocalCommit.Hash}} {{.SelectedCommitFile.Name}}"
+    output: terminal
+  - key: o
     context: 'localBranches'
     command: 'gh pr view --web {{.SelectedLocalBranch.Name }}'
     description: 'Open PR for selected branch (web)'
