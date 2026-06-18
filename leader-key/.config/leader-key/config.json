@@ -65,7 +65,7 @@
           "key" : "e",
           "label" : "Emoji picker",
           "type" : "url",
-          "value" : "open -g raycast://extensions/raycast/emoji-symbols/search-emoji-symbols"
+          "value" : "raycast-x://extensions/raycast/emoji-symbols/search-emoji-symbols"
         },
         {
           "iconPath" : "party.popper",
