@@ -28,13 +28,13 @@ mapkey("gf", "Zen browser Glance click", () => {
 map('gt', 'T');
 
 //api.unmap('P');
-// Remap history to J,K
-map('J', 'S');
-map('K', 'D');
+// Remap history to H, L
+map('H', 'S');
+map('L', 'D');
 
-// Remap tab switching to H, L
-map('H', 'E');
-map('L', 'R');
+// Remap tab switching to J, K
+map('J', 'R');
+map('K', 'E');
 
 // an example to remove mapkey `Ctrl-i`
 unmap('<ctrl-i>');
@@ -100,3 +100,4 @@ settings.theme = `
     font-size: 20pt;
 }`;
 // click `Save` button to make above settings to take effect.</ctrl-i></ctrl-y>
+
