@@ -11,7 +11,11 @@ else
   map("i", "jk", "<cmd>w<cr><ESC>", { silent = true })
 
   -- OS clipboard
-  map("v", "<leader>Y", '"+y', { silent = true, desc = "Yank to system clipboard " })
-  map("n", "<leader>YY", '"+yy', { silent = true, desc = "Yank to system clipboard " })
-  map({ "n", "v" }, "<leader>P", '"+p', { silent = true, desc = "Paste from system clipboard " })
+  -- <leader>y is a standalone operator (no child maps) so which-key still
+  -- shows the motion/text-object cheatsheet in operator-pending mode.
+  -- (<leader>yiw, <leader>yiq, <leader>yi", <leader>ya{, <leader>y$, ...)
+  map({ "n", "x" }, "<leader>y", '"+y', { silent = true, desc = "Yank to system clipboard" })
+  -- whole line on a non-prefix key, mirroring vim's y/Y
+  map("n", "<leader>Y", '"+yy', { silent = true, desc = "Yank line to system clipboard" })
+  map({ "n", "v" }, "<leader>P", '"+p', { silent = true, desc = "Paste from system clipboard" })
 end
