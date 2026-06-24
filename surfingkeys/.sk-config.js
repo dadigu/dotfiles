@@ -60,6 +60,8 @@ settings.hintShiftNonActive = true;
 settings.modeAfterYank = 'Normal';
 // Max list of omnibar results
 settings.omnibarMaxResults = 15;
+// Omnibar pre-selects top result
+settings.focusFirstCandidate = true;
 
 // set theme
 settings.theme = `
