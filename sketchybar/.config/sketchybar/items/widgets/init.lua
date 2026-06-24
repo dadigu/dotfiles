@@ -16,11 +16,13 @@ widgets.bracket(wifi)
 local volume = require("items.widgets.volume")
 widgets.bracket(volume[1], { volume[1].name, volume[2].name })
 
-local cpu = require("items.widgets.cpu")
-widgets.bracket(cpu)
+-- Disabled for now — not useful at the moment. Implementation kept in
+-- items/widgets/cpu.lua and ram.lua; re-enable by uncommenting.
+-- local cpu = require("items.widgets.cpu")
+-- widgets.bracket(cpu)
 
-local ram = require("items.widgets.ram")
-widgets.bracket(ram)
+-- local ram = require("items.widgets.ram")
+-- widgets.bracket(ram)
 
 local docker = require("items.widgets.docker")
 widgets.bracket(docker)
