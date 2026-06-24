@@ -8,10 +8,29 @@ setopt hist_ignore_all_dups
 setopt hist_save_no_dups 
 setopt hist_ignore_dups
 setopt hist_find_no_dups
+setopt hist_reduce_blanks
+
+# +----------------+
+# Shell history
+# +----------------+
+# Set here (not .zshenv): macOS /etc/zshrc overrides HISTFILE/HISTSIZE/SAVEHIST
+# after .zshenv, so .zshrc is the only place these reliably stick.
+# History is *state*, so it lives in XDG_STATE_HOME, outside the dotfiles repo.
+[[ -d "$XDG_STATE_HOME/zsh" ]] || mkdir -p "$XDG_STATE_HOME/zsh"
+export HISTFILE="$XDG_STATE_HOME/zsh/history"
+export HISTSIZE=10000                   # Maximum events for internal history
+export SAVEHIST=10000                   # Maximum events in history file
+export HISTDUP=erase                    # Erases duplicates from history.
 
 # +-----------------+
 # Completion styling
 # +-----------------+
+# Initialize completion with the dump cached outside the repo (it's a cache,
+# not config). Without an explicit -d it lands in $ZDOTDIR and pollutes git.
+[[ -d "$XDG_CACHE_HOME/zsh" ]] || mkdir -p "$XDG_CACHE_HOME/zsh"
+autoload -Uz compinit
+compinit -d "$XDG_CACHE_HOME/zsh/zcompdump"
+zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/zcompcache"
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'

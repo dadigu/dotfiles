@@ -16,10 +16,39 @@ function tm-fn {
   fi
 }
 
+# Attach to a session: tma ['name']
+# With a name arg: attach directly to that session
+# No arg: delegate to the picker (auto-attaches if only one session)
+function tma-fn {
+  if [ -n "$1" ]; then
+    tmux attach-session -t "$1"
+  else
+    tms-fn
+  fi
+}
+
 # Fuzzy session picker (requires fzf)
+# No sessions: error. One session: attach/switch directly. Several: fzf picker.
 function tms-fn {
-  local session
-  session=$(tmux list-sessions -F '#{session_name}' 2>/dev/null | fzf --height 40% --reverse) || return
+  local sessions count session
+  sessions=$(tmux list-sessions -F '#{session_name}' 2>/dev/null) || return
+  count=$(printf '%s\n' "$sessions" | grep -c .)
+
+  if [ "$count" -eq 0 ]; then
+    echo "No tmux sessions running" >&2
+    return 1
+  elif [ "$count" -eq 1 ]; then
+    session="$sessions"
+  else
+    # Show name, window count, path, and attached marker; pass only the name on
+    session=$(tmux list-sessions -F \
+      '#{session_name}'$'\t''#{session_windows}w'$'\t''#{session_path}'$'\t''#{?session_attached,(attached),}' \
+      | column -t -s $'\t' \
+      | fzf --height 40% --reverse \
+      | awk '{print $1}') || return
+    [ -n "$session" ] || return
+  fi
+
   if [ -n "$TMUX" ]; then
     tmux switch-client -t "$session"
   else
@@ -28,7 +57,7 @@ function tms-fn {
 }
 
 alias tm=tm-fn
-alias tma='tmux attach-session -t'
+alias tma=tma-fn
 alias tmls='tmux list-sessions'
 alias tmn='tmux new -s'
 alias tmd='tmux detach-client'

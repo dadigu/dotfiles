@@ -1,3 +1,8 @@
+# Previews for the built-in fzf widgets (loaded via `fzf --zsh`):
+#   Ctrl-T → file contents via bat   |   Alt-C → dir tree via eza
+export FZF_CTRL_T_OPTS="--preview 'bat --color=always --style=numbers --line-range=:200 {}'"
+export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
+
 _fzf_comprun() {
   local command=$1
   shift

@@ -5,6 +5,7 @@ alias gc='git commit -v -m'
 alias gd='git diff'
 alias gp='git pull'
 alias gs='git status'
+alias gl='git log --oneline'
 alias glog="git log --graph --topo-order --pretty='%w(100,0,6)%C(yellow)%h%C(bold)%C(black)%d %C(cyan)%ar %C(green)%an%n%C(bold)%C(white)%s %N' --abbrev-commit"
 
 # Github cli aliases
