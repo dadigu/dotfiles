@@ -97,6 +97,7 @@ formulae=(
   sketchybar
   starship
   stow
+  tealdeer
   tmux
   tree
   yazi
