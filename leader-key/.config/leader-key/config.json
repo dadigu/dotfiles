@@ -196,6 +196,35 @@
       "label" : "Settings",
       "type" : "url",
       "value" : "leaderkey://settings"
+    },
+    {
+      "actions" : [
+        {
+          "iconPath" : "/Applications/Linear.app",
+          "key" : "s",
+          "label" : "Search Issues",
+          "type" : "url",
+          "value" : "raycast-x://extensions/linear/linear/search-issues"
+        },
+        {
+          "iconPath" : "/Applications/Linear.app",
+          "key" : "f",
+          "label" : "Favorites",
+          "type" : "url",
+          "value" : "raycast-x://extensions/linear/linear/favorites"
+        },
+        {
+          "iconPath" : "/Applications/Linear.app",
+          "key" : "n",
+          "label" : "New Issue",
+          "type" : "url",
+          "value" : "raycast-x://extensions/linear/linear/create-issue"
+        }
+      ],
+      "iconPath" : "/Applications/Linear.app",
+      "key" : "l",
+      "label" : "Linear",
+      "type" : "group"
     }
   ],
   "type" : "group"
