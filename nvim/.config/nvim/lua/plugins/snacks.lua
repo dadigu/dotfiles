@@ -19,6 +19,19 @@ return {
     -- `footer` (not `footer_keys`, which can't resolve the action labels and
     -- just repeats the key) so each key shows what it does.
     picker = {
+      sources = {
+        -- Show hidden dotfiles (.stowrc, .config, ...) in the file picker,
+        -- but keep respecting .gitignore so node_modules & friends stay out.
+        files = {
+          hidden = true,
+          ignored = false,
+        },
+        -- Same for live grep: search inside dotfiles, still skip .gitignore.
+        grep = {
+          hidden = true,
+          ignored = false,
+        },
+      },
       win = {
         input = {
           -- Help while still typing (default `?` only works in normal mode).
