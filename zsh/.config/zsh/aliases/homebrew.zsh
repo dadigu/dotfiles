@@ -1,5 +1,5 @@
 # Homebrew aliases
-alias br='taproom'
+alias br='bbrew'
 alias brup='brew update && brew upgrade'
 alias brout='brew outdated'
 alias bri='brew install'
