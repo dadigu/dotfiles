@@ -79,6 +79,7 @@ fonts=(
 
 formulae=(
   bat
+  bbrew
   btop
   diff-so-fancy
   diffnav
@@ -128,7 +129,6 @@ casks=(
   google-chrome
   homerow
   imageoptim
-  iterm2
   karabiner-elements
   leader-key
   linear-linear
@@ -143,13 +143,11 @@ casks=(
   sf-symbols
   shortcat
   spotify
-  sublime-text
   tableplus
   the-unarchiver
   visual-studio-code
   vivaldi
   vlc
-  warp
   wezterm
   zed
 )
@@ -176,9 +174,6 @@ brew_install koekeishiya/formulae/skhd
 # FelixKratz tools (borders, sketchybar extras, etc.)
 brew_install FelixKratz/formulae/borders
 brew_install FelixKratz/formulae/sketchybar
-
-# Taproom
-brew_install gromgit/brewtils/taproom
 
 # icalPal
 brew_install ajrosen/tap/icalPal
