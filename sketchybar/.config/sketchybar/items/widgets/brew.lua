@@ -13,7 +13,7 @@ local brew = sbar.add("item", "widgets.brew", {
 	drawing = false,
 	update_freq = CHECK_INTERVAL,
 	updates = "on",
-	click_script = [[yabai -m rule --add label=taproom app='Ghostty' title='taproom' manage=off grid=10:8:1:1:6:8 && open -na Ghostty.app --args -e taproom -f Outdated && sleep 2 && yabai -m rule --remove taproom]],
+	click_script = [[yabai -m rule --add label=bbrew app='Ghostty' title='bbrew' manage=off grid=10:8:1:1:6:8 && open -na Ghostty.app --args -e bbrew && sleep 2 && yabai -m rule --remove bbrew]],
 })
 
 local is_visible = false
