@@ -1,0 +1,6 @@
+onboarding = false
+
+[keys]
+# Prefix: ctrl+b -> ctrl+space
+prefix = "ctrl+space"
+
