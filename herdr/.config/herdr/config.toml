@@ -1,6 +1,177 @@
+# =============================================================================
+# herdr — https://herdr.dev
+#
+# Only deviations from herdr's defaults live here; anything absent is a default
+# kept on purpose. `herdr --default-config` prints the full annotated reference.
+#
+# Layout of this file (TOML: plain keys first, then tables, so keep this order):
+#   [theme] / [theme.custom]   colors
+#   [keys]                     built-in actions   -> one key = one action
+#   [[keys.command]]           custom commands    -> popups + plugin actions
+#   [worktrees]                where new checkouts land
+#   [ui] / [ui.*]              chrome, sidebar, notifications
+#
+# Every [[keys.command]] needs a `description` — that string is what shows up
+# in the keybinding list on prefix+?.
+#
+# After editing:  herdr config check && herdr server reload-config
+# =============================================================================
+
 onboarding = false
 
-[keys]
-# Prefix: ctrl+b -> ctrl+space
-prefix = "ctrl+space"
 
+# --- Theme -------------------------------------------------------------------
+# Herdr's built-in "catppuccin" is Mocha, while ghostty and tmux here are
+# Macchiato, so every token is overridden to Macchiato for one consistent look.
+# `accent` also draws the focused pane border — it's set to the JankyBorders
+# active_color from .yabairc so terminal panes and macOS windows match.
+
+[theme]
+name = "catppuccin"
+
+[theme.custom]
+accent = "#c499df"
+panel_bg = "#24273a"
+surface0 = "#363a4f"
+surface1 = "#494d64"
+surface_dim = "#1e2030"
+overlay0 = "#6e738d"
+overlay1 = "#8087a2"
+text = "#cad3f5"
+subtext0 = "#a5adcb"
+mauve = "#c6a0f6"
+green = "#a6da95"
+yellow = "#eed49f"
+red = "#ed8796"
+blue = "#8aadf4"
+teal = "#8bd5ca"
+peach = "#f5a97f"
+
+
+# --- Keys: built-in actions --------------------------------------------------
+# herdr's default for each overridden action is noted in the comment.
+# Deliberately left at herdr defaults: splits (prefix+v / prefix+minus),
+# resize mode (prefix+r), pane focus (prefix+h/j/k/l), tabs (prefix+1..9).
+
+[keys]
+prefix = "ctrl+space"                  # default ctrl+b; matches the old tmux prefix
+
+# Ported from tmux muscle memory.
+zoom = "prefix+m"                      # default prefix+z
+copy_mode = "prefix+space"             # vi keys: hjkl w/b/e, / ? n/N, v select, y copy
+
+# Spaces and agents — all three are unbound in herdr by default.
+switch_workspace = "prefix+shift+1..9" # mirrors prefix+1..9 for tabs
+next_agent = "prefix+a"
+previous_agent = "prefix+shift+a"
+
+
+# --- Keys: custom commands ---------------------------------------------------
+# type = "plugin_action" runs an action from an installed plugin
+#        (list them with `herdr plugin action list`)
+# type = "popup"         opens a session-modal terminal; the command string is
+#                        run through `/bin/sh -c`, so shell syntax is fine
+# type = "shell"         runs detached in the background
+# type = "pane"          opens a temporary pane that closes when the command exits
+
+## Split navigation — ctrl+h/j/k/l moves across herdr panes and nvim splits
+## alike. The action checks the focused pane's foreground process: nvim gets
+## the chord forwarded, anything else moves herdr's pane focus.
+## Plugin: herdr plugin install lmilojevicc/herdr-splits.nvim
+## (its resize actions are left unbound on purpose — alt+h/j/k/l is yabai)
+
+[[keys.command]]
+key = "ctrl+h"
+type = "plugin_action"
+command = "herdr-splits.nav-left"
+description = "nav: pane/split left"
+
+[[keys.command]]
+key = "ctrl+j"
+type = "plugin_action"
+command = "herdr-splits.nav-down"
+description = "nav: pane/split down"
+
+[[keys.command]]
+key = "ctrl+k"
+type = "plugin_action"
+command = "herdr-splits.nav-up"
+description = "nav: pane/split up"
+
+[[keys.command]]
+key = "ctrl+l"
+type = "plugin_action"
+command = "herdr-splits.nav-right"
+description = "nav: pane/split right"
+
+## Sessionizer — fuzzy-open a project or worktree as a workspace, bootstrapped
+## from the pane layout in ~/.config/herdr/plugins/config/sessionizer/config.toml
+## Plugin: herdr plugin install andrewchng/herdr-sessionizer  (needs bun)
+
+[[keys.command]]
+key = "prefix+f"
+type = "plugin_action"
+command = "sessionizer.open"
+description = "open project workspace"
+
+[[keys.command]]
+key = "prefix+shift+f"
+type = "plugin_action"
+command = "sessionizer.worktree-open"
+description = "open worktree workspace"
+
+## reviewr — the agent's diff in a side pane: comment on lines, send back.
+## Plugin: herdr plugin install persiyanov/herdr-reviewr
+
+[[keys.command]]
+key = "prefix+i"
+type = "plugin_action"
+command = "persiyanov.reviewr.toggle"
+description = "reviewr: toggle review pane"
+
+## Popups (tmux: display-popup). Both inherit the focused pane's cwd.
+
+[[keys.command]]
+key = "prefix+."
+type = "popup"
+command = "cd ~/dotfiles && nvim README.md -c 'Neotree show'"
+description = "dotfiles in nvim"
+width = "85%"
+height = "85%"
+
+[[keys.command]]
+key = "prefix+enter"
+type = "popup"
+command = "zsh"
+description = "scratch terminal"
+width = "85%"
+height = "85%"
+
+
+# --- Worktrees ---------------------------------------------------------------
+# herdr checks out to <directory>/<repoName>/<branch-slug>, so this groups by
+# repo on its own: ~/Development/worktrees/app/prod-1844-foo
+# Only affects worktrees herdr creates (default: ~/.herdr/worktrees).
+
+[worktrees]
+directory = "~/Development/worktrees"
+
+
+# --- UI ----------------------------------------------------------------------
+
+[ui]
+agent_panel_sort = "spaces"
+show_agent_labels_on_pane_borders = true # name the agent on the pane border
+pane_gaps = false                        # neighbours share one divider
+hide_tab_bar_when_single_tab = true      # no tab row until there are 2+ tabs
+
+# Claude rows get an extra line: the terminal title it sets (i.e. what it's
+# working on), minus the leading spinner glyph. Other agents keep the defaults.
+# Space rows already show branch + git status by default.
+[ui.sidebar.agents.rows_by_agent]
+claude = [["state_icon", "workspace", "tab"], ["terminal_title_stripped"], ["agent"]]
+
+# Desktop notification when a background agent finishes or needs input.
+# Default is "off"; "terminal" routes through ghostty instead of the OS.
+[ui.toast]
+delivery = "system"
