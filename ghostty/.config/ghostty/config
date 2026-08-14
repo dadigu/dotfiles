@@ -48,3 +48,16 @@ keybind = super+physical:seven=text:\x00\x37
 keybind = super+physical:eight=text:\x00\x38
 keybind = super+physical:nine=text:\x00\x39
 keybind = super+physical:zero=text:\x00\x30
+
+# Cmd+Shift+<n> selects herdr space <n> (keys.switch_workspace = prefix+shift+1..9).
+# herdr reads the US shifted symbol as shift+digit (! @ # $ % ^ & * = 1-9), and
+# since these send explicit bytes the physical keyboard layout doesn't matter.
+keybind = super+shift+physical:one=text:\x00\x21
+keybind = super+shift+physical:two=text:\x00\x40
+keybind = super+shift+physical:three=text:\x00\x23
+keybind = super+shift+physical:four=text:\x00\x24
+keybind = super+shift+physical:five=text:\x00\x25
+keybind = super+shift+physical:six=text:\x00\x5e
+keybind = super+shift+physical:seven=text:\x00\x26
+keybind = super+shift+physical:eight=text:\x00\x2a
+keybind = super+shift+physical:nine=text:\x00\x28
