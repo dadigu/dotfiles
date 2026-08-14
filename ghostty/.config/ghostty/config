@@ -31,6 +31,9 @@ quick-terminal-size = 55%
 # Send backslash+enter for multi-line input in Claude Code CLI
 keybind = super+enter=text:\x5c\x0a
 
+# Cmd+Enter -> Shift+Enter (CSI-u) to submit in Claude Code
+keybind = cmd+enter=csi:13;2u
+
 # Cmd+<n> selects tmux window <n>. Terminals can't see Cmd (it has no byte
 # encoding), so Ghostty translates it to "tmux prefix + digit": \x00 is the
 # prefix (C-Space) and \x30-\x39 are the digits 0-9. Lets the thumb drive
