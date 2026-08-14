@@ -1,6 +1,7 @@
 return {
   "christoomey/vim-tmux-navigator",
-  cond = function() return vim.env.TMUX ~= nil end,
+  -- Skip inside herdr: herdr-splits.nvim owns <C-hjkl> there.
+  cond = function() return vim.env.TMUX ~= nil and vim.env.HERDR_ENV ~= "1" end,
   cmd = {
     "TmuxNavigateLeft",
     "TmuxNavigateDown",
