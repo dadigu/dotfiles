@@ -1,0 +1,49 @@
+# tuicr — code review TUI. Docs: https://github.com/agavra/tuicr/blob/main/docs/CONFIG.md
+# Stowed to ~/.config/tuicr/config.toml
+
+theme = "catppuccin-macchiato"
+
+# --- diff view -------------------------------------------------------------
+diff_view = "side-by-side"
+wrap = false
+relative_line_numbers = true
+cursor_line = true
+scroll_offset = 4
+ignore_whitespace = false
+
+# --- panels ----------------------------------------------------------------
+show_file_list = true
+show_commits = true
+show_pr_checks = true
+show_pr_comments = true
+show_reviewed = true
+transparent_background = true
+mouse = true
+
+# --- editing ---------------------------------------------------------------
+leader = ";"
+comment_vim = true
+comment_tab_width = 2
+username = "dadigu"
+
+# --- misc ------------------------------------------------------------------
+backend = "libgit2"
+no_update_check = true   # installed via Homebrew; `brew upgrade tuicr` handles updates
+
+# --- comment classification ------------------------------------------------
+# First entry is the default type. `None` is always appended to the Tab cycle.
+comment_types = [
+  { id = "issue",      label = "issue",      color = "#ed8796", definition = "must be fixed before merge" },
+  { id = "suggestion", label = "suggestion", color = "#8aadf4", definition = "possible improvement, non-blocking" },
+  { id = "question",   label = "question",   color = "#eed49f", definition = "ask for clarification" },
+  { id = "nit",        label = "nit",        color = "#b8c0e0", definition = "small optional tweak" },
+  { id = "praise",     label = "praise",     color = "#a6da95", definition = "positive feedback" },
+]
+
+[forge]
+comment_type_prefix = true
+
+[export]
+scope_line = true
+pr_metadata = true
+legend = true
