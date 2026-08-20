@@ -1,98 +1,122 @@
+# gh-dash — GitHub dashboard TUI (dlvhdr/gh-dash)
+# Stowed to ~/.config/gh-dash/config.yml · alias: ghd
+# Filters are GitHub search syntax; gh-dash adds `is:pr` itself.
+
+# ── PR sections ───────────────────────────────────────────────────────────────
 prSections:
-- title: Open PRs
-  filters: sort:updated-desc is:pr is:open
-  type: null
-- title: My Prs
-  filters: is:open author:@me
-  type: null
+  # Oldest-updated first, so the longest-waiting sits on top.
+  - title: Needs My Review
+    filters: is:open review-requested:@me -author:@me sort:updated-asc
+
+  - title: My PRs
+    filters: is:open author:@me sort:updated-desc
+
+  # Every private repo I can access — without a scope this hits all of GitHub.
+  - title: Open PRs
+    filters: is:private is:open sort:updated-desc
+
+# ── Issue sections ────────────────────────────────────────────────────────────
 issuesSections:
-- title: My Issues
-  filters: is:open author:@me
-- title: Assigned
-  filters: is:open assignee:@me
-- title: Involved
-  filters: is:open involves:@me -author:@me
-repo:
-  branchesRefetchIntervalSeconds: 30
-  prsRefetchIntervalSeconds: 60
-defaults:
-  preview:
-    open: true
-    width: 50
-  prsLimit: 20
-  prApproveComment: LGTM
-  issuesLimit: 20
-  view: prs
-  layout:
-    prs:
-      updatedAt:
-        width: 5
-      createdAt:
-        width: 5
-      repo:
-        width: 20
-      author:
-        width: 15
-      authorIcon:
-        hidden: false
-      assignees:
-        width: 20
-        hidden: true
-      base:
-        width: 20
-        hidden: false
-      lines:
-        width: 15
-    issues:
-      updatedAt:
-        width: 5
-      createdAt:
-        width: 5
-      repo:
-        width: 15
-      creator:
-        width: 10
-      creatorIcon:
-        hidden: false
-      assignees:
-        width: 20
-        hidden: true
-  refetchIntervalMinutes: 30
+  - title: My Issues
+    filters: is:open author:@me
+
+  - title: Assigned
+    filters: is:open assignee:@me
+
+  - title: Involved
+    filters: is:open involves:@me -author:@me
+
+# ── Custom keybindings ────────────────────────────────────────────────────────
+# Commands run via `$SHELL -c`; gh-dash suspends until they exit.
+# Templates: {{.RepoName}} {{.PrNumber}} {{.HeadRefName}} {{.BaseRefName}} {{.Author}}
 keybindings:
   universal: []
   issues: []
-  prs: 
-    - key: C
-      name: code review
-      command: >
-        tmux new-window -n {{.RepoName}}
-        'nvim -c
-        ":silent Octo pr edit {{.PrNumber}}"'
   branches: []
+
+  prs:
+    # Review in tuicr, in place. `q` returns to gh-dash.
+    - key: enter
+      name: code review
+      command: tuicr pr "{{.RepoName}}#{{.PrNumber}}"
+
+    # Same, but in a new herdr tab named PR-<n>.
+    - key: shift+enter
+      name: code review in tab
+      command: >
+        pane=$(herdr tab create --label "PR-{{.PrNumber}}" --focus | jq -r .result.root_pane.pane_id) &&
+        herdr pane run "$pane" tuicr pr "{{.RepoName}}#{{.PrNumber}}"
+
+# ── Defaults ──────────────────────────────────────────────────────────────────
+defaults:
+  view: prs
+  prsLimit: 20
+  issuesLimit: 20
+  prApproveComment: LGTM
+  refetchIntervalMinutes: 30
+
+  preview:
+    open: true
+    width: 50
+
+  # Columns are visible unless `hidden: true`.
+  layout:
+    prs:
+      updatedAt: { width: 5 }
+      createdAt: { width: 5 }
+      repo: { width: 20 }
+      author: { width: 15 }
+      authorIcon: { hidden: false }
+      assignees: { width: 20, hidden: true }
+      base: { width: 20, hidden: false }
+      lines: { width: 15 }
+
+    issues:
+      updatedAt: { width: 5 }
+      createdAt: { width: 5 }
+      repo: { width: 15 }
+      creator: { width: 10 }
+      creatorIcon: { hidden: false }
+      assignees: { width: 20, hidden: true }
+
+# ── Behaviour ─────────────────────────────────────────────────────────────────
+# Prepend `repo:<current>` to every section when launched inside a repo.
+smartFilteringAtLaunch: true
+confirmQuit: false
+showAuthorIcons: true
+
+# Pager for the built-in diff view (`d`).
+pager:
+  diff: "diffnav"
+
+# owner/repo -> local checkout, for the `c` key and {{.RepoPath}}. Unused.
 repoPaths: {}
+
+# Refresh cadence for the repo/branches view.
+repo:
+  branchesRefetchIntervalSeconds: 30
+  prsRefetchIntervalSeconds: 60
+
+# ── Theme: Catppuccin Macchiato ───────────────────────────────────────────────
 theme:
   ui:
     sectionsShowCount: true
     table:
       showSeparator: true
       compact: false
+
   colors:
     text:
-      primary: "#cad3f5"
-      secondary: "#c6a0f6"
-      inverted: "#181926"
-      faint: "#b8c0e0"
-      warning: "#eed49f"
-      success: "#a6da95"
-      error: "#ed8796"
+      primary: "#cad3f5"   # text
+      secondary: "#c6a0f6" # mauve
+      inverted: "#181926"  # crust
+      faint: "#b8c0e0"     # subtext1
+      warning: "#eed49f"   # yellow
+      success: "#a6da95"   # green
+      error: "#ed8796"     # red
     background:
-      selected: "#363a4f"
+      selected: "#363a4f"  # surface0
     border:
-      primary: "#c6a0f6"
-      secondary: "#494d64"
-      faint: "#363a4f"
-pager:
-  diff: "diffnav"
-confirmQuit: false
-showAuthorIcons: true
-smartFilteringAtLaunch: true
+      primary: "#c6a0f6"   # mauve
+      secondary: "#494d64" # surface1
+      faint: "#363a4f"     # surface0
