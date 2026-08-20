@@ -101,6 +101,7 @@ formulae=(
   tealdeer
   tmux
   tree
+  tuicr
   yazi
   zellij
   zoxide
