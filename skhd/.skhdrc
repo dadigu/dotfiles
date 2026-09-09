@@ -75,22 +75,22 @@ alt + shift - m : yabai -m window --toggle zoom-fullscreen # Maximize current wi
 lalt - m : yabai -m window --toggle zoom-parent # Maximize current window relative to parent
 
 # Moving windows in and across spaces and moving floating windows around
-shift + lalt - h :  yabai -m window --move rel:-100:0 || \
+shift + lalt - h :  yabai -m window --move rel:-50:0 || \
                     yabai -m window --warp west || \
                     $(yabai -m window --display west && yabai -m display --focus west && yabai -m window --warp last) || \ # Move window left
                     # yabai -m window --move rel:-10:0
 
-shift + lalt - j :  yabai -m window --move rel:0:100 || \
+shift + lalt - j :  yabai -m window --move rel:0:50 || \
                     yabai -m window --warp south || \
                     $(yabai -m window --display south && yabai -m display --focus south) || \ # Move window down
                     # yabai -m window --move rel:0:10
 
-shift + lalt - k :  yabai -m window --move rel:0:-100 || \
+shift + lalt - k :  yabai -m window --move rel:0:-50 || \
                     yabai -m window --warp north || \
                     $(yabai -m window --display north && yabai -m display --focus north) || \ # Move window up
                     # yabai -m window --move rel:0:-10
 
-shift + lalt - l :  yabai -m window --move rel:100:0 || \
+shift + lalt - l :  yabai -m window --move rel:50:0 || \
                     yabai -m window --warp east || \
                     $(yabai -m window --display east && yabai -m display --focus east && yabai -m window --warp first) || \ # Move window right
                     # yabai -m window --move rel:10:0
@@ -108,24 +108,24 @@ ctrl + lalt - y : yabai -m space --mirror y-axis # Mirror split Y-axis
 lalt - r : yabai -m space --rotate 270 # Rotate layout
 
 # Resize windows
-ctrl + lalt - h    : yabai -m window --resize right:-100:0 || yabai -m window --resize left:-100:0 # Resize window left
-ctrl + lalt - j    : yabai -m window --resize bottom:0:100 || yabai -m window --resize top:0:100 # Resize window down
-ctrl + lalt - k    : yabai -m window --resize bottom:0:-100 || yabai -m window --resize top:0:-100 # Resize window up
-ctrl + lalt - l    : yabai -m window --resize right:100:0 || yabai -m window --resize left:100:0 # Resize window right
+ctrl + lalt - h    : yabai -m window --resize right:-50:0 || yabai -m window --resize left:-100:0 # Resize window left
+ctrl + lalt - j    : yabai -m window --resize bottom:0:50 || yabai -m window --resize top:0:100 # Resize window down
+ctrl + lalt - k    : yabai -m window --resize bottom:0:-50 || yabai -m window --resize top:0:-100 # Resize window up
+ctrl + lalt - l    : yabai -m window --resize right:50:0 || yabai -m window --resize left:100:0 # Resize window right
 
 # Grow focused window (both axes)
 lalt - up : \
-    yabai -m window --resize left:-30:0  || true; \
-    yabai -m window --resize right:30:0  || true; \
-    yabai -m window --resize top:0:-30   || true; \
-    yabai -m window --resize bottom:0:30 || true # Grow focused window
+    yabai -m window --resize left:-25:0  || true; \
+    yabai -m window --resize right:25:0  || true; \
+    yabai -m window --resize top:0:-25   || true; \
+    yabai -m window --resize bottom:0:25 || true # Grow focused window
 
 # Shrink focused window (both axes) — exact inverse
 lalt - down : \
-    yabai -m window --resize left:30:0   || true; \
-    yabai -m window --resize right:-30:0 || true; \
-    yabai -m window --resize top:0:30    || true; \
-    yabai -m window --resize bottom:0:-30 || true # Shrink focused window
+    yabai -m window --resize left:25:0   || true; \
+    yabai -m window --resize right:-25:0 || true; \
+    yabai -m window --resize top:0:25    || true; \
+    yabai -m window --resize bottom:0:-25 || true # Shrink focused window
 
 
 # Equalize size of windows: ctrl + lalt - 0
