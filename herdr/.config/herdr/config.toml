@@ -60,10 +60,14 @@ prefix = "ctrl+space"                  # default ctrl+b; matches the old tmux pr
 zoom = "prefix+m"                      # default prefix+z
 copy_mode = "prefix+space"             # vi keys: hjkl w/b/e, / ? n/N, v select, y copy
 
-# Spaces and agents — all three are unbound in herdr by default.
+# Spaces and agents — all five are unbound in herdr by default.
+# The cycling four are what ghostty's cmd+j/k and cmd+shift+j/k translate to:
+# ghostty swallows cmd, so nvim never sees the chord and no prefix is typed.
 switch_workspace = "prefix+shift+1..9" # mirrors prefix+1..9 for tabs
-next_agent = "prefix+a"
-previous_agent = "prefix+shift+a"
+next_workspace = "prefix+shift+j"      # cmd+j
+previous_workspace = "prefix+shift+k"  # cmd+k
+next_agent = "prefix+a"                # cmd+shift+j
+previous_agent = "prefix+shift+a"      # cmd+shift+k
 
 
 # --- Keys: custom commands ---------------------------------------------------
@@ -175,3 +179,13 @@ claude = [["state_icon", "workspace", "tab"], ["terminal_title_stripped"], ["age
 # Default is "off"; "terminal" routes through ghostty instead of the OS.
 [ui.toast]
 delivery = "system"
+
+
+# --- Experimental ------------------------------------------------------------
+# Forward the Kitty graphics protocol to the attached client, so image previews
+# render inside panes (yazi's third column) instead of being dropped. Without
+# it herdr swallows the escapes and yazi silently falls back to no preview.
+# Ghostty speaks the protocol, which is why previews work outside herdr.
+
+[experimental]
+kitty_graphics = true
