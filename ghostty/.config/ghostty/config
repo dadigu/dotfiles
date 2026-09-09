@@ -18,6 +18,7 @@ macos-option-as-alt = right
 theme = Catppuccin Macchiato
 mouse-hide-while-typing = true
 cursor-invert-fg-bg = true
+cursor-style-blink = false
 window-vsync = true
 
 confirm-close-surface = false
@@ -61,3 +62,18 @@ keybind = super+shift+physical:six=text:\x00\x5e
 keybind = super+shift+physical:seven=text:\x00\x26
 keybind = super+shift+physical:eight=text:\x00\x2a
 keybind = super+shift+physical:nine=text:\x00\x28
+
+# Cycling, same translation trick: ghostty eats cmd, so nvim in the focused pane
+# never sees these and no prefix is typed. j/k = down/up the sidebar list.
+#   cmd+j / cmd+k             -> prefix+J / prefix+K  (next/prev space)
+#   cmd+shift+j / cmd+shift+k -> prefix+a / prefix+A  (next/prev agent)
+#   cmd+shift+p               -> prefix+w             (fuzzy space picker)
+# Overrides ghostty's scroll_to_selection, clear_screen, write_screen_file and
+# toggle_command_palette — all dead weight when herdr owns the surface.
+# Letters use the W3C physical code (key_j); the legacy physical: prefix used
+# by the digit binds above only parses the spelled-out digit names.
+keybind = super+key_j=text:\x00\x4a
+keybind = super+key_k=text:\x00\x4b
+keybind = super+shift+key_j=text:\x00\x61
+keybind = super+shift+key_k=text:\x00\x41
+keybind = super+shift+key_p=text:\x00\x77
