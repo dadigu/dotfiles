@@ -43,14 +43,9 @@
           "value" : "/Applications/Obsidian.app"
         },
         {
-          "key" : "e",
+          "key" : "d",
           "type" : "application",
-          "value" : "/Applications/Microsoft Outlook.app"
-        },
-        {
-          "key" : "x",
-          "type" : "application",
-          "value" : "/Applications/Codex.app"
+          "value" : "/System/Applications/Messages.app"
         }
       ],
       "iconPath" : "/System/Applications/App Store.app",
