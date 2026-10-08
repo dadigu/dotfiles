@@ -1,12 +1,4 @@
 gui:
-  branchColorPatterns:
-    '^conflicts/': '#ed8796'
-    '^hotfix/': '#ee99a0'
-    '^feature/': '#7dc4e4'
-    '^bugfix/': '#eed49f'
-    '^chore/': '#8aadf4'
-    '^release/': '#a6da95'
-    '^adhoc/': '#f5bde6'
   theme:
     activeBorderColor:
       - '#f5a97f'
@@ -27,20 +19,28 @@ gui:
       - '#cad3f5'
     searchingActiveBorderColor:
       - '#eed49f'
-  authorColors:
-    '*': '#b7bdf8'
+    authorColors:
+      '*': '#b7bdf8'
+    branchColorPatterns:
+      '^conflicts/': '#ed8796'
+      '^hotfix/': '#ee99a0'
+      '^feature/': '#7dc4e4'
+      '^bugfix/': '#eed49f'
+      '^chore/': '#8aadf4'
+      '^release/': '#a6da95'
+      '^adhoc/': '#f5bde6'
   # showFileTree: false
   switchTabsWithPanelJumpKeys: true
 git:
   autoForwardBranches: none
-  pagers:
-    - pager: delta --paging=never
+  diffRenderers:
+    - command: delta --paging=never
       colorArg: always
-    - pager: delta --paging=never --line-numbers
+    - command: delta --paging=never --line-numbers
       colorArg: always
-    - pager: delta --paging=never --side-by-side
+    - command: delta --paging=never --side-by-side
       colorArg: always
-    - pager: diff-so-fancy
+    - command: diff-so-fancy
 customCommands:
   - key: o
     context: 'files'
